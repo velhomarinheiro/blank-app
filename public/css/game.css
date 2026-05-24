@@ -393,6 +393,8 @@ input::placeholder { color: #2a4a60; text-transform: none; letter-spacing: 1px; 
 .cm-oor       { color: #ff8c00; }
 .cm-blue      { color: var(--blue-l); }
 .cm-red       { color: var(--red-l); }
+.cm-wpn       { color: var(--gold); opacity: 0.9; margin-right: 3px; }
+.cm-int       { color: #80cbc4; margin-left: 2px; }
 
 /* (OOB styles live in main.css / index page) */
 .oob-wrap {

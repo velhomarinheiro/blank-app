@@ -3,7 +3,9 @@ const express  = require('express');
 const http     = require('http');
 const { Server } = require('socket.io');
 const path     = require('path');
-const { ORDER_OF_BATTLE } = require('./shared/order_of_battle');
+const { ORDER_OF_BATTLE }  = require('./shared/order_of_battle');
+const { COMBAT_CONFIG }    = require('./shared/combat_config');
+const { resolveEngagement, getWeaponQuantity, getWeaponRange } = require('./shared/combat_engine');
 
 const PORT   = process.env.PORT || 3000;
 const GRID_W = 16;
@@ -58,6 +60,7 @@ const COMP_DISPLAY_TYPE = {
   'helicoptero_ASup':      'helicoptero',
   'bateria_costeira':      'bateria_costeira',
   'bateria_ada':           'bateria_ada',
+  'base_naval':            'bateria_ada',
   'plataforma':            'fpso',
   'porto':                 'porto',
 };
@@ -91,34 +94,75 @@ function hexDist(c1,r1,c2,r2) {
 }
 
 // ─── Fog of war ──────────────────────────────────────────────────────────────
-function detectedEnemies(state, team) {
-  const night   = state.period === 'night';
-  const mine    = state.units.filter(u => u.team === team && u.hp > 0);
-  const enemies = state.units.filter(u => u.team !== team && u.hp > 0);
-  return enemies.filter(enemy => {
-    const stealthy = !!enemy.stealthy;
+function saveMovementSnapshot(state) {
+  state.movementSnapshot = {};
+  for (const u of state.units) {
+    state.movementSnapshot[u.id] = { col: u.col, row: u.row };
+  }
+}
+
+function stateFor(state, team) {
+  const night = state.period === 'night';
+
+  // During movement phase, show enemy units at their pre-movement positions
+  // so moves are hidden until both sides commit (simultaneous movement reveal).
+  const enemyActual = state.units.filter(u => u.team !== team && u.hp > 0);
+  const enemies = (state.phase === 'movement' && state.movementSnapshot)
+    ? enemyActual.map(u => {
+        const snap = state.movementSnapshot[u.id];
+        return snap ? { ...u, col: snap.col, row: snap.row } : u;
+      })
+    : enemyActual;
+
+  const mine = state.units.filter(u => u.team === team && u.hp > 0);
+
+  const detected = enemies.filter(enemy => {
+    const stealthy  = !!enemy.stealthy;
     const deepBonus = getTerrain(enemy.col, enemy.row) === T_DEEP ? 1 : 0;
     return mine.some(f => {
       let range = stealthy
         ? rangeAgainst(f.detectionRange, 'submarine') - deepBonus
         : rangeAgainst(f.detectionRange, enemy.category);
-      if (night) range -= stealthy ? 1 : 2;
+      // Submarines use sonar — unaffected by daylight
+      if (night && f.category !== 'submarine') range -= stealthy ? 1 : 2;
       return range >= 1 && hexDist(f.col, f.row, enemy.col, enemy.row) <= range;
     });
   }).map(e => ({ ...e, detected: true }));
-}
 
-function stateFor(state, team) {
   return {
     ...state,
-    units:       [...state.units.filter(u => u.team === team), ...detectedEnemies(state, team)],
+    units:       [...state.units.filter(u => u.team === team), ...detected],
     blueAttacks: team === 'blue' ? state.blueAttacks : (state.blueAttacks !== null ? '✓' : null),
     redAttacks:  team === 'red'  ? state.redAttacks  : (state.redAttacks  !== null ? '✓' : null),
   };
 }
 
+// ─── Weapon priority per target category ─────────────────────────────────────
+const WEAPON_PRIORITY = {
+  surface:   ['ascm', 'asbm', 'mss', 'torpedo', 'airAttack', 'navalGun'],
+  submarine: ['asw', 'torpedo'],
+  air:       ['airDefense', 'airAttack'],
+  land:      ['lacm', 'airAttack', 'navalGun'],
+};
+
+function selectBestWeapon(attacker, target, dist) {
+  const priority = WEAPON_PRIORITY[target.category] || [];
+  for (const wpnType of priority) {
+    const qty = getWeaponQuantity(attacker, wpnType);
+    if (qty <= 0) continue;
+    const profile = COMBAT_CONFIG.weaponProfiles?.[wpnType];
+    if (!profile) continue;
+    if (!profile.targets.includes(target.category)) continue;
+    const range = getWeaponRange(attacker, wpnType);
+    if (dist <= range) return wpnType;
+  }
+  return null;
+}
+
 // ─── Unit factory ─────────────────────────────────────────────────────────────
 function makeUnit(team, spec) {
+  const pos     = spec.position || spec.start || { col: 0, row: 0 };
+  const weapons = spec.weapons ? JSON.parse(JSON.stringify(spec.weapons)) : {};
   return {
     id:            spec.id,
     team,
@@ -129,12 +173,15 @@ function makeUnit(team, spec) {
     movement:      spec.movement,
     detectionRange: spec.detectionRange,
     attackRange:   spec.attackRange,
-    col:           spec.start.col,
-    row:           spec.start.row,
+    col:           pos.col,
+    row:           pos.row,
     hp:            spec.stayingPower,
     maxHp:         spec.stayingPower,
     stealthy:      spec.category === 'submarine',
     moved:         false,
+    weapons,
+    initWeapons:   JSON.parse(JSON.stringify(weapons)),
+    capabilities:  spec.capabilities ? { ...spec.capabilities } : {},
   };
 }
 
@@ -150,77 +197,150 @@ function initialUnits() {
 }
 
 function newGame() {
-  return {
+  const state = {
     turn: 1, period: 'day', phase: 'movement',
     blueDone: false, redDone: false,
     blueAttacks: null, redAttacks: null,
     units: initialUnits(),
     log: ['──── Turno 1 · Período Diurno ────', 'Fase de Movimentação iniciada.'],
     winner: null,
+    movementSnapshot: {},
   };
+  saveMovementSnapshot(state);
+  return state;
 }
 
 // ─── Combat resolution ────────────────────────────────────────────────────────
 function resolveCombat(state) {
   const results = [];
   const all = [...(state.blueAttacks||[]), ...(state.redAttacks||[])];
-  const dmg = {};
+
   for (const atk of all) {
     const att = state.units.find(u => u.id === atk.attackerId && u.hp > 0);
     const tgt = state.units.find(u => u.id === atk.targetId   && u.hp > 0);
     if (!att || !tgt) continue;
-    const atkRange = rangeAgainst(att.attackRange, tgt.category);
+
     const dist = hexDist(att.col, att.row, tgt.col, tgt.row);
-    const r = { attacker: att.name, attackerTeam: att.team, target: tgt.name, targetTeam: tgt.team, targetId: tgt.id, hit: false, damage: 0, destroyed: false };
-    if (dist > atkRange) {
-      state.log.unshift(`⚠ ${att.name} fora de alcance de ${tgt.name}.`);
+    const r = {
+      attacker: att.name, attackerTeam: att.team,
+      target: tgt.name,   targetTeam: tgt.team,
+      targetId: tgt.id, hit: false, damage: 0, destroyed: false,
+    };
+
+    const weaponType = selectBestWeapon(att, tgt, dist);
+    if (!weaponType) {
+      state.log.unshift(`⚠ ${att.name} sem armamento válido para ${tgt.name}.`);
       r.outOfRange = true; results.push(r); continue;
     }
-    const hitChance = Math.max(20, Math.min(90, 70-(dist-1)*10));
-    const roll = Math.ceil(Math.random()*100);
-    r.roll = roll; r.chance = hitChance;
-    if (roll <= hitChance) {
-      const totalPlatforms = (att.composition || []).reduce((sum, c) => sum + c.quantity, 0);
-      const d = Math.max(1, Math.ceil(totalPlatforms / 3));
-      dmg[tgt.id] = (dmg[tgt.id]||0) + d;
-      state.log.unshift(`✓ ${att.name}(${att.team}) → ${tgt.name}(${tgt.team}) −${d}HP [${roll}≤${hitChance}]`);
-      r.hit = true; r.damage = d;
+
+    const eng = resolveEngagement({ attacker: att, defender: tgt, weaponType, amount: 1, distance: dist });
+    if (!eng.ok) {
+      state.log.unshift(`⚠ ${att.name} → ${tgt.name}: ${eng.reason}`);
+      r.outOfRange = true; results.push(r); continue;
+    }
+
+    r.weaponType   = eng.weaponType;
+    r.weaponLabel  = eng.weaponLabel;
+    r.launched     = eng.launched;
+    r.interception = eng.interception;
+    r.attackRolls  = eng.attackRolls;
+    r.damage       = eng.totalDamage;
+    r.destroyed    = eng.destroyed;
+    r.hit          = eng.totalDamage > 0;
+    r.remainingHp  = eng.remainingHp;
+
+    if (eng.destroyed) {
+      state.log.unshift(`💥 ${tgt.name}(${tgt.team}) DESTRUÍDO por ${att.name} [${eng.weaponLabel}]`);
+    } else if (eng.totalDamage > 0) {
+      const intStr = eng.interception.intercepted > 0 ? ` (${eng.interception.intercepted} intercept.)` : '';
+      state.log.unshift(`✓ ${att.name} → ${tgt.name} −${eng.totalDamage}SP [${eng.weaponLabel}${intStr}]`);
     } else {
-      state.log.unshift(`✗ ${att.name}(${att.team}) errou ${tgt.name}(${tgt.team}) [${roll}>${hitChance}]`);
+      const intStr = eng.interception.intercepted > 0 ? ` (${eng.interception.intercepted} intercept.)` : '';
+      state.log.unshift(`✗ ${att.name} → ${tgt.name} falhou [${eng.weaponLabel}${intStr}]`);
     }
     results.push(r);
   }
-  for (const [id, d] of Object.entries(dmg)) {
-    const u = state.units.find(u => u.id === id);
-    if (!u) continue;
-    u.hp = Math.max(0, u.hp-d);
-    if (u.hp===0) {
-      state.log.unshift(`💥 ${u.name}(${u.team}) DESTRUÍDO!`);
-      results.filter(r => r.targetId === u.id).forEach(r => r.destroyed = true);
-    }
-  }
-  if (state.log.length > 30) state.log = state.log.slice(0,30);
+
+  if (state.log.length > 50) state.log = state.log.slice(0, 50);
   return results;
 }
 
 function checkWinner(state) {
-  const isCombatant = u => u.movement > 0 && Object.values(u.attackRange || {}).some(v => v > 0);
-  const b = state.units.some(u => u.team==='blue' && u.hp>0 && isCombatant(u));
-  const r = state.units.some(u => u.team==='red'  && u.hp>0 && isCombatant(u));
+  const hasOffense = u =>
+    Object.values(u.attackRange || {}).some(v => v > 0) ||
+    Object.values(u.weapons      || {}).some(w => w.quantity > 0) ||
+    Object.values(u.capabilities || {}).some(v => v > 0);
+  const isCombatant = u => hasOffense(u);
+  const b = state.units.some(u => u.team === 'blue' && u.hp > 0 && isCombatant(u));
+  const r = state.units.some(u => u.team === 'red'  && u.hp > 0 && isCombatant(u));
   if (!b) return 'red'; if (!r) return 'blue'; return null;
 }
 
 function nextTurn(state) {
-  state.units.forEach(u => { u.moved=false; });
-  state.period    = state.period==='day'?'night':'day';
-  if (state.period==='day') state.turn++;
+  // ── Reload check (before moved flags are cleared) ────────────────────────────
+  const portHexes = new Set(
+    state.units.filter(u => u.team === 'blue' && u.hp > 0 && u.type === 'porto')
+               .map(u => `${u.col},${u.row}`)
+  );
+  const blueCarrierHexes = new Set(
+    state.units.filter(u => u.team === 'blue' && u.hp > 0 && u.type === 'carrier')
+               .map(u => `${u.col},${u.row}`)
+  );
+  const redCarrierHexes = new Set(
+    state.units.filter(u => u.team === 'red' && u.hp > 0 && u.type === 'carrier')
+               .map(u => `${u.col},${u.row}`)
+  );
+
+  for (const u of state.units) {
+    if (u.hp <= 0) continue;
+    if (!u.initWeapons || Object.keys(u.initWeapons).length === 0) continue;
+
+    const hexKey = `${u.col},${u.row}`;
+    let reload = false;
+
+    if (u.team === 'blue') {
+      if (u.category === 'land') {
+        reload = true;
+      } else if (!u.moved) {
+        if (u.category === 'surface' || u.category === 'submarine') {
+          reload = portHexes.has(hexKey);
+        } else if (u.category === 'air') {
+          reload = getTerrain(u.col, u.row) === T_LAND || blueCarrierHexes.has(hexKey);
+        }
+      }
+    } else if (u.team === 'red') {
+      if (u.category === 'air' && !u.moved) {
+        reload = redCarrierHexes.has(hexKey);
+      }
+    }
+
+    if (reload) {
+      const restored = [];
+      for (const [wpn, init] of Object.entries(u.initWeapons)) {
+        const cur = u.weapons[wpn]?.quantity ?? 0;
+        if (cur < init.quantity) {
+          u.weapons[wpn] = { ...init };
+          restored.push(wpn.toUpperCase());
+        }
+      }
+      if (restored.length > 0) {
+        state.log.unshift(`🔄 ${u.name} recompletou: ${restored.join(', ')}`);
+      }
+    }
+  }
+
+  // ── Advance turn ────────────────────────────────────────────────────────────
+  state.units.forEach(u => { u.moved = false; });
+  state.period    = state.period === 'day' ? 'night' : 'day';
+  if (state.period === 'day') state.turn++;
   state.phase     = 'movement';
   state.blueDone  = state.redDone = false;
   state.blueAttacks = state.redAttacks = null;
-  const per = state.period==='day'?'Diurno':'Noturno';
+  const per = state.period === 'day' ? 'Diurno' : 'Noturno';
   state.log.unshift(`──── Turno ${state.turn} · Período ${per} ────`);
   state.log.unshift('Fase de Movimentação iniciada.');
-  if (state.log.length>30) state.log=state.log.slice(0,30);
+  if (state.log.length > 50) state.log = state.log.slice(0, 50);
+  saveMovementSnapshot(state);
 }
 
 // ─── Server ───────────────────────────────────────────────────────────────────

@@ -501,9 +501,22 @@ function updateUI() {
     const declaredCount = selGroupIds.length > 0
       ? pendingAtks.filter(a => selGroupIds.includes(a.attackerId)).length
       : pendingAtks.filter(a => a.attackerId === sel.id).length;
-    const det = sel.detectionRange || {};
-    const atk = sel.attackRange    || {};
+    const det  = sel.detectionRange || {};
     const comp = (sel.composition||[]).map(c=>`${c.quantity}× ${c.type}`).join(' · ');
+
+    // Weapons inventory
+    const wpns = sel.weapons || {};
+    const initW = sel.initWeapons || {};
+    const wpnLines = Object.entries(wpns)
+      .filter(([, w]) => w.quantity > 0 || (initW[w]?.quantity ?? 0) > 0)
+      .map(([k, w]) => `${k.toUpperCase()}: <b>${w.quantity}</b>/${initW[k]?.quantity ?? w.quantity}`);
+
+    // Persistent capabilities
+    const caps = sel.capabilities || {};
+    const capLines = Object.entries(caps)
+      .filter(([, v]) => v > 0)
+      .map(([k, v]) => `${k.toUpperCase()}: ${v}`);
+
     unitPanel.innerHTML = `
       <div class="u-name ${sel.team}">${sel.name}</div>
       <div class="hp-bar"><div class="hp-fill" style="width:${hpPct}%;background:${bar}"></div></div>
@@ -512,9 +525,10 @@ function updateUI() {
         <span>MOV</span><span>${sel.movement}</span>
         <span>Categoria</span><span>${sel.category}</span>
         <span>Det S/Aé/Sb/T</span><span>${det.surface||0}/${det.air||0}/${det.submarine||0}/${det.land||0}</span>
-        <span>Atq S/Aé/Sb/T</span><span>${atk.surface||0}/${atk.air||0}/${atk.submarine||0}/${atk.land||0}</span>
         <span>Terreno</span><span style="font-size:0.7em">${T_NAME[t]}</span>
       </div>
+      ${wpnLines.length ? `<div class="u-hint" style="font-size:0.67rem;line-height:1.7">🚀 ${wpnLines.join(' · ')}</div>` : ''}
+      ${capLines.length ? `<div class="u-hint" style="color:var(--text-dim);font-size:0.67rem;line-height:1.7">⚙ ${capLines.join(' · ')}</div>` : ''}
       ${comp ? `<div class="u-hint" style="color:var(--dim);font-size:0.67rem;line-height:1.5">${comp}</div>` : ''}
       ${groupHint}
       ${pathHint}
@@ -783,13 +797,25 @@ function showCombatModal(data) {
       const aC = r.attackerTeam === 'blue' ? 'cm-blue' : 'cm-red';
       const tC = r.targetTeam   === 'blue' ? 'cm-blue' : 'cm-red';
       if (r.outOfRange) {
-        html += `<div class="cm-row cm-oor">⚠ <span class="${aC}">${r.attacker}</span> → <span class="${tC}">${r.target}</span> — fora de alcance</div>`;
+        html += `<div class="cm-row cm-oor">⚠ <span class="${aC}">${r.attacker}</span> → <span class="${tC}">${r.target}</span> — sem armamento válido</div>`;
+        continue;
+      }
+      // Build roll description
+      const rollsDesc = (r.attackRolls || []).map(roll => {
+        if (roll.reroll != null) return `d6=${roll.roll}→${roll.reroll}(${roll.damage}SP)`;
+        return `d6=${roll.roll}(${roll.damage}SP)`;
+      }).join(', ') || '—';
+
+      const intStr = r.interception?.intercepted > 0
+        ? ` <small class="cm-int">[${r.interception.intercepted} intercept.]</small>` : '';
+      const wpnTag = r.weaponLabel ? `<small class="cm-wpn">[${r.weaponLabel}]</small> ` : '';
+
+      if (r.destroyed) {
+        html += `<div class="cm-row cm-destroyed">💥 ${wpnTag}<span class="${aC}">${r.attacker}</span> → <span class="${tC}">${r.target}</span>${intStr} −${r.damage}SP <strong>DESTRUÍDO!</strong> <small>${rollsDesc}</small></div>`;
       } else if (r.hit) {
-        const dest = r.destroyed ? ' <strong>DESTRUÍDO!</strong>' : '';
-        const cls  = r.destroyed ? 'cm-destroyed' : 'cm-hit';
-        html += `<div class="cm-row ${cls}">✓ <span class="${aC}">${r.attacker}</span> → <span class="${tC}">${r.target}</span> −${r.damage}HP${dest} <small>[${r.roll}/${r.chance}%]</small></div>`;
+        html += `<div class="cm-row cm-hit">✓ ${wpnTag}<span class="${aC}">${r.attacker}</span> → <span class="${tC}">${r.target}</span>${intStr} −${r.damage}SP <small>${rollsDesc}</small></div>`;
       } else {
-        html += `<div class="cm-row cm-miss">✗ <span class="${aC}">${r.attacker}</span> → <span class="${tC}">${r.target}</span> — errou <small>[${r.roll}/${r.chance}%]</small></div>`;
+        html += `<div class="cm-row cm-miss">✗ ${wpnTag}<span class="${aC}">${r.attacker}</span> → <span class="${tC}">${r.target}</span>${intStr} sem dano <small>${rollsDesc}</small></div>`;
       }
     }
   }
