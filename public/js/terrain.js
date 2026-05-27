@@ -63,7 +63,6 @@ const T_NAME = {
 
 // ─── Infrastructure markers (posições visuais no mapa) ───────────────────────
 const INFRA = [
-  { col: 6, row: 0, type: 'naval', label: '✛', name: 'BN Vitória'            },
   { col: 4, row: 2, type: 'naval', label: '✛', name: 'BN Rio de Janeiro'     },
   { col: 3, row: 3, type: 'port',  label: '⚓', name: 'Porto do Rio'           },
   { col: 2, row: 4, type: 'aero',  label: '✈', name: 'BA Galeão / Santa Cruz' },

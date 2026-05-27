@@ -115,11 +115,22 @@
 
 </div>
 
-<!-- ── COMBAT RESULTS ─────────────────────────────────────────────────────── -->
-<div id="combat-modal" class="overlay hidden">
-  <div class="combat-box">
-    <div id="combat-modal-body" class="combat-log"></div>
-    <button id="combat-modal-close" class="act-btn gray">Fechar</button>
+<!-- ── BATTLE ROUND PANEL ─────────────────────────────────────────────────── -->
+<div id="br-panel" class="overlay hidden">
+  <div class="br-box">
+    <div id="br-panel-header" class="br-header">── Engajamento ──</div>
+    <div id="br-panel-body"   class="br-log"></div>
+    <div id="br-decision"     class="br-decision hidden">
+      <div class="br-question">Continuar o combate neste engajamento?</div>
+      <div class="br-btns">
+        <button id="br-btn-continue" class="act-btn green">▶ CONTINUAR</button>
+        <button id="br-btn-stop"     class="act-btn red">■ PARAR</button>
+      </div>
+    </div>
+    <div id="br-waiting" class="br-waiting hidden">⌛ Aguardando decisão do adversário...</div>
+    <div id="br-ok-area" class="br-ok-area hidden">
+      <button id="br-btn-ok" class="act-btn blue">OK — Próximo ▶</button>
+    </div>
   </div>
 </div>
 

@@ -14,7 +14,6 @@ function getWeaponRange(unit, weaponType) {
   if (unit.weapons?.[weaponType]?.range != null) return unit.weapons[weaponType].range;
   const profile = COMBAT.weaponProfiles?.[weaponType];
   if (!profile) return 0;
-  // Capabilities use their profile default range (persistent, no per-unit override)
   return profile.defaultRange ?? 0;
 }
 
@@ -26,10 +25,12 @@ function spendWeapon(unit, weaponType, amount) {
   }
 }
 
-function resolveDamageRoll(team, damageProfile, targetCategory) {
+// advantage=true: roll 2d6 take highest (initiative bonus in BR#2)
+function resolveDamageRoll(team, damageProfile, targetCategory, advantage = false) {
   const table = COMBAT.damageTables?.[team]?.[damageProfile]?.[targetCategory];
   if (!table) return { roll: 0, reroll: null, damage: 0 };
-  const roll = d6();
+  let roll = d6();
+  if (advantage) { const r2 = d6(); if (r2 > roll) roll = r2; }
   const value = table[String(roll)] ?? 0;
   let reroll = null;
   let damage;
@@ -47,7 +48,8 @@ function applyDamage(unit, damage) {
 }
 
 // Returns how many incoming missiles are shot down by the defender's interceptors
-function resolveInterception(defender, incomingWeaponType, incomingAmount) {
+function resolveInterception(defender, incomingWeaponType, incomingAmount, defenderDisabled = false) {
+  if (defenderDisabled) return { intercepted: 0, remaining: incomingAmount, details: [] };
   const profile = COMBAT.weaponProfiles?.[incomingWeaponType];
   if (!profile?.interceptableBy?.length) {
     return { intercepted: 0, remaining: incomingAmount, details: [] };
@@ -63,11 +65,11 @@ function resolveInterception(defender, incomingWeaponType, incomingAmount) {
     const defProfile = COMBAT.weaponProfiles?.[defWeapon];
     if (!defProfile) continue;
 
-    // Roll one defense die per incoming missile, up to defQty shots available
     const shots = Math.min(remaining, defQty);
     let intercepted = 0;
     const rolls = [];
     for (let i = 0; i < shots; i++) {
+      // Interception rolls never receive initiative advantage
       const r = resolveDamageRoll(defender.team, defProfile.damageProfile, 'missile');
       rolls.push(r.roll);
       if (r.damage > 0) intercepted++;
@@ -80,7 +82,9 @@ function resolveInterception(defender, incomingWeaponType, incomingAmount) {
   return { intercepted: incomingAmount - remaining, remaining, details };
 }
 
-function resolveEngagement({ attacker, defender, weaponType, amount, distance }) {
+// initiativeBonusTeam: team name that rolled with advantage this round, or null
+// defenderDisabled: true when defender has 0 naval FP — skips interception
+function resolveEngagement({ attacker, defender, weaponType, amount, distance, initiativeBonusTeam = null, defenderDisabled = false }) {
   const profile = COMBAT.weaponProfiles?.[weaponType];
   if (!profile) return { ok: false, reason: 'Tipo de arma desconhecido: ' + weaponType };
 
@@ -99,13 +103,14 @@ function resolveEngagement({ attacker, defender, weaponType, amount, distance })
   const launched = Math.min(amount, qty);
   spendWeapon(attacker, weaponType, launched);
 
-  const interception = resolveInterception(defender, weaponType, launched);
+  const interception = resolveInterception(defender, weaponType, launched, defenderDisabled);
   const effectiveShots = interception.remaining;
 
+  const advantage = initiativeBonusTeam !== null && initiativeBonusTeam === attacker.team;
   const attackRolls = [];
   let totalDamage = 0;
   for (let i = 0; i < effectiveShots; i++) {
-    const roll = resolveDamageRoll(attacker.team, profile.damageProfile, defender.category);
+    const roll = resolveDamageRoll(attacker.team, profile.damageProfile, defender.category, advantage);
     attackRolls.push(roll);
     totalDamage += roll.damage;
   }
@@ -115,21 +120,23 @@ function resolveEngagement({ attacker, defender, weaponType, amount, distance })
 
   return {
     ok: true,
-    attackerId:     attacker.id,
-    defenderId:     defender.id,
+    attackerId:          attacker.id,
+    defenderId:          defender.id,
     weaponType,
-    weaponLabel:    profile.label,
-    targetCategory: defender.category,
+    weaponLabel:         profile.label,
+    targetCategory:      defender.category,
     distance,
     range,
     launched,
-    expendable:     profile.expendable,
+    expendable:          profile.expendable,
     interception,
     effectiveShots,
     attackRolls,
     totalDamage,
-    remainingHp:    defender.hp,
+    remainingHp:         defender.hp,
     destroyed,
+    initiativeBonusTeam,
+    advantage,
   };
 }
 

@@ -340,6 +340,37 @@ const ORDER_OF_BATTLE = {
         "weapons":{},"capabilities":{},
         "position":{"col":4,"row":3},
         "notes":"Porto do Açu. SP=12. Terminal offshore."
+      },
+      {
+        "id":"BLUE-AERO-RJ","name":"BA Santa Cruz","category":"land",
+        "composition":[{"type":"aeroporto","quantity":1}],
+        "stayingPower":10,"movement":0,
+        "detectionRange":{"surface":1,"air":2,"submarine":0,"land":1},
+        "attackRange":{"surface":0,"air":0,"submarine":0,"land":0},
+        "weapons":{},"capabilities":{},
+        "position":{"col":0,"row":3},
+        "notes":"Base Aérea de Santa Cruz / Galeão. Fixo. Recompletamento F-39 Gripen."
+      },
+      {
+        "id":"BLUE-AERO-SP","name":"BA Santos","category":"land",
+        "composition":[{"type":"aeroporto","quantity":1}],
+        "stayingPower":10,"movement":0,
+        "detectionRange":{"surface":1,"air":2,"submarine":0,"land":1},
+        "attackRange":{"surface":0,"air":0,"submarine":0,"land":0},
+        "weapons":{},"capabilities":{},
+        "position":{"col":1,"row":3},
+        "notes":"Base Aérea de Santos / Campo de Marte. Fixo. Recompletamento P-3AM."
+      },
+      {
+        "id":"BLUE-AERO-CF","name":"AeroCF/BANS",
+        "category":"land",
+        "composition":[{"type":"aeroporto","quantity":1}],
+        "stayingPower":10,"movement":0,
+        "detectionRange":{"surface":1,"air":2,"submarine":0,"land":1},
+        "attackRange":{"surface":0,"air":0,"submarine":0,"land":0},
+        "weapons":{},"capabilities":{},
+        "position":{"col":2,"row":3},
+        "notes":"Aeroporto de Cabo Frio + BAN São Pedro da Aldeia. Fixo. Alternativa de recompletamento."
       }
     ],
     "red": [

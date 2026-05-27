@@ -176,6 +176,10 @@ body {
   margin-bottom: 6px;
 }
 .u-stats span:nth-child(even) { color: var(--text); text-align: right; }
+.fp-ok    { color: #69f0ae; }
+.fp-low   { color: #ffca28; font-weight: bold; }
+.fp-empty { color: #ff5252; font-weight: bold; }
+.fp-inf   { color: var(--dim); }
 
 .u-hint {
   font-size: 0.72rem;
@@ -184,6 +188,24 @@ body {
   opacity: 0.85;
 }
 .u-hint.atk-declared { color: var(--red-l); }
+
+/* Declared attack list with amount controls */
+.atk-list { margin-top: 6px; font-size: 0.72rem; }
+.atk-list-title { color: var(--red-l); margin-bottom: 4px; letter-spacing: 0.5px; }
+.atk-entry { display: flex; align-items: center; justify-content: space-between; padding: 3px 0; border-bottom: 1px solid rgba(80,120,160,0.12); }
+.atk-target { color: var(--text); flex: 1; }
+.atk-amt-ctrl { display: flex; align-items: center; gap: 4px; }
+.atk-adj-btn {
+  background: rgba(80,120,160,0.25);
+  border: 1px solid rgba(80,140,200,0.4);
+  color: var(--text);
+  width: 20px; height: 20px;
+  font-size: 0.85rem; line-height: 1;
+  cursor: pointer; border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+}
+.atk-adj-btn:hover { background: rgba(80,140,200,0.45); }
+.atk-amt-val { color: var(--gold); font-weight: bold; min-width: 16px; text-align: center; }
 
 /* Actions panel */
 .actions-panel { display: flex; flex-direction: column; gap: 7px; }
@@ -395,6 +417,83 @@ input::placeholder { color: #2a4a60; text-transform: none; letter-spacing: 1px; 
 .cm-red       { color: var(--red-l); }
 .cm-wpn       { color: var(--gold); opacity: 0.9; margin-right: 3px; }
 .cm-int       { color: #80cbc4; margin-left: 2px; }
+
+/* ─── Battle Round Panel ─────────────────────────────────────────────────── */
+.br-box {
+  background: var(--panel);
+  border: 2px solid rgba(100,160,230,0.5);
+  padding: 1.6rem 2rem 1.4rem;
+  min-width: 380px;
+  max-width: 540px;
+  max-height: 82vh;
+  overflow-y: auto;
+  box-shadow: 0 0 60px rgba(0,50,120,0.6);
+}
+.br-header {
+  font-size: 0.82rem;
+  letter-spacing: 2px;
+  color: var(--gold);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.br-log {
+  min-height: 80px;
+}
+.br-combatants {
+  font-size: 0.88rem;
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+.br-arrow      { color: var(--dim); }
+.br-wpn-tag    { color: var(--gold); font-size: 0.75rem; }
+.br-single-label { font-size: 0.72rem; color: #80cbc4; margin-bottom: 6px; letter-spacing: 1px; }
+.br-init-bonus { font-size: 0.75rem; color: #ffd54f; margin-bottom: 8px; }
+.br-counter-header { font-size: 0.72rem; color: #ff8a80; letter-spacing: 1px; margin: 10px 0 6px; text-align: center; border-top: 1px solid rgba(183,28,28,0.3); padding-top: 8px; }
+.br-row {
+  font-size: 0.78rem;
+  padding: 6px 4px;
+  border-bottom: 1px solid rgba(80,120,160,0.12);
+  color: var(--dim);
+}
+.br-hit        { color: var(--green); }
+.br-miss       { color: var(--dim); }
+.br-destroyed  { color: var(--red-l); font-weight: bold; }
+.br-launched   { opacity: 0.75; margin-left: 4px; }
+.br-impacts    { opacity: 0.75; margin-left: 8px; }
+.br-int        { color: #80cbc4; margin-left: 4px; font-size: 0.72rem; }
+.br-wpn        { color: var(--gold); margin-right: 4px; font-size: 0.72rem; }
+.br-adv        { color: #ffd54f; font-size: 0.72rem; }
+.br-detail     { margin-top: 3px; font-weight: bold; }
+.br-rolls      { margin-top: 2px; opacity: 0.65; font-size: 0.72rem; letter-spacing: 0.3px; }
+.br-decision-made    { color: #90caf9; font-style: italic; margin-top: 6px; }
+.br-decision-summary { color: var(--dim); font-style: italic; }
+.br-decision {
+  margin-top: 14px;
+  text-align: center;
+}
+.br-question {
+  color: #ffe082;
+  font-size: 0.78rem;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+.br-btns {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+}
+.br-waiting {
+  margin-top: 12px;
+  text-align: center;
+  color: var(--dim);
+  font-size: 0.75rem;
+  font-style: italic;
+}
+.br-ok-area {
+  margin-top: 14px;
+  text-align: center;
+}
 
 /* (OOB styles live in main.css / index page) */
 .oob-wrap {

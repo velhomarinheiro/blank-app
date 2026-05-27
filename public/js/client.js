@@ -90,6 +90,7 @@ socket.on('game_start', ({team, state}) => {
   myTeam = team; gameState = state;
   selUnitId = null; selGroupIds = []; moveHexes = []; atkHexes = []; pendingAtks = [];
   activePath = []; plannedMoves.clear(); hideStackPicker();
+  closeBrPanel();
   lobbyScreen.classList.add('hidden');
   gameScreen.classList.remove('hidden');
   gameOver.classList.add('hidden');
@@ -111,6 +112,7 @@ socket.on('game_update', state => {
     activePath = []; plannedMoves.clear(); selGroupIds = [];
     selUnitId = null; moveHexes = []; atkHexes = [];
     hideStackPicker();
+    closeBrPanel(); // hide BR panel when new movement phase begins
   } else if (selUnitId) {
     const u = gameState.units.find(u => u.id === selUnitId && u.hp > 0);
     if (u) {
@@ -141,7 +143,13 @@ socket.on('action_error', msg => {
     updateUI();
   }
 });
-socket.on('combat_result', data => showCombatModal(data));
+socket.on('battle_round_result', data => handleBrResult(data));
+socket.on('fuel_alert', ({ name, type }) => {
+  const msg = type === 'air_lost'
+    ? `✈ ${name} perdida por falta de combustível!`
+    : `⛽ ${name} sem combustível — imóvel e indefesa até reabastecimento.`;
+  flashError(msg);
+});
 
 // ─── Lobby actions ────────────────────────────────────────────────────────────
 btnCreate.addEventListener('click', () => socket.emit('create_room'));
@@ -183,8 +191,24 @@ undoStepBtn.addEventListener('click', () => undoStep());
 cancelBtn.addEventListener('click', () => { hideStackPicker(); deselect(false); });
 
 $('btn-restart').addEventListener('click', () => { socket.emit('restart'); gameOver.classList.add('hidden'); });
-$('combat-modal-close').addEventListener('click', () => $('combat-modal').classList.add('hidden'));
+$('br-btn-continue').addEventListener('click', () => sendBrDecision('continue'));
+$('br-btn-stop'    ).addEventListener('click', () => sendBrDecision('stop'));
+$('br-btn-ok'      ).addEventListener('click', () => onBrOk());
 $('btn-back').addEventListener('click', () => location.reload());
+
+// Amount +/- controls in unit panel (event delegation)
+$('unit-panel').addEventListener('click', e => {
+  const btn = e.target.closest('[data-atk-adj]');
+  if (!btn) return;
+  const attackerId = btn.dataset.attacker;
+  const targetId   = btn.dataset.target;
+  const delta      = Number(btn.dataset.atk_adj);
+  const atk = pendingAtks.find(a => a.attackerId === attackerId && a.targetId === targetId);
+  if (!atk) return;
+  const maxAmt = Number(btn.dataset.max) || 4;
+  atk.amount = Math.max(1, Math.min(maxAmt, (atk.amount || 1) + delta));
+  updateUI(); render();
+});
 
 // ─── Canvas input ─────────────────────────────────────────────────────────────
 canvas.addEventListener('mousemove', e => {
@@ -246,14 +270,14 @@ function handleClick(col, row) {
               if (!gu) continue;
               if (rangeAgainst(gu.attackRange, atk.category) >= 1 && hexDist(gu.col, gu.row, atk.col, atk.row) <= rangeAgainst(gu.attackRange, atk.category)
                   && !pendingAtks.some(a => a.attackerId === id && a.targetId === atk.unitId)) {
-                pendingAtks.push({attackerId: id, targetId: atk.unitId});
+                pendingAtks.push({attackerId: id, targetId: atk.unitId, amount: 1});
               }
             }
           }
         } else {
           const idx = pendingAtks.findIndex(a => a.attackerId === selUnitId && a.targetId === atk.unitId);
           if (idx >= 0) pendingAtks.splice(idx, 1);
-          else pendingAtks.push({attackerId: selUnitId, targetId: atk.unitId});
+          else pendingAtks.push({attackerId: selUnitId, targetId: atk.unitId, amount: 1});
         }
         updateUI(); render(); return;
       }
@@ -449,6 +473,48 @@ function isMyTurn() {
   return false;
 }
 
+function fuelRow(unit) {
+  const f = unit.fuel;
+  if (!f || !f.usesFuel) {
+    return `<span>Combustível</span><span class="fp-inf">∞</span>`;
+  }
+  if (unit.category === 'air') {
+    const STATUS = { ready: 'Pronta', airborne: 'Em voo', recovering: 'Reabastecendo' };
+    const statusLabel = STATUS[unit.airStatus] || unit.airStatus || '—';
+    const fpLabel = unit.airStatus === 'ready' || unit.airStatus === 'recovering'
+      ? `${f.max} FP` : `${f.current ?? 0}/${f.max} FP`;
+    const fpClass = (f.current ?? f.max) <= Math.ceil(f.max * 0.25) ? 'fp-low' : 'fp-ok';
+    return `<span>Status</span><span>${statusLabel}</span>
+            <span>Combustível</span><span class="${fpClass}">${fpLabel}</span>`;
+  }
+  // Naval
+  const cur = f.current ?? 0;
+  const pct = f.max > 0 ? cur / f.max : 0;
+  const cls = cur <= 0 ? 'fp-empty' : pct <= 0.25 ? 'fp-low' : 'fp-ok';
+  return `<span>Combustível</span><span class="${cls}">${cur}/${f.max} FP</span>`;
+}
+
+function buildAtkListHtml(atks) {
+  if (!atks.length) return '';
+  const items = atks.map(a => {
+    const tgt = gameState?.units.find(u => u.id === a.targetId);
+    const tgtName = tgt?.name || a.targetId;
+    // Max amount: largest weapon quantity on the attacker (server will cap anyway)
+    const attUnit = gameState?.units.find(u => u.id === a.attackerId);
+    const maxAmt  = attUnit ? Math.max(1, ...Object.values(attUnit.weapons || {}).map(w => w.quantity || 0)) : 4;
+    const amt = a.amount || 1;
+    return `<div class="atk-entry">
+      <span class="atk-target">→ ${tgtName}</span>
+      <span class="atk-amt-ctrl">
+        <button class="atk-adj-btn" data-atk-adj data-attacker="${a.attackerId}" data-target="${a.targetId}" data-atk_adj="-1" data-max="${maxAmt}">−</button>
+        <span class="atk-amt-val">${amt}</span>
+        <button class="atk-adj-btn" data-atk-adj data-attacker="${a.attackerId}" data-target="${a.targetId}" data-atk_adj="1" data-max="${maxAmt}">+</button>
+      </span>
+    </div>`;
+  }).join('');
+  return `<div class="atk-list"><div class="atk-list-title">Ataques declarados:</div>${items}</div>`;
+}
+
 // ─── UI update ────────────────────────────────────────────────────────────────
 function updateUI() {
   if (!gameState) return;
@@ -498,9 +564,9 @@ function updateUI() {
       ? `<div class="u-hint">Caminho: ${pathSteps}/${pathStepsMov} passo(s)</div>` : '';
     const groupHint = selGroupIds.length > 1
       ? `<div class="u-hint">Grupo: ${selGroupIds.length} unidades em conjunto</div>` : '';
-    const declaredCount = selGroupIds.length > 0
-      ? pendingAtks.filter(a => selGroupIds.includes(a.attackerId)).length
-      : pendingAtks.filter(a => a.attackerId === sel.id).length;
+    const myAtks = selGroupIds.length > 0
+      ? pendingAtks.filter(a => selGroupIds.includes(a.attackerId))
+      : pendingAtks.filter(a => a.attackerId === sel.id);
     const det  = sel.detectionRange || {};
     const comp = (sel.composition||[]).map(c=>`${c.quantity}× ${c.type}`).join(' · ');
 
@@ -524,6 +590,7 @@ function updateUI() {
         <span>SP</span><span>${sel.hp}/${sel.maxHp}</span>
         <span>MOV</span><span>${sel.movement}</span>
         <span>Categoria</span><span>${sel.category}</span>
+        ${fuelRow(sel)}
         <span>Det S/Aé/Sb/T</span><span>${det.surface||0}/${det.air||0}/${det.submarine||0}/${det.land||0}</span>
         <span>Terreno</span><span style="font-size:0.7em">${T_NAME[t]}</span>
       </div>
@@ -533,7 +600,7 @@ function updateUI() {
       ${groupHint}
       ${pathHint}
       ${atkHexes.length ? '<div class="u-hint">Clique em alvos vermelhos p/ declarar ataque</div>' : ''}
-      ${declaredCount ? `<div class="u-hint atk-declared">${declaredCount} ataque(s) declarado(s)</div>` : ''}
+      ${myAtks.length ? buildAtkListHtml(myAtks) : ''}
     `;
   } else {
     unitPanel.innerHTML = '<p class="no-sel">Clique em uma unidade sua</p>';
@@ -787,38 +854,174 @@ function showLobbyErr(msg) {
   setTimeout(() => lobbyErr.classList.add('hidden'), 4000);
 }
 
-function showCombatModal(data) {
-  const body = $('combat-modal-body');
-  let html = `<div class="cm-header">── Resolução de Combate · Turno ${data.turn} ──</div>`;
-  if (!data.results || data.results.length === 0) {
-    html += '<div class="cm-empty">Nenhum ataque declarado neste turno.</div>';
+// ─── Battle Round Panel ───────────────────────────────────────────────────────
+let brDecisionMade = false;
+let brQueue = [];  // buffer for back-to-back mustDecide:false events
+
+function closeBrPanel() {
+  $('br-panel').classList.add('hidden');
+  brDecisionMade = false;
+  brQueue = [];
+}
+
+// Advance to next queued result, or close the panel when the queue is empty
+function onBrOk() {
+  if (brQueue.length > 0) {
+    renderBrPanel(brQueue.shift());
   } else {
-    for (const r of data.results) {
-      const aC = r.attackerTeam === 'blue' ? 'cm-blue' : 'cm-red';
-      const tC = r.targetTeam   === 'blue' ? 'cm-blue' : 'cm-red';
-      if (r.outOfRange) {
-        html += `<div class="cm-row cm-oor">⚠ <span class="${aC}">${r.attacker}</span> → <span class="${tC}">${r.target}</span> — sem armamento válido</div>`;
-        continue;
-      }
-      // Build roll description
-      const rollsDesc = (r.attackRolls || []).map(roll => {
-        if (roll.reroll != null) return `d6=${roll.roll}→${roll.reroll}(${roll.damage}SP)`;
-        return `d6=${roll.roll}(${roll.damage}SP)`;
-      }).join(', ') || '—';
-
-      const intStr = r.interception?.intercepted > 0
-        ? ` <small class="cm-int">[${r.interception.intercepted} intercept.]</small>` : '';
-      const wpnTag = r.weaponLabel ? `<small class="cm-wpn">[${r.weaponLabel}]</small> ` : '';
-
-      if (r.destroyed) {
-        html += `<div class="cm-row cm-destroyed">💥 ${wpnTag}<span class="${aC}">${r.attacker}</span> → <span class="${tC}">${r.target}</span>${intStr} −${r.damage}SP <strong>DESTRUÍDO!</strong> <small>${rollsDesc}</small></div>`;
-      } else if (r.hit) {
-        html += `<div class="cm-row cm-hit">✓ ${wpnTag}<span class="${aC}">${r.attacker}</span> → <span class="${tC}">${r.target}</span>${intStr} −${r.damage}SP <small>${rollsDesc}</small></div>`;
-      } else {
-        html += `<div class="cm-row cm-miss">✗ ${wpnTag}<span class="${aC}">${r.attacker}</span> → <span class="${tC}">${r.target}</span>${intStr} sem dano <small>${rollsDesc}</small></div>`;
-      }
-    }
+    closeBrPanel();
   }
-  body.innerHTML = html;
-  $('combat-modal').classList.remove('hidden');
+}
+
+// Enqueue result; show immediately if panel is hidden or in "waiting" state
+function handleBrResult(data) {
+  brQueue.push(data);
+  const panelHidden = $('br-panel').classList.contains('hidden');
+  const isWaiting   = !$('br-waiting').classList.contains('hidden');
+  if (panelHidden || isWaiting) {
+    renderBrPanel(brQueue.shift());
+  }
+}
+
+function sendBrDecision(decision) {
+  if (brDecisionMade) return;
+  brDecisionMade = true;
+  socket.emit('battle_round_decision', { decision });
+  // Show waiting state while opponent decides
+  $('br-decision').classList.add('hidden');
+  $('br-waiting').classList.remove('hidden');
+  const chosen = decision === 'continue' ? 'Você escolheu CONTINUAR.' : 'Você escolheu PARAR.';
+  $('br-panel-body').insertAdjacentHTML('beforeend',
+    `<div class="br-row br-decision-made">${chosen}</div>`);
+}
+
+function buildResultHtml(eng) {
+  if (!eng) return '';
+  if (!eng.ok) {
+    return `<div class="br-row br-miss">⚠ ${eng.reason || 'Sem armamento válido.'}</div>`;
+  }
+
+  const aC = eng.attackerId ? '' : '';  // attacker colour resolved server-side per team
+  const intStr = eng.interception?.intercepted > 0
+    ? `<span class="br-int"> [${eng.interception.intercepted} intercept.]</span>` : '';
+  const wpnTag = eng.weaponLabel ? `<span class="br-wpn">[${eng.weaponLabel}]</span> ` : '';
+
+  const rollsDesc = (eng.attackRolls || []).map(r => {
+    if (r.reroll != null) return `d6=${r.roll}→${r.reroll}(${r.damage}SP)`;
+    return `d6=${r.roll}(${r.damage}SP)`;
+  }).join('  ') || '—';
+
+  const advTag = eng.advantage ? '<span class="br-adv"> ★iniciativa</span>' : '';
+
+  let cls, icon, detail;
+  if (eng.destroyed) {
+    cls = 'br-destroyed'; icon = '💥';
+    detail = `−${eng.totalDamage}SP <strong>DESTRUÍDO!</strong>`;
+  } else if (eng.totalDamage > 0) {
+    cls = 'br-hit'; icon = '✓';
+    detail = `−${eng.totalDamage}SP  (restante: ${eng.remainingHp}SP)`;
+  } else {
+    cls = 'br-miss'; icon = '✗';
+    detail = `sem dano  (restante: ${eng.remainingHp}SP)`;
+  }
+
+  return `
+    <div class="br-row ${cls}">
+      ${icon} ${wpnTag}${advTag}
+      <span class="br-launched">Lançados: ${eng.launched}</span>${intStr}
+      <span class="br-impacts"> Impactos: ${eng.effectiveShots}</span>
+      <div class="br-detail">${detail}</div>
+      <div class="br-rolls">${rollsDesc}</div>
+    </div>`;
+}
+
+function renderBrPanel({ engagement, result, mustDecide, decisions, initiativeBonusTeam, counterResult }) {
+  brDecisionMade = false;
+
+  const brLabel = `${engagement.id} · Battle Round ${engagement.battleRound}`;
+  const singleRound = engagement.maxBattleRounds === 1;
+
+  $('br-panel-header').textContent = `── ${brLabel} ──`;
+
+  let html = '';
+
+  // Show attacker/target info
+  const att = gameState?.units.find(u => u.id === engagement.attackerId);
+  const def = gameState?.units.find(u => u.id === engagement.targetId);
+  const attName = att?.name || engagement.attackerId;
+  const defName = def?.name || engagement.targetId;
+  const attCls  = att?.team === 'blue' ? 'cm-blue' : 'cm-red';
+  const defCls  = def?.team === 'blue' ? 'cm-blue' : 'cm-red';
+
+  html += `<div class="br-combatants">
+    <span class="${attCls}">${attName}</span>
+    <span class="br-arrow"> → </span>
+    <span class="${defCls}">${defName}</span>
+    <span class="br-wpn-tag"> [${engagement.weaponType.toUpperCase()}]</span>
+  </div>`;
+
+  if (singleRound) {
+    html += `<div class="br-single-label">Arma estratégica — rodada única</div>`;
+  }
+
+  if (initiativeBonusTeam) {
+    const bonusTeamLabel = initiativeBonusTeam === myTeam ? 'SUA FORÇA' : 'FORÇA ADVERSÁRIA';
+    html += `<div class="br-init-bonus">★ Bônus de iniciativa: ${bonusTeamLabel} (2d6, maior valor)</div>`;
+  }
+
+  // Result block
+  if (result === null && decisions) {
+    const blueDecided = decisions.blue === 'stop' ? 'PAROU' : 'CONTINUOU';
+    const redDecided  = decisions.red  === 'stop' ? 'PAROU' : 'CONTINUOU';
+    html += `<div class="br-row br-decision-summary">
+      Azul: ${blueDecided} · Vermelho: ${redDecided} — combate encerrado.
+    </div>`;
+  } else if (result === null) {
+    html += `<div class="br-row br-miss">⚠ Unidade já destruída — engajamento cancelado.</div>`;
+  } else {
+    html += buildResultHtml(result);
+  }
+
+  // Counter-attack block (BR#2 only)
+  if (counterResult) {
+    const cAtt = gameState?.units.find(u => u.id === counterResult.attackerId);
+    const cDef = gameState?.units.find(u => u.id === counterResult.defenderId);
+    const cAttName = cAtt?.name || counterResult.attackerId;
+    const cDefName = cDef?.name || counterResult.defenderId;
+    const cAttCls  = cAtt?.team === 'blue' ? 'cm-blue' : 'cm-red';
+    const cDefCls  = cDef?.team === 'blue' ? 'cm-blue' : 'cm-red';
+
+    html += `<div class="br-counter-header">── Contrataque ──</div>`;
+    html += `<div class="br-combatants">
+      <span class="${cAttCls}">${cAttName}</span>
+      <span class="br-arrow"> ↩ </span>
+      <span class="${cDefCls}">${cDefName}</span>
+      <span class="br-wpn-tag"> [${(counterResult.weaponType || '').toUpperCase()}]</span>
+    </div>`;
+    if (counterResult.advantage) {
+      const cBonusLabel = cAtt?.team === myTeam ? 'SUA FORÇA' : 'FORÇA ADVERSÁRIA';
+      html += `<div class="br-init-bonus">★ Bônus de iniciativa: ${cBonusLabel} (2d6, maior valor)</div>`;
+    }
+    html += buildResultHtml(counterResult);
+  }
+
+  $('br-panel-body').innerHTML = html;
+
+  // Decision / OK UI
+  const decisionEl = $('br-decision');
+  const waitingEl  = $('br-waiting');
+  const okAreaEl   = $('br-ok-area');
+  decisionEl.classList.add('hidden');
+  waitingEl.classList.add('hidden');
+  okAreaEl.classList.add('hidden');
+
+  if (mustDecide && !singleRound && !result?.destroyed) {
+    decisionEl.classList.remove('hidden');        // show CONTINUAR / PARAR
+  } else {
+    const label = brQueue.length > 0 ? 'Próximo ▶' : 'OK ✓';
+    $('br-btn-ok').textContent = label;
+    okAreaEl.classList.remove('hidden');          // show OK / Próximo
+  }
+
+  $('br-panel').classList.remove('hidden');
 }

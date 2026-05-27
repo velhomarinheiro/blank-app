@@ -23,6 +23,7 @@ const TYPE_ABBR = {
   bateria_ada:      'AD',
   fpso:             'FP',
   porto:            'PT',
+  aeroporto:        'BA',
 };
 
 // Legacy UNIT_DEFS kept for any code still referencing it
@@ -104,8 +105,9 @@ function drawPlatformSilhouette(ctx, type, cx, cy, sz, color) {
     case 'bateria_costeira': drawBatteryShape(ctx, cx, cy, sz); break;
     case 'bateria_ada':      drawADAShape(ctx, cx, cy, sz); break;
     // ── Infrastructure ──
-    case 'fpso':  drawFPSOShape(ctx, cx, cy, sz); break;
-    case 'porto': drawPortShape(ctx, cx, cy, sz); break;
+    case 'fpso':       drawFPSOShape(ctx, cx, cy, sz); break;
+    case 'porto':      drawPortShape(ctx, cx, cy, sz); break;
+    case 'aeroporto':  drawAirportShape(ctx, cx, cy, sz); break;
     default: drawShipShape(ctx, cx, cy, sz, 0.48, 0.52); break;
   }
 }
@@ -467,6 +469,14 @@ function drawPortShape(ctx, cx, cy, sz) {
   ctx.moveTo(cx,             cy + sz * 0.30);
   ctx.lineTo(cx + sz * 0.26, cy + sz * 0.12);
   ctx.stroke();
+}
+
+// Airport / airfield: two crossing runways (plus sign)
+function drawAirportShape(ctx, cx, cy, sz) {
+  // Primary runway (horizontal)
+  ctx.fillRect(cx - sz * 0.44, cy - sz * 0.11, sz * 0.88, sz * 0.22);
+  // Secondary runway (vertical)
+  ctx.fillRect(cx - sz * 0.11, cy - sz * 0.44, sz * 0.22, sz * 0.88);
 }
 
 // ─── Utilities ────────────────────────────────────────────────────────────────
