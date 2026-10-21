@@ -1,0 +1,49 @@
+ano,area,grupo,valor,tipo,fonte_id
+2000,Leitura,Brasil,396,oficial,INEP_PISA2025
+2003,Leitura,Brasil,403,oficial,INEP_PISA2025
+2006,Leitura,Brasil,393,oficial,INEP_PISA2025
+2009,Leitura,Brasil,412,oficial,INEP_PISA2025
+2012,Leitura,Brasil,407,oficial,INEP_PISA2025
+2015,Leitura,Brasil,407,serie_historica,INEP_PISA2025
+2018,Leitura,Brasil,413,oficial,INEP_PISA2025
+2022,Leitura,Brasil,410,oficial,OCDE_PISA2022
+2025,Leitura,Brasil,408,oficial,INEP_PISA2025
+2003,Matemática,Brasil,356,oficial,OCDE_PISA2022
+2006,Matemática,Brasil,370,oficial,OCDE_PISA2022
+2009,Matemática,Brasil,386,oficial,OCDE_PISA2022
+2012,Matemática,Brasil,389,oficial,OCDE_PISA2022
+2015,Matemática,Brasil,377,oficial,OCDE_PISA2022
+2018,Matemática,Brasil,384,oficial,OCDE_PISA2022
+2022,Matemática,Brasil,379,oficial,OCDE_PISA2022
+2025,Matemática,Brasil,377,oficial,INEP_PISA2025
+2006,Ciências,Brasil,390,oficial,INEP_PISA2025
+2009,Ciências,Brasil,405,oficial,INEP_PISA2025
+2012,Ciências,Brasil,402,oficial,INEP_PISA2025
+2015,Ciências,Brasil,401,serie_historica,INEP_PISA2025
+2018,Ciências,Brasil,404,oficial,INEP_PISA2025
+2022,Ciências,Brasil,403,oficial,OCDE_PISA2022
+2025,Ciências,Brasil,409,oficial,INEP_PISA2025
+2000,Leitura,Média OCDE,500,serie_historica,OCDE_PISA_HIST
+2003,Leitura,Média OCDE,494,serie_historica,OCDE_PISA_HIST
+2006,Leitura,Média OCDE,492,serie_historica,OCDE_PISA_HIST
+2009,Leitura,Média OCDE,493,serie_historica,OCDE_PISA_HIST
+2012,Leitura,Média OCDE,496,serie_historica,OCDE_PISA_HIST
+2015,Leitura,Média OCDE,493,serie_historica,OCDE_PISA_HIST
+2018,Leitura,Média OCDE,487,oficial,INEP_PISA2025
+2022,Leitura,Média OCDE,476,oficial,OCDE_PISA2022
+2025,Leitura,Média OCDE,461,oficial,OCDE_PISA2025
+2003,Matemática,Média OCDE,500,oficial,OCDE_PISA_HIST
+2006,Matemática,Média OCDE,498,serie_historica,OCDE_PISA_HIST
+2009,Matemática,Média OCDE,496,serie_historica,OCDE_PISA_HIST
+2012,Matemática,Média OCDE,494,serie_historica,OCDE_PISA_HIST
+2015,Matemática,Média OCDE,490,serie_historica,OCDE_PISA_HIST
+2018,Matemática,Média OCDE,489,serie_historica,OCDE_PISA_HIST
+2022,Matemática,Média OCDE,472,oficial,OCDE_PISA2022
+2025,Matemática,Média OCDE,463,oficial,OCDE_PISA2025
+2006,Ciências,Média OCDE,500,serie_historica,OCDE_PISA_HIST
+2009,Ciências,Média OCDE,501,serie_historica,OCDE_PISA_HIST
+2012,Ciências,Média OCDE,501,serie_historica,OCDE_PISA_HIST
+2015,Ciências,Média OCDE,493,serie_historica,OCDE_PISA_HIST
+2018,Ciências,Média OCDE,489,oficial,INEP_PISA2025
+2022,Ciências,Média OCDE,485,oficial,OCDE_PISA2022
+2025,Ciências,Média OCDE,482,oficial,OCDE_PISA2025

@@ -1,0 +1,5 @@
+pais,indicador,ano,valor,unidade,tipo,fonte_id
+Mundo,Dívida bruta do governo geral,2025,93.9,% do PIB,oficial,FMI_FM2026
+Estados Unidos,Dívida bruta do governo geral,2025,123.9,% do PIB,oficial,FMI_USA2026
+Área do euro,Dívida bruta do governo geral,2025,87,% do PIB,oficial,FMI_WEO2026
+Brasil,Dívida bruta do governo geral (conceito FMI),2025,93.4,% do PIB,oficial,BCB_EF

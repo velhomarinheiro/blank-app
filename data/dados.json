@@ -2388,6 +2388,668 @@
      "IBGE_PNADC_REND"
     ]
    ]
+  },
+  "pisa_historico": {
+   "descricao": "Pisa 2000–2025: Brasil e média da OCDE por área",
+   "colunas": [
+    "ano",
+    "area",
+    "grupo",
+    "valor",
+    "tipo",
+    "fonte_id"
+   ],
+   "linhas": [
+    [
+     2000,
+     "Leitura",
+     "Brasil",
+     396,
+     "oficial",
+     "INEP_PISA2025"
+    ],
+    [
+     2003,
+     "Leitura",
+     "Brasil",
+     403,
+     "oficial",
+     "INEP_PISA2025"
+    ],
+    [
+     2006,
+     "Leitura",
+     "Brasil",
+     393,
+     "oficial",
+     "INEP_PISA2025"
+    ],
+    [
+     2009,
+     "Leitura",
+     "Brasil",
+     412,
+     "oficial",
+     "INEP_PISA2025"
+    ],
+    [
+     2012,
+     "Leitura",
+     "Brasil",
+     407,
+     "oficial",
+     "INEP_PISA2025"
+    ],
+    [
+     2015,
+     "Leitura",
+     "Brasil",
+     407,
+     "serie_historica",
+     "INEP_PISA2025"
+    ],
+    [
+     2018,
+     "Leitura",
+     "Brasil",
+     413,
+     "oficial",
+     "INEP_PISA2025"
+    ],
+    [
+     2022,
+     "Leitura",
+     "Brasil",
+     410,
+     "oficial",
+     "OCDE_PISA2022"
+    ],
+    [
+     2025,
+     "Leitura",
+     "Brasil",
+     408,
+     "oficial",
+     "INEP_PISA2025"
+    ],
+    [
+     2003,
+     "Matemática",
+     "Brasil",
+     356,
+     "oficial",
+     "OCDE_PISA2022"
+    ],
+    [
+     2006,
+     "Matemática",
+     "Brasil",
+     370,
+     "oficial",
+     "OCDE_PISA2022"
+    ],
+    [
+     2009,
+     "Matemática",
+     "Brasil",
+     386,
+     "oficial",
+     "OCDE_PISA2022"
+    ],
+    [
+     2012,
+     "Matemática",
+     "Brasil",
+     389,
+     "oficial",
+     "OCDE_PISA2022"
+    ],
+    [
+     2015,
+     "Matemática",
+     "Brasil",
+     377,
+     "oficial",
+     "OCDE_PISA2022"
+    ],
+    [
+     2018,
+     "Matemática",
+     "Brasil",
+     384,
+     "oficial",
+     "OCDE_PISA2022"
+    ],
+    [
+     2022,
+     "Matemática",
+     "Brasil",
+     379,
+     "oficial",
+     "OCDE_PISA2022"
+    ],
+    [
+     2025,
+     "Matemática",
+     "Brasil",
+     377,
+     "oficial",
+     "INEP_PISA2025"
+    ],
+    [
+     2006,
+     "Ciências",
+     "Brasil",
+     390,
+     "oficial",
+     "INEP_PISA2025"
+    ],
+    [
+     2009,
+     "Ciências",
+     "Brasil",
+     405,
+     "oficial",
+     "INEP_PISA2025"
+    ],
+    [
+     2012,
+     "Ciências",
+     "Brasil",
+     402,
+     "oficial",
+     "INEP_PISA2025"
+    ],
+    [
+     2015,
+     "Ciências",
+     "Brasil",
+     401,
+     "serie_historica",
+     "INEP_PISA2025"
+    ],
+    [
+     2018,
+     "Ciências",
+     "Brasil",
+     404,
+     "oficial",
+     "INEP_PISA2025"
+    ],
+    [
+     2022,
+     "Ciências",
+     "Brasil",
+     403,
+     "oficial",
+     "OCDE_PISA2022"
+    ],
+    [
+     2025,
+     "Ciências",
+     "Brasil",
+     409,
+     "oficial",
+     "INEP_PISA2025"
+    ],
+    [
+     2000,
+     "Leitura",
+     "Média OCDE",
+     500,
+     "serie_historica",
+     "OCDE_PISA_HIST"
+    ],
+    [
+     2003,
+     "Leitura",
+     "Média OCDE",
+     494,
+     "serie_historica",
+     "OCDE_PISA_HIST"
+    ],
+    [
+     2006,
+     "Leitura",
+     "Média OCDE",
+     492,
+     "serie_historica",
+     "OCDE_PISA_HIST"
+    ],
+    [
+     2009,
+     "Leitura",
+     "Média OCDE",
+     493,
+     "serie_historica",
+     "OCDE_PISA_HIST"
+    ],
+    [
+     2012,
+     "Leitura",
+     "Média OCDE",
+     496,
+     "serie_historica",
+     "OCDE_PISA_HIST"
+    ],
+    [
+     2015,
+     "Leitura",
+     "Média OCDE",
+     493,
+     "serie_historica",
+     "OCDE_PISA_HIST"
+    ],
+    [
+     2018,
+     "Leitura",
+     "Média OCDE",
+     487,
+     "oficial",
+     "INEP_PISA2025"
+    ],
+    [
+     2022,
+     "Leitura",
+     "Média OCDE",
+     476,
+     "oficial",
+     "OCDE_PISA2022"
+    ],
+    [
+     2025,
+     "Leitura",
+     "Média OCDE",
+     461,
+     "oficial",
+     "OCDE_PISA2025"
+    ],
+    [
+     2003,
+     "Matemática",
+     "Média OCDE",
+     500,
+     "oficial",
+     "OCDE_PISA_HIST"
+    ],
+    [
+     2006,
+     "Matemática",
+     "Média OCDE",
+     498,
+     "serie_historica",
+     "OCDE_PISA_HIST"
+    ],
+    [
+     2009,
+     "Matemática",
+     "Média OCDE",
+     496,
+     "serie_historica",
+     "OCDE_PISA_HIST"
+    ],
+    [
+     2012,
+     "Matemática",
+     "Média OCDE",
+     494,
+     "serie_historica",
+     "OCDE_PISA_HIST"
+    ],
+    [
+     2015,
+     "Matemática",
+     "Média OCDE",
+     490,
+     "serie_historica",
+     "OCDE_PISA_HIST"
+    ],
+    [
+     2018,
+     "Matemática",
+     "Média OCDE",
+     489,
+     "serie_historica",
+     "OCDE_PISA_HIST"
+    ],
+    [
+     2022,
+     "Matemática",
+     "Média OCDE",
+     472,
+     "oficial",
+     "OCDE_PISA2022"
+    ],
+    [
+     2025,
+     "Matemática",
+     "Média OCDE",
+     463,
+     "oficial",
+     "OCDE_PISA2025"
+    ],
+    [
+     2006,
+     "Ciências",
+     "Média OCDE",
+     500,
+     "serie_historica",
+     "OCDE_PISA_HIST"
+    ],
+    [
+     2009,
+     "Ciências",
+     "Média OCDE",
+     501,
+     "serie_historica",
+     "OCDE_PISA_HIST"
+    ],
+    [
+     2012,
+     "Ciências",
+     "Média OCDE",
+     501,
+     "serie_historica",
+     "OCDE_PISA_HIST"
+    ],
+    [
+     2015,
+     "Ciências",
+     "Média OCDE",
+     493,
+     "serie_historica",
+     "OCDE_PISA_HIST"
+    ],
+    [
+     2018,
+     "Ciências",
+     "Média OCDE",
+     489,
+     "oficial",
+     "INEP_PISA2025"
+    ],
+    [
+     2022,
+     "Ciências",
+     "Média OCDE",
+     485,
+     "oficial",
+     "OCDE_PISA2022"
+    ],
+    [
+     2025,
+     "Ciências",
+     "Média OCDE",
+     482,
+     "oficial",
+     "OCDE_PISA2025"
+    ]
+   ]
+  },
+  "inflacao_alimentos_ipca": {
+   "descricao": "IPCA: variação anual de grupos e itens de alimentação (pontos conferidos, 2020–2025)",
+   "colunas": [
+    "ano",
+    "item",
+    "variacao_pct",
+    "tipo",
+    "fonte_id"
+   ],
+   "linhas": [
+    [
+     2020,
+     "Alimentação e bebidas",
+     14.09,
+     "serie_historica",
+     "IBGE_IPCA"
+    ],
+    [
+     2021,
+     "Alimentação e bebidas",
+     7.94,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2022,
+     "Alimentação e bebidas",
+     11.64,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2023,
+     "Alimentação e bebidas",
+     1.03,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2024,
+     "Alimentação e bebidas",
+     7.69,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2025,
+     "Alimentação e bebidas",
+     2.95,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2020,
+     "Alimentação no domicílio",
+     18.15,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2021,
+     "Alimentação no domicílio",
+     8.24,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2022,
+     "Alimentação no domicílio",
+     13.23,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2023,
+     "Alimentação no domicílio",
+     -0.52,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2024,
+     "Alimentação no domicílio",
+     8.23,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2025,
+     "Alimentação no domicílio",
+     1.43,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2020,
+     "Arroz",
+     76.01,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2021,
+     "Arroz",
+     -16.88,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2024,
+     "Arroz",
+     8.24,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2025,
+     "Arroz",
+     -26.56,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2021,
+     "Café moído",
+     50.24,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2024,
+     "Café moído",
+     39.6,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2025,
+     "Café moído",
+     35.65,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2020,
+     "Carnes",
+     17.97,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2023,
+     "Carnes",
+     -9.37,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2024,
+     "Carnes",
+     20.84,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2020,
+     "Leite longa vida",
+     26.93,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2022,
+     "Leite longa vida",
+     26.18,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2024,
+     "Leite longa vida",
+     18.83,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2025,
+     "Leite longa vida",
+     -12.87,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2020,
+     "Óleo de soja",
+     103.79,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2023,
+     "Óleo de soja",
+     -28.0,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     2024,
+     "Óleo de soja",
+     29.21,
+     "oficial",
+     "IBGE_IPCA"
+    ]
+   ]
+  },
+  "divida_internacional_destaques": {
+   "descricao": "Dívida bruta do governo geral: pontos de comparação internacional (FMI)",
+   "colunas": [
+    "pais",
+    "indicador",
+    "ano",
+    "valor",
+    "unidade",
+    "tipo",
+    "fonte_id"
+   ],
+   "linhas": [
+    [
+     "Mundo",
+     "Dívida bruta do governo geral",
+     2025,
+     93.9,
+     "% do PIB",
+     "oficial",
+     "FMI_FM2026"
+    ],
+    [
+     "Estados Unidos",
+     "Dívida bruta do governo geral",
+     2025,
+     123.9,
+     "% do PIB",
+     "oficial",
+     "FMI_USA2026"
+    ],
+    [
+     "Área do euro",
+     "Dívida bruta do governo geral",
+     2025,
+     87.0,
+     "% do PIB",
+     "oficial",
+     "FMI_WEO2026"
+    ],
+    [
+     "Brasil",
+     "Dívida bruta do governo geral (conceito FMI)",
+     2025,
+     93.4,
+     "% do PIB",
+     "oficial",
+     "BCB_EF"
+    ]
+   ]
   }
  },
  "fontes": [
@@ -2605,6 +3267,51 @@
    "fonte_id": "FGV_CLIPPING",
    "descricao": "FGV Social – clipping de imprensa sobre Bolsa Família",
    "url": ""
+  },
+  {
+   "fonte_id": "INEP_PISA2025",
+   "descricao": "Inep – Pisa 2025: resultados do Brasil (set/2026), com a série histórica da OCDE",
+   "url": "https://download.inep.gov.br/acoes_internacionais/pisa/resultados/2025/resultados_pisa_2025.pdf"
+  },
+  {
+   "fonte_id": "OCDE_PISA2025",
+   "descricao": "OCDE – PISA 2025 Results (Volume I)",
+   "url": "https://www.oecd.org/en/publications/pisa-2025-results-volume-i_73451bc5-en.html"
+  },
+  {
+   "fonte_id": "OCDE_PISA_HIST",
+   "descricao": "OCDE – médias da OCDE publicadas em cada edição do Pisa (2000–2018)",
+   "url": "https://www.oecd.org/pisa/"
+  },
+  {
+   "fonte_id": "FMI_DATAMAPPER",
+   "descricao": "FMI – World Economic Outlook, via DataMapper (dívida e resultado do governo geral)",
+   "url": "https://www.imf.org/external/datamapper/"
+  },
+  {
+   "fonte_id": "FMI_FM2026",
+   "descricao": "FMI – Fiscal Monitor, abril de 2026",
+   "url": "https://www.imf.org/en/Publications/FM"
+  },
+  {
+   "fonte_id": "FMI_USA2026",
+   "descricao": "FMI – Consulta do Artigo IV com os Estados Unidos (abr/2026)",
+   "url": "https://www.imf.org/en/news/articles/2026/04/01/pr-26102-usa-imf-executive-board-concludes-2026-article-iv-consult"
+  },
+  {
+   "fonte_id": "FMI_WEO2026",
+   "descricao": "FMI – World Economic Outlook, abril de 2026",
+   "url": "https://www.imf.org/en/Publications/WEO"
+  },
+  {
+   "fonte_id": "IBGE_SIDRA",
+   "descricao": "IBGE – SIDRA, IPCA por subitem (tabelas 1419 e 7060)",
+   "url": "https://sidra.ibge.gov.br/tabela/7060"
+  },
+  {
+   "fonte_id": "BCB_SGS",
+   "descricao": "Banco Central – SGS, séries 13762 (dívida bruta) e 4513 (dívida líquida)",
+   "url": "https://www3.bcb.gov.br/sgspub/"
   }
  ]
 }

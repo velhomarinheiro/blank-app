@@ -9,6 +9,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from painel import banco_mundial as bm
+from painel import carga
 from painel import dados as d
 from painel import visual as v
 
@@ -32,7 +33,10 @@ def comparacoes_do_pacote() -> None:
     """Cartões com as comparações internacionais que já vêm no pacote de dados."""
     paises = d.tabela("carga_tributaria_paises").rename(columns={"carga_pct_pib": "valor"})
     func = d.tabela("despesas_por_funcao")
-    edu = d.tabela("educacao")
+    pisa = d.tabela("pisa_historico")
+    pisa = pisa[pisa["area"] == "Matemática"]
+    pisa_br = pisa[pisa["grupo"] == "Brasil"].sort_values("ano").iloc[-1]
+    pisa_ocde = float(pisa[(pisa["grupo"] == "Média OCDE") & (pisa["ano"] == pisa_br["ano"])]["valor"].iloc[0])
     fp = lambda nome, ano=None: float(func[(func["funcao"] == nome) & ((func["ano"] == ano) if ano else True)]["pct_pib"].iloc[0])  # noqa: E731
     v.kpis([
         {"rotulo": "Carga tributária 2024", "valor": v.br(d.valor(paises, pais="Brasil"), 1), "unidade": "% PIB",
@@ -42,8 +46,8 @@ def comparacoes_do_pacote() -> None:
          "detalhe": f"economias avançadas: {v.br(fp('Proteção social – média economias avançadas'), 1)}% (2022)"},
         {"rotulo": "Defesa 2025 (SIPRI)", "valor": v.br(fp("Defesa (SIPRI)", 2025), 1), "unidade": "% PIB",
          "detalhe": f"média mundial: {v.br(fp('Defesa – média mundial (SIPRI)'), 1)}%"},
-        {"rotulo": "Pisa 2022: matemática", "valor": v.br(d.valor(edu, indicador="Pisa matemática"), 0),
-         "unidade": "pontos", "detalhe": "média da OCDE: 472"},
+        {"rotulo": f"Pisa {int(pisa_br['ano'])}: matemática", "valor": v.br(pisa_br["valor"], 0),
+         "unidade": "pontos", "detalhe": f"média da OCDE: {v.br(pisa_ocde, 0)}"},
         {"rotulo": "IDH 2023", "valor": "0,786", "detalhe": "84ª posição entre 193 países (PNUD)"},
     ])
 
@@ -60,13 +64,13 @@ def mostra(inicio: int, fim: int, tipos: list[str]) -> None:
         "em laranja."
     )
     try:
-        wb, origem, falhas = carrega()
+        wb, origem, falhas = carga.tenta("banco_mundial", carrega)
     except Exception as erro:  # rede fora do ar, por exemplo
         wb, origem, falhas = pd.DataFrame(), str(erro), list(bm.INDICADORES)
     if wb.empty:
         st.warning(
             "Não foi possível obter os dados do Banco Mundial agora (sem acesso à internet ou API fora do ar). "
-            "Rode `python scripts/atualizar_banco_mundial.py` com internet para salvar um retrato em "
+            "Rode `python scripts/atualizar_dados_abertos.py` com internet para salvar um retrato em "
             "`data/banco_mundial.csv`; o painel passa a usá-lo."
         )
         return
