@@ -14,6 +14,7 @@ feito com [Streamlit](https://streamlit.io) e [Plotly](https://plotly.com/python
 | Poder de compra | Cestas básicas por salário mínimo ano a ano, carne, gasolina, energia e inflação anual dos alimentos por item (IPCA) |
 | Tributação | Carga tributária do Brasil × Europa, EUA, emergentes e médias; composição consumo × renda × OCDE |
 | Contas públicas | Resultado primário, dívida bruta e líquida mês a mês (Banco Central), dívida e resultado fiscal de 25 países e médias (FMI, com projeções), gasto por função, orçamento e Bolsa Família |
+| Segurança | Mortes violentas no Brasil 2011–2025; mapa e ranking dos estados para 15 indicadores (homicídio, latrocínio, feminicídio, estupro, roubo e furto de veículos, mortes por intervenção policial, população prisional, gasto etc.), 2007–2021; taxas de 2025 por estado |
 | Mundo | Comparativo internacional com a API aberta do Banco Mundial (12 indicadores, 25 países e médias) |
 | Fontes e método | Grau de confiança dos dados, ressalvas de método e lista de fontes com links |
 
@@ -54,6 +55,7 @@ No [Streamlit Community Cloud](https://share.streamlit.io): **New app** → este
   ```
 
   Com um retrato presente, o painel usa ele; apague o arquivo para voltar à consulta ao vivo.
+- `data/dados/seguranca_uf.csv` e `data/geo/uf.geojson`: Anuário Brasileiro de Segurança Pública por UF (2007–2021), população, frota e mapa, gerados por `python scripts/preparar_seguranca.py` a partir da Base dos Dados.
 - `data/dados/pisa_historico.csv`: Pisa 2000–2025, Brasil e média da OCDE (Inep e OCDE).
 
 Valores marcados como `serie_historica` vêm de séries oficiais ainda não reconferidas ponto a ponto. Valide no

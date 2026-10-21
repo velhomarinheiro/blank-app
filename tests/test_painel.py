@@ -97,3 +97,32 @@ def test_sgs_converte_datas_e_valores():
     tabela = fa.interpreta_sgs([{"data": "01/12/2025", "valor": "78.7"}, {"data": "x", "valor": "1"}], "DBGG")
     assert len(tabela) == 1
     assert tabela.iloc[0]["data"].month == 12 and tabela.iloc[0]["valor"] == 78.7
+
+
+# ---------------------------------------------------------------- Segurança
+
+import pandas as pd  # noqa: E402
+
+from painel.secoes import seguranca as seg  # noqa: E402
+
+
+def test_taxas_de_seguranca():
+    t = pd.DataFrame({"mvi": [50.0], "roubo_veiculo": [30.0], "populacao": [200_000], "frota": [60_000]})
+    assert seg.taxa(t, "mvi").iloc[0] == 25.0              # por 100 mil habitantes
+    assert seg.taxa(t, "roubo_veiculo").iloc[0] == 5.0     # por 10 mil veículos
+
+
+def test_brasil_so_soma_anos_com_todos_os_estados():
+    linhas = [{"ano": 2020, "sigla_uf": f"U{i}", "mvi": 10.0, "populacao": 100_000, "frota": 1} for i in range(27)]
+    linhas += [{"ano": 2021, "sigla_uf": f"U{i}", "mvi": 10.0, "populacao": 100_000, "frota": 1} for i in range(26)]
+    nacional = seg.brasil(pd.DataFrame(linhas), "mvi")
+    assert list(nacional["ano"]) == [2020]
+    assert nacional["valor"].iloc[0] == 10.0
+
+
+def test_base_de_seguranca_bate_com_o_anuario():
+    """Totais nacionais conhecidos do Fórum: 64.078 mortes violentas em 2017 e 47.503 em 2021."""
+    uf = pd.read_csv("data/dados/seguranca_uf.csv")
+    total = uf.groupby("ano")["mvi"].sum()
+    assert total[2017] == 64078 and total[2021] == 47503
+    assert uf.groupby("ano")["sigla_uf"].nunique().eq(27).all()
