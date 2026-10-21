@@ -1,0 +1,12 @@
+item,indicador,valor,unidade,periodo,tipo,fonte_id
+Cesta básica São Paulo,custo,900.59,R$,ago/2026,oficial,PROCON_DIEESE_SP
+Cesta básica São Paulo,% do salário mínimo,55.6,%,ago/2026,calculo,PROCON_DIEESE_SP
+Carne (6 kg da cesta),custo estimado,303,R$,ago/2026,calculo,PROCON_DIEESE_SP
+Carne,participação no custo da cesta,33.6,%,ago/2026,calculo,PROCON_DIEESE_SP
+Carne de primeira,variação 12 meses,10.97,%,ago/25–ago/26,oficial,PROCON_DIEESE_SP
+Feijão carioca,variação 12 meses,48.54,%,ago/25–ago/26,oficial,PROCON_DIEESE_SP
+Café em pó,variação 12 meses,-17.35,%,ago/25–ago/26,oficial,PROCON_DIEESE_SP
+Arroz,variação 12 meses,-6.79,%,ago/25–ago/26,oficial,PROCON_DIEESE_SP
+Salário mínimo,reajuste 2025→2026,6.79,%,2026,calculo,—
+Leite,litros por salário mínimo,173,litros,2004,estimativa,EM_2026
+Leite,litros por salário mínimo,280,litros,2026,estimativa,EM_2026

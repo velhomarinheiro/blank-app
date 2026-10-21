@@ -1,0 +1,29 @@
+indicador,valor,unidade,periodo,tipo,fonte_id
+Déficit primário governo central,61.69,R$ bilhões,2025,oficial,STN_RTN
+Déficit primário governo central,0.48,% do PIB,2025,oficial,STN_RTN
+Déficit primário governo central,42.92,R$ bilhões,2024,oficial,STN_RTN
+Superávit Tesouro + Banco Central,255.5,R$ bilhões,2025,oficial,STN_RTN
+Déficit RGPS (Previdência),317.2,R$ bilhões,2025,oficial,STN_RTN
+Despesas excluídas da meta,48.68,R$ bilhões,2025,oficial,STN_RTN
+Resultado pelo critério da meta,-13,R$ bilhões,2025,oficial,STN_RTN
+Déficit primário acumulado 2023–2025,0.85,% do PIB,2023–2025,oficial,MF_2026
+Déficit primário setor público consolidado,55.02,R$ bilhões,2025,oficial,BCB_EF
+Déficit primário setor público consolidado,47.55,R$ bilhões,2024,oficial,BCB_EF
+Juros nominais,8.07,% do PIB,2024,oficial,BCB_EF
+Juros nominais,7.91,% do PIB,2025,oficial,BCB_EF
+Juros nominais (12 meses),8.67,% do PIB,até jul/2026,oficial,BCB_EF
+Déficit nominal (12 meses),9.34,% do PIB,até jul/2026,oficial,BCB_EF
+Déficit primário setor público (12 meses),0.67,% do PIB,até jul/2026,oficial,BCB_EF
+DBGG,10.017,R$ trilhões,dez/2025,oficial,BCB_EF
+DBGG,10.947,R$ trilhões,jul/2026,oficial,BCB_EF
+DBGG conceito FMI,93.4,% do PIB,dez/2025,oficial,BCB_EF
+DBGG conceito FMI,95.4,% do PIB,jul/2026,oficial,BCB_EF
+DLSP,65.3,% do PIB,dez/2025,oficial,BCB_EF
+DLSP,69.1,% do PIB,jul/2026,oficial,BCB_EF
+Contribuição dos juros à alta da DLSP,7.9,p.p. do PIB,2025,oficial,BCB_EF
+Contribuição do déficit primário à alta da DLSP,0.4,p.p. do PIB,2025,oficial,BCB_EF
+Selic (pico),15,% a.a.,2025,oficial,BCB_EF
+Aumento benefícios previdenciários,41.4,R$ bilhões,2025,oficial,STN_RTN
+Aumento BPC,10.8,R$ bilhões,2025,oficial,STN_RTN
+Aumento pessoal e encargos,16.9,R$ bilhões,2025,oficial,STN_RTN
+Aumento complementação Fundeb,10.0,R$ bilhões,2025,oficial,STN_RTN

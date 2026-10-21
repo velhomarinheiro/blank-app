@@ -1,0 +1,39 @@
+indicador,recorte,ano,valor,unidade,tipo,fonte_id
+Analfabetismo 15+,Brasil,2000,13.6,%,oficial,IBGE_CENSO2000
+Analfabetismo 15+,Brasil,2016,6.7,%,oficial,IBGE_PNADC_EDU
+Analfabetismo 15+,Brasil,2025,4.9,%,oficial,IBGE_PNADC_EDU
+Analfabetos 15+ (milhões),Brasil,2000,16.0,milhões,oficial,IBGE_CENSO2000
+Analfabetos 15+ (milhões),Brasil,2025,8.4,milhões,oficial,IBGE_PNADC_EDU
+Analfabetismo 15+,Nordeste,2024,10.6,%,oficial,IBGE_PNADC_EDU
+Analfabetismo 15+,Sudeste,2024,2.3,%,oficial,IBGE_PNADC_EDU
+Analfabetismo 15+,Pretos e pardos,2024,6.5,%,oficial,IBGE_PNADC_EDU
+Analfabetismo 15+,Brancos,2024,2.8,%,oficial,IBGE_PNADC_EDU
+Analfabetismo,60 anos ou mais,2024,13.8,%,oficial,IBGE_PNADC_EDU
+Analfabetismo,15 a 59 anos,2024,2.6,%,oficial,IBGE_PNADC_EDU
+Frequência ao ensino fundamental,6 a 14 anos,2024,94.5,%,oficial,IBGE_PNADC_EDU
+Ao menos ensino médio completo,25 anos ou mais,2025,57.4,%,oficial,IBGE_PNADC_EDU
+Superior completo,25 anos ou mais,2016,15.4,%,oficial,IBGE_PNADC_EDU
+Superior completo,25 anos ou mais,2025,21.4,%,oficial,IBGE_PNADC_EDU
+Sem instrução,25 anos ou mais,2016,7.3,%,oficial,IBGE_PNADC_EDU
+Sem instrução,25 anos ou mais,2025,5.1,%,oficial,IBGE_PNADC_EDU
+Abandono por necessidade de trabalhar,14 a 29 anos que deixaram os estudos,2024,43,%,oficial,IBGE_PNADC_EDU
+Ideb,Anos iniciais,2005,3.8,índice,oficial,INEP_IDEB
+Ideb,Anos finais,2005,3.5,índice,oficial,INEP_IDEB
+Ideb,Ensino médio,2005,3.4,índice,oficial,INEP_IDEB
+Ideb,Anos iniciais,2025,6.3,índice,oficial,INEP_IDEB
+Ideb,Anos finais,2025,5.3,índice,oficial,INEP_IDEB
+Ideb,Ensino médio,2025,4.5,índice,oficial,INEP_IDEB
+Ideb – indicador de aprendizagem,"Anos iniciais, rede pública",2019,6.02,índice,oficial,INEP_IDEB
+Ideb – indicador de aprendizagem,"Anos iniciais, rede pública",2023,5.91,índice,oficial,INEP_IDEB
+Ideb – indicador de fluxo,"Anos iniciais, rede pública",2019,0.94,índice,oficial,INEP_IDEB
+Ideb – indicador de fluxo,"Anos iniciais, rede pública",2023,0.97,índice,oficial,INEP_IDEB
+Pisa matemática,Brasil,2022,379,pontos,oficial,OCDE_PISA2022
+Pisa leitura,Brasil,2022,410,pontos,oficial,OCDE_PISA2022
+Pisa ciências,Brasil,2022,403,pontos,oficial,OCDE_PISA2022
+Pisa – alto desempenho em matemática,Brasil,2022,1,% dos alunos,oficial,OCDE_PISA2022
+Pisa – abaixo do nível básico em leitura,Brasil,2022,50,% dos alunos,oficial,OCDE_PISA2022
+Pisa – abaixo do nível básico em ciências,Brasil,2022,55,% dos alunos,oficial,OCDE_PISA2022
+Investimento público em educação,% do PIB,2000,4.0,% do PIB,oficial,INEP_INVEST
+Investimento público em educação,% do PIB,2010,5.1,% do PIB,oficial,INEP_INVEST
+Meta PNE 2014–2024,% do PIB,2024,10.0,% do PIB,oficial,PNE
+Meta proposta novo PNE,% do PIB,2035,7.5,% do PIB,oficial,PNE

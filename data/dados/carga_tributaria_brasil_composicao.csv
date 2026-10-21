@@ -1,0 +1,14 @@
+componente,ano,pct_pib,pct_da_arrecadacao,tipo,fonte_id
+Carga total (Tesouro),2024,32.22,100,oficial,STN_CTB2025
+Carga total (Tesouro),2025,32.4,100,oficial,STN_CTB2025
+Bens e serviços,2024,13.87,,oficial,STN_CTB2025
+Bens e serviços,2025,13.78,42.5,calculo,STN_CTB2025
+"Renda, lucros e ganhos de capital",2024,9.04,,oficial,STN_CTB2025
+"Renda, lucros e ganhos de capital",2025,9.16,28.3,calculo,STN_CTB2025
+OCDE: contribuições sociais,2023,,25.5,oficial,OCDE_RS2025
+OCDE: IR pessoa física,2023,,23.7,oficial,OCDE_RS2025
+OCDE: IVA,2022,,20.8,oficial,OCDE_RS2024
+OCDE: outros impostos sobre consumo,2022,,10.8,oficial,OCDE_RS2024
+OCDE: IR pessoa jurídica,2022,,12.0,oficial,OCDE_RS2024
+EUA: impostos sobre consumo,2022,,16.8,oficial,TAXFOUNDATION
+África do Sul: IR pessoa física,2022,,33,oficial,OCDE_AFRICA2024

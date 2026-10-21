@@ -1,0 +1,2610 @@
+{
+ "titulo": "Brasil 1995–2026: indicadores econômicos, sociais e fiscais",
+ "gerado_em": "2026-10-20",
+ "legenda_tipo": {
+  "oficial": "valor publicado pela fonte",
+  "calculo": "conta própria a partir de dados da fonte",
+  "estimativa": "estimativa de imprensa ou terceiros",
+  "serie_historica": "valor de série oficial conhecido, não re-verificado nesta conversa"
+ },
+ "tabelas": {
+  "macro_pib_ipca_anual": {
+   "descricao": "Crescimento real do PIB e inflação anual (IPCA), 1995–2025",
+   "colunas": [
+    "ano",
+    "pib_crescimento_real_pct",
+    "ipca_anual_pct",
+    "tipo",
+    "fonte_id"
+   ],
+   "linhas": [
+    [
+     1995,
+     4.4,
+     22.41,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     1996,
+     2.2,
+     9.56,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     1997,
+     3.4,
+     5.22,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     1998,
+     0.3,
+     1.65,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     1999,
+     0.5,
+     8.94,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2000,
+     4.4,
+     5.97,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2001,
+     1.4,
+     7.67,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2002,
+     3.1,
+     12.53,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2003,
+     1.1,
+     9.3,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2004,
+     5.8,
+     7.6,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2005,
+     3.2,
+     5.69,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2006,
+     4.0,
+     3.14,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2007,
+     6.1,
+     4.46,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2008,
+     5.1,
+     5.9,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2009,
+     -0.1,
+     4.31,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2010,
+     7.5,
+     5.91,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2011,
+     4.0,
+     6.5,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2012,
+     1.9,
+     5.84,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2013,
+     3.0,
+     5.91,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2014,
+     0.5,
+     6.41,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2015,
+     -3.5,
+     10.67,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2016,
+     -3.3,
+     6.29,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2017,
+     1.3,
+     2.95,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2018,
+     1.8,
+     3.75,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2019,
+     1.2,
+     4.31,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2020,
+     -3.3,
+     4.52,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2021,
+     4.8,
+     10.06,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2022,
+     3.0,
+     5.79,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2023,
+     3.2,
+     4.62,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2024,
+     3.4,
+     4.83,
+     "serie_historica",
+     "IBGE_CNT;IBGE_IPCA"
+    ],
+    [
+     2025,
+     2.3,
+     4.26,
+     "oficial",
+     "IBGE_CNT;IBGE_IPCA"
+    ]
+   ]
+  },
+  "indicadores_chave": {
+   "descricao": "Indicadores de destaque do infográfico geral",
+   "colunas": [
+    "indicador",
+    "valor",
+    "unidade",
+    "referencia",
+    "tipo",
+    "fonte_id"
+   ],
+   "linhas": [
+    [
+     "PIB nominal",
+     12.7,
+     "R$ trilhões",
+     2025,
+     "oficial",
+     "IBGE_CNT"
+    ],
+    [
+     "Crescimento real do PIB",
+     2.3,
+     "%",
+     2025,
+     "oficial",
+     "IBGE_CNT"
+    ],
+    [
+     "PIB per capita",
+     59687,
+     "R$",
+     2025,
+     "oficial",
+     "IBGE_CNT"
+    ],
+    [
+     "IPCA",
+     4.26,
+     "%",
+     2025,
+     "oficial",
+     "IBGE_IPCA"
+    ],
+    [
+     "Taxa de desocupação (média anual)",
+     5.6,
+     "%",
+     2025,
+     "oficial",
+     "IBGE_PNADC"
+    ],
+    [
+     "IDH",
+     0.786,
+     "índice",
+     2023,
+     "oficial",
+     "PNUD_RDH2025"
+    ],
+    [
+     "IDH posição",
+     84,
+     "de 193 países",
+     2023,
+     "oficial",
+     "PNUD_RDH2025"
+    ],
+    [
+     "IDH (metodologia antiga)",
+     0.59,
+     "índice",
+     1990,
+     "oficial",
+     "PNUD_RDH2025"
+    ],
+    [
+     "Expectativa de vida ao nascer",
+     76.6,
+     "anos",
+     2024,
+     "oficial",
+     "IBGE_TABUAS"
+    ],
+    [
+     "Expectativa de vida ao nascer",
+     72.8,
+     "anos",
+     2021,
+     "oficial",
+     "IBGE_TABUAS"
+    ],
+    [
+     "Mortalidade infantil",
+     12.3,
+     "por mil nascidos vivos",
+     2024,
+     "oficial",
+     "IBGE_TABUAS"
+    ],
+    [
+     "Pobreza (critério IBGE)",
+     23.1,
+     "%",
+     2024,
+     "oficial",
+     "IBGE_SIS"
+    ],
+    [
+     "Extrema pobreza (critério IBGE)",
+     3.5,
+     "%",
+     2024,
+     "oficial",
+     "IBGE_SIS"
+    ],
+    [
+     "Gini (IBGE)",
+     0.504,
+     "índice",
+     2024,
+     "oficial",
+     "IBGE_SIS"
+    ]
+   ]
+  },
+  "renda_pobreza_desigualdade_ipea": {
+   "descricao": "Renda, pobreza e desigualdade 1995×2024 (Ipea, pesquisas domiciliares IBGE harmonizadas)",
+   "colunas": [
+    "indicador",
+    "valor_1995",
+    "valor_2024",
+    "unidade",
+    "variacao",
+    "tipo",
+    "fonte_id"
+   ],
+   "linhas": [
+    [
+     "Renda domiciliar per capita (R$ de 2024)",
+     1191,
+     2015,
+     "R$",
+     "+69,2% real",
+     "oficial",
+     "IPEA_2025"
+    ],
+    [
+     "Coeficiente de Gini",
+     61.5,
+     50.4,
+     "0–100",
+     "−18%",
+     "oficial",
+     "IPEA_2025"
+    ],
+    [
+     "Pobreza (US$ 8,30/dia PPC 2021)",
+     61.2,
+     26.8,
+     "%",
+     "−34,4 p.p.",
+     "oficial",
+     "IPEA_2025"
+    ],
+    [
+     "Extrema pobreza (US$ 3/dia PPC 2021)",
+     25.0,
+     4.8,
+     "%",
+     "−20,2 p.p.",
+     "oficial",
+     "IPEA_2025"
+    ]
+   ]
+  },
+  "educacao": {
+   "descricao": "Indicadores de educação",
+   "colunas": [
+    "indicador",
+    "recorte",
+    "ano",
+    "valor",
+    "unidade",
+    "tipo",
+    "fonte_id"
+   ],
+   "linhas": [
+    [
+     "Analfabetismo 15+",
+     "Brasil",
+     2000,
+     13.6,
+     "%",
+     "oficial",
+     "IBGE_CENSO2000"
+    ],
+    [
+     "Analfabetismo 15+",
+     "Brasil",
+     2016,
+     6.7,
+     "%",
+     "oficial",
+     "IBGE_PNADC_EDU"
+    ],
+    [
+     "Analfabetismo 15+",
+     "Brasil",
+     2025,
+     4.9,
+     "%",
+     "oficial",
+     "IBGE_PNADC_EDU"
+    ],
+    [
+     "Analfabetos 15+ (milhões)",
+     "Brasil",
+     2000,
+     16.0,
+     "milhões",
+     "oficial",
+     "IBGE_CENSO2000"
+    ],
+    [
+     "Analfabetos 15+ (milhões)",
+     "Brasil",
+     2025,
+     8.4,
+     "milhões",
+     "oficial",
+     "IBGE_PNADC_EDU"
+    ],
+    [
+     "Analfabetismo 15+",
+     "Nordeste",
+     2024,
+     10.6,
+     "%",
+     "oficial",
+     "IBGE_PNADC_EDU"
+    ],
+    [
+     "Analfabetismo 15+",
+     "Sudeste",
+     2024,
+     2.3,
+     "%",
+     "oficial",
+     "IBGE_PNADC_EDU"
+    ],
+    [
+     "Analfabetismo 15+",
+     "Pretos e pardos",
+     2024,
+     6.5,
+     "%",
+     "oficial",
+     "IBGE_PNADC_EDU"
+    ],
+    [
+     "Analfabetismo 15+",
+     "Brancos",
+     2024,
+     2.8,
+     "%",
+     "oficial",
+     "IBGE_PNADC_EDU"
+    ],
+    [
+     "Analfabetismo",
+     "60 anos ou mais",
+     2024,
+     13.8,
+     "%",
+     "oficial",
+     "IBGE_PNADC_EDU"
+    ],
+    [
+     "Analfabetismo",
+     "15 a 59 anos",
+     2024,
+     2.6,
+     "%",
+     "oficial",
+     "IBGE_PNADC_EDU"
+    ],
+    [
+     "Frequência ao ensino fundamental",
+     "6 a 14 anos",
+     2024,
+     94.5,
+     "%",
+     "oficial",
+     "IBGE_PNADC_EDU"
+    ],
+    [
+     "Ao menos ensino médio completo",
+     "25 anos ou mais",
+     2025,
+     57.4,
+     "%",
+     "oficial",
+     "IBGE_PNADC_EDU"
+    ],
+    [
+     "Superior completo",
+     "25 anos ou mais",
+     2016,
+     15.4,
+     "%",
+     "oficial",
+     "IBGE_PNADC_EDU"
+    ],
+    [
+     "Superior completo",
+     "25 anos ou mais",
+     2025,
+     21.4,
+     "%",
+     "oficial",
+     "IBGE_PNADC_EDU"
+    ],
+    [
+     "Sem instrução",
+     "25 anos ou mais",
+     2016,
+     7.3,
+     "%",
+     "oficial",
+     "IBGE_PNADC_EDU"
+    ],
+    [
+     "Sem instrução",
+     "25 anos ou mais",
+     2025,
+     5.1,
+     "%",
+     "oficial",
+     "IBGE_PNADC_EDU"
+    ],
+    [
+     "Abandono por necessidade de trabalhar",
+     "14 a 29 anos que deixaram os estudos",
+     2024,
+     43,
+     "%",
+     "oficial",
+     "IBGE_PNADC_EDU"
+    ],
+    [
+     "Ideb",
+     "Anos iniciais",
+     2005,
+     3.8,
+     "índice",
+     "oficial",
+     "INEP_IDEB"
+    ],
+    [
+     "Ideb",
+     "Anos finais",
+     2005,
+     3.5,
+     "índice",
+     "oficial",
+     "INEP_IDEB"
+    ],
+    [
+     "Ideb",
+     "Ensino médio",
+     2005,
+     3.4,
+     "índice",
+     "oficial",
+     "INEP_IDEB"
+    ],
+    [
+     "Ideb",
+     "Anos iniciais",
+     2025,
+     6.3,
+     "índice",
+     "oficial",
+     "INEP_IDEB"
+    ],
+    [
+     "Ideb",
+     "Anos finais",
+     2025,
+     5.3,
+     "índice",
+     "oficial",
+     "INEP_IDEB"
+    ],
+    [
+     "Ideb",
+     "Ensino médio",
+     2025,
+     4.5,
+     "índice",
+     "oficial",
+     "INEP_IDEB"
+    ],
+    [
+     "Ideb – indicador de aprendizagem",
+     "Anos iniciais, rede pública",
+     2019,
+     6.02,
+     "índice",
+     "oficial",
+     "INEP_IDEB"
+    ],
+    [
+     "Ideb – indicador de aprendizagem",
+     "Anos iniciais, rede pública",
+     2023,
+     5.91,
+     "índice",
+     "oficial",
+     "INEP_IDEB"
+    ],
+    [
+     "Ideb – indicador de fluxo",
+     "Anos iniciais, rede pública",
+     2019,
+     0.94,
+     "índice",
+     "oficial",
+     "INEP_IDEB"
+    ],
+    [
+     "Ideb – indicador de fluxo",
+     "Anos iniciais, rede pública",
+     2023,
+     0.97,
+     "índice",
+     "oficial",
+     "INEP_IDEB"
+    ],
+    [
+     "Pisa matemática",
+     "Brasil",
+     2022,
+     379,
+     "pontos",
+     "oficial",
+     "OCDE_PISA2022"
+    ],
+    [
+     "Pisa leitura",
+     "Brasil",
+     2022,
+     410,
+     "pontos",
+     "oficial",
+     "OCDE_PISA2022"
+    ],
+    [
+     "Pisa ciências",
+     "Brasil",
+     2022,
+     403,
+     "pontos",
+     "oficial",
+     "OCDE_PISA2022"
+    ],
+    [
+     "Pisa – alto desempenho em matemática",
+     "Brasil",
+     2022,
+     1,
+     "% dos alunos",
+     "oficial",
+     "OCDE_PISA2022"
+    ],
+    [
+     "Pisa – abaixo do nível básico em leitura",
+     "Brasil",
+     2022,
+     50,
+     "% dos alunos",
+     "oficial",
+     "OCDE_PISA2022"
+    ],
+    [
+     "Pisa – abaixo do nível básico em ciências",
+     "Brasil",
+     2022,
+     55,
+     "% dos alunos",
+     "oficial",
+     "OCDE_PISA2022"
+    ],
+    [
+     "Investimento público em educação",
+     "% do PIB",
+     2000,
+     4.0,
+     "% do PIB",
+     "oficial",
+     "INEP_INVEST"
+    ],
+    [
+     "Investimento público em educação",
+     "% do PIB",
+     2010,
+     5.1,
+     "% do PIB",
+     "oficial",
+     "INEP_INVEST"
+    ],
+    [
+     "Meta PNE 2014–2024",
+     "% do PIB",
+     2024,
+     10.0,
+     "% do PIB",
+     "oficial",
+     "PNE"
+    ],
+    [
+     "Meta proposta novo PNE",
+     "% do PIB",
+     2035,
+     7.5,
+     "% do PIB",
+     "oficial",
+     "PNE"
+    ]
+   ]
+  },
+  "salario_minimo_cestas_sp": {
+   "descricao": "Salário mínimo (vigente; 1995 a partir de maio) e quantidade de cestas básicas de São Paulo (DIEESE) compradas por um salário",
+   "colunas": [
+    "ano",
+    "salario_minimo_rs",
+    "cestas_por_salario",
+    "referencia",
+    "tipo",
+    "fonte_id"
+   ],
+   "linhas": [
+    [
+     1995,
+     100,
+     1.02,
+     "media_anual",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     1996,
+     112,
+     1.14,
+     "media_anual",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     1997,
+     120,
+     1.23,
+     "media_anual",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     1998,
+     130,
+     1.22,
+     "media_anual",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     1999,
+     136,
+     1.25,
+     "media_anual",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     2000,
+     151,
+     1.28,
+     "media_anual",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     2001,
+     180,
+     1.37,
+     "media_anual",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     2002,
+     200,
+     1.42,
+     "media_anual",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     2003,
+     240,
+     1.38,
+     "media_anual",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     2004,
+     260,
+     1.47,
+     "media_anual",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     2005,
+     300,
+     1.6,
+     "media_anual",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     2006,
+     350,
+     1.91,
+     "media_anual",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     2007,
+     380,
+     1.93,
+     "media_anual",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     2008,
+     415,
+     1.74,
+     "media_anual",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     2009,
+     465,
+     2.01,
+     "media_anual",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     2010,
+     510,
+     2.06,
+     "media_anual",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     2011,
+     545,
+     2.03,
+     "media_anual",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     2012,
+     622,
+     2.13,
+     "media_anual",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     2013,
+     678,
+     2.07,
+     "media_anual",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     2014,
+     724,
+     2.1,
+     "media_anual",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     2015,
+     788,
+     2.02,
+     "media_anual",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     2016,
+     880,
+     1.93,
+     "media_anual",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     2017,
+     937,
+     2.16,
+     "jan (estimativa)",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     2018,
+     954,
+     2.2,
+     "jan",
+     "oficial",
+     "FIPE_508"
+    ],
+    [
+     2019,
+     998,
+     "",
+     "sem dado localizado",
+     "",
+     ""
+    ],
+    [
+     2020,
+     1045,
+     1.58,
+     "media_anual",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     2021,
+     1100,
+     1.58,
+     "jan",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     2022,
+     1212,
+     1.7,
+     "jan (1,53 em dez)",
+     "oficial",
+     "FIPE_508"
+    ],
+    [
+     2023,
+     1320,
+     1.67,
+     "fev",
+     "calculo",
+     "DIEESE_CESTA"
+    ],
+    [
+     2024,
+     1412,
+     1.74,
+     "media_anual",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     2025,
+     1518,
+     1.79,
+     "jan (estimativa)",
+     "oficial",
+     "DIEESE_NT"
+    ],
+    [
+     2026,
+     1621,
+     1.8,
+     "ago",
+     "calculo",
+     "DIEESE_CESTA"
+    ]
+   ]
+  },
+  "carne_kg_por_salario": {
+   "descricao": "Quilos de carne comprados por um salário mínimo — pontos disponíveis (sem série anual contínua)",
+   "colunas": [
+    "ano",
+    "corte",
+    "kg_por_salario",
+    "preco_kg_rs",
+    "local",
+    "tipo",
+    "fonte_id"
+   ],
+   "linhas": [
+    [
+     2004,
+     "carne de primeira (contrafilé)",
+     26,
+     10.0,
+     "varejo (referência nacional)",
+     "estimativa",
+     "EM_2026"
+    ],
+    [
+     2007,
+     "picanha",
+     22.6,
+     "",
+     "São Paulo",
+     "oficial",
+     "IEA_PODER360"
+    ],
+    [
+     2019,
+     "picanha",
+     23.0,
+     43.5,
+     "São Paulo",
+     "oficial",
+     "IEA_PODER360"
+    ],
+    [
+     2021,
+     "picanha",
+     16.5,
+     "",
+     "São Paulo",
+     "oficial",
+     "IEA_PODER360"
+    ],
+    [
+     2023,
+     "picanha",
+     19.1,
+     "",
+     "São Paulo",
+     "oficial",
+     "IEA_PODER360"
+    ],
+    [
+     2024,
+     "picanha",
+     19.9,
+     71.0,
+     "São Paulo (1º sem.)",
+     "oficial",
+     "IEA_PODER360"
+    ],
+    [
+     2024,
+     "acém",
+     46,
+     "",
+     "Belo Horizonte",
+     "estimativa",
+     "MERCADO_MINEIRO"
+    ],
+    [
+     2026,
+     "carne de primeira",
+     32.1,
+     50.49,
+     "São Paulo (ago)",
+     "calculo",
+     "PROCON_DIEESE_SP"
+    ],
+    [
+     2026,
+     "carne de primeira",
+     31,
+     52.0,
+     "varejo (referência nacional)",
+     "estimativa",
+     "EM_2026"
+    ]
+   ]
+  },
+  "itens_cesta_destaques": {
+   "descricao": "Itens específicos da cesta e participação da carne",
+   "colunas": [
+    "item",
+    "indicador",
+    "valor",
+    "unidade",
+    "periodo",
+    "tipo",
+    "fonte_id"
+   ],
+   "linhas": [
+    [
+     "Cesta básica São Paulo",
+     "custo",
+     900.59,
+     "R$",
+     "ago/2026",
+     "oficial",
+     "PROCON_DIEESE_SP"
+    ],
+    [
+     "Cesta básica São Paulo",
+     "% do salário mínimo",
+     55.6,
+     "%",
+     "ago/2026",
+     "calculo",
+     "PROCON_DIEESE_SP"
+    ],
+    [
+     "Carne (6 kg da cesta)",
+     "custo estimado",
+     303,
+     "R$",
+     "ago/2026",
+     "calculo",
+     "PROCON_DIEESE_SP"
+    ],
+    [
+     "Carne",
+     "participação no custo da cesta",
+     33.6,
+     "%",
+     "ago/2026",
+     "calculo",
+     "PROCON_DIEESE_SP"
+    ],
+    [
+     "Carne de primeira",
+     "variação 12 meses",
+     10.97,
+     "%",
+     "ago/25–ago/26",
+     "oficial",
+     "PROCON_DIEESE_SP"
+    ],
+    [
+     "Feijão carioca",
+     "variação 12 meses",
+     48.54,
+     "%",
+     "ago/25–ago/26",
+     "oficial",
+     "PROCON_DIEESE_SP"
+    ],
+    [
+     "Café em pó",
+     "variação 12 meses",
+     -17.35,
+     "%",
+     "ago/25–ago/26",
+     "oficial",
+     "PROCON_DIEESE_SP"
+    ],
+    [
+     "Arroz",
+     "variação 12 meses",
+     -6.79,
+     "%",
+     "ago/25–ago/26",
+     "oficial",
+     "PROCON_DIEESE_SP"
+    ],
+    [
+     "Salário mínimo",
+     "reajuste 2025→2026",
+     6.79,
+     "%",
+     "2026",
+     "calculo",
+     "—"
+    ],
+    [
+     "Leite",
+     "litros por salário mínimo",
+     173,
+     "litros",
+     2004,
+     "estimativa",
+     "EM_2026"
+    ],
+    [
+     "Leite",
+     "litros por salário mínimo",
+     280,
+     "litros",
+     2026,
+     "estimativa",
+     "EM_2026"
+    ]
+   ]
+  },
+  "gasolina_energia_por_salario": {
+   "descricao": "Litros de gasolina e kWh de energia comprados por um salário mínimo",
+   "colunas": [
+    "ano",
+    "item",
+    "quantidade_por_salario",
+    "unidade",
+    "referencia",
+    "tipo",
+    "fonte_id"
+   ],
+   "linhas": [
+    [
+     2002,
+     "gasolina",
+     127,
+     "litros",
+     "média",
+     "estimativa",
+     "INVESTNEWS"
+    ],
+    [
+     2003,
+     "gasolina",
+     108,
+     "litros",
+     "média (pior ano)",
+     "estimativa",
+     "INVESTNEWS"
+    ],
+    [
+     2015,
+     "gasolina",
+     260,
+     "litros",
+     "jan",
+     "estimativa",
+     "GITHUB_GASOLINA"
+    ],
+    [
+     2017,
+     "gasolina",
+     254,
+     "litros",
+     "mar (melhor ponto)",
+     "estimativa",
+     "INVESTNEWS"
+    ],
+    [
+     2018,
+     "gasolina",
+     227,
+     "litros",
+     "média",
+     "estimativa",
+     "INVESTNEWS"
+    ],
+    [
+     2020,
+     "gasolina",
+     251,
+     "litros",
+     "média",
+     "estimativa",
+     "INVESTNEWS"
+    ],
+    [
+     2021,
+     "gasolina",
+     200,
+     "litros",
+     "média",
+     "estimativa",
+     "INVESTNEWS"
+    ],
+    [
+     2022,
+     "gasolina",
+     173,
+     "litros",
+     "mar",
+     "estimativa",
+     "INVESTNEWS"
+    ],
+    [
+     2025,
+     "gasolina",
+     244,
+     "litros",
+     "dez (R$ 6,22/L)",
+     "calculo",
+     "ANP"
+    ],
+    [
+     2026,
+     "gasolina",
+     247,
+     "litros",
+     "jul",
+     "estimativa",
+     "GITHUB_GASOLINA"
+    ],
+    [
+     2026,
+     "gasolina",
+     249,
+     "litros",
+     "set (R$ 6,52/L)",
+     "calculo",
+     "ANP"
+    ],
+    [
+     2012,
+     "energia elétrica residencial",
+     1747,
+     "kWh",
+     "tarifa R$ 356/MWh",
+     "calculo",
+     "ACENDE"
+    ],
+    [
+     2022,
+     "energia elétrica residencial",
+     1945,
+     "kWh",
+     "tarifa R$ 623/MWh",
+     "calculo",
+     "ACENDE"
+    ]
+   ]
+  },
+  "energia_tarifa_notas": {
+   "descricao": "Tarifas de energia — duas séries com bases diferentes",
+   "colunas": [
+    "indicador",
+    "valor",
+    "periodo",
+    "tipo",
+    "fonte_id"
+   ],
+   "linhas": [
+    [
+     "Tarifa residencial média (R$/MWh)",
+     356,
+     "2012",
+     "oficial",
+     "ACENDE"
+    ],
+    [
+     "Tarifa residencial média (R$/MWh)",
+     623,
+     "2022",
+     "oficial",
+     "ACENDE"
+    ],
+    [
+     "Alta da tarifa residencial (%)",
+     269,
+     "2010–2024",
+     "oficial",
+     "ABRACEEL"
+    ],
+    [
+     "IPCA acumulado (%)",
+     218,
+     "2010–2024",
+     "oficial",
+     "ABRACEEL"
+    ],
+    [
+     "Energia elétrica residencial no IPCA (%)",
+     12.31,
+     "2025",
+     "oficial",
+     "IBGE_IPCA"
+    ]
+   ]
+  },
+  "carga_tributaria_paises": {
+   "descricao": "Carga tributária em % do PIB, metodologia OCDE (dados de 2024 preliminares)",
+   "colunas": [
+    "pais",
+    "grupo",
+    "carga_pct_pib",
+    "ano",
+    "tipo",
+    "fonte_id"
+   ],
+   "linhas": [
+    [
+     "Dinamarca",
+     "Europa",
+     45.2,
+     2024,
+     "oficial",
+     "OCDE_RS2025"
+    ],
+    [
+     "França",
+     "Europa",
+     43.5,
+     2024,
+     "oficial",
+     "OCDE_RS2025"
+    ],
+    [
+     "Áustria",
+     "Europa",
+     43.4,
+     2024,
+     "oficial",
+     "OCDE_RS2025"
+    ],
+    [
+     "Itália",
+     "Europa",
+     42.8,
+     2024,
+     "oficial",
+     "OCDE_RS2025"
+    ],
+    [
+     "Suécia",
+     "Europa",
+     41.4,
+     2024,
+     "oficial",
+     "OCDE_RS2025"
+    ],
+    [
+     "Alemanha",
+     "Europa",
+     38.0,
+     2024,
+     "oficial",
+     "OCDE_RS2025"
+    ],
+    [
+     "Espanha",
+     "Europa",
+     36.7,
+     2024,
+     "oficial",
+     "OCDE_RS2025"
+    ],
+    [
+     "Portugal",
+     "Europa",
+     35.1,
+     2024,
+     "oficial",
+     "OCDE_RS2025"
+    ],
+    [
+     "Reino Unido",
+     "Europa",
+     34.4,
+     2024,
+     "oficial",
+     "OCDE_RS2025"
+    ],
+    [
+     "Média OCDE",
+     "Média",
+     34.1,
+     2024,
+     "oficial",
+     "OCDE_RS2025"
+    ],
+    [
+     "Média União Europeia",
+     "Média",
+     40.4,
+     2024,
+     "oficial",
+     "EUROSTAT"
+    ],
+    [
+     "Brasil",
+     "Brasil",
+     33.7,
+     2024,
+     "oficial",
+     "OCDE_LAC2026"
+    ],
+    [
+     "Argentina",
+     "Emergente",
+     27.8,
+     2023,
+     "oficial",
+     "OCDE_LAC2025"
+    ],
+    [
+     "África do Sul",
+     "Emergente",
+     27.1,
+     2022,
+     "oficial",
+     "OCDE_AFRICA2024"
+    ],
+    [
+     "Estados Unidos",
+     "EUA",
+     25.6,
+     2024,
+     "oficial",
+     "OCDE_RS2025"
+    ],
+    [
+     "Turquia",
+     "Emergente",
+     24.0,
+     2024,
+     "oficial",
+     "OCDE_RS2025"
+    ],
+    [
+     "Média América Latina e Caribe",
+     "Média",
+     21.7,
+     2024,
+     "oficial",
+     "OCDE_LAC2026"
+    ],
+    [
+     "Chile",
+     "Emergente",
+     20.5,
+     2024,
+     "oficial",
+     "OCDE_RS2025"
+    ],
+    [
+     "Colômbia",
+     "Emergente",
+     19.9,
+     2024,
+     "oficial",
+     "OCDE_RS2025"
+    ],
+    [
+     "México",
+     "Emergente",
+     18.3,
+     2024,
+     "oficial",
+     "OCDE_RS2025"
+    ]
+   ]
+  },
+  "carga_tributaria_brasil_composicao": {
+   "descricao": "Composição da carga tributária brasileira e comparação de estrutura",
+   "colunas": [
+    "componente",
+    "ano",
+    "pct_pib",
+    "pct_da_arrecadacao",
+    "tipo",
+    "fonte_id"
+   ],
+   "linhas": [
+    [
+     "Carga total (Tesouro)",
+     2024,
+     32.22,
+     100,
+     "oficial",
+     "STN_CTB2025"
+    ],
+    [
+     "Carga total (Tesouro)",
+     2025,
+     32.4,
+     100,
+     "oficial",
+     "STN_CTB2025"
+    ],
+    [
+     "Bens e serviços",
+     2024,
+     13.87,
+     "",
+     "oficial",
+     "STN_CTB2025"
+    ],
+    [
+     "Bens e serviços",
+     2025,
+     13.78,
+     42.5,
+     "calculo",
+     "STN_CTB2025"
+    ],
+    [
+     "Renda, lucros e ganhos de capital",
+     2024,
+     9.04,
+     "",
+     "oficial",
+     "STN_CTB2025"
+    ],
+    [
+     "Renda, lucros e ganhos de capital",
+     2025,
+     9.16,
+     28.3,
+     "calculo",
+     "STN_CTB2025"
+    ],
+    [
+     "OCDE: contribuições sociais",
+     2023,
+     "",
+     25.5,
+     "oficial",
+     "OCDE_RS2025"
+    ],
+    [
+     "OCDE: IR pessoa física",
+     2023,
+     "",
+     23.7,
+     "oficial",
+     "OCDE_RS2025"
+    ],
+    [
+     "OCDE: IVA",
+     2022,
+     "",
+     20.8,
+     "oficial",
+     "OCDE_RS2024"
+    ],
+    [
+     "OCDE: outros impostos sobre consumo",
+     2022,
+     "",
+     10.8,
+     "oficial",
+     "OCDE_RS2024"
+    ],
+    [
+     "OCDE: IR pessoa jurídica",
+     2022,
+     "",
+     12.0,
+     "oficial",
+     "OCDE_RS2024"
+    ],
+    [
+     "EUA: impostos sobre consumo",
+     2022,
+     "",
+     16.8,
+     "oficial",
+     "TAXFOUNDATION"
+    ],
+    [
+     "África do Sul: IR pessoa física",
+     2022,
+     "",
+     33,
+     "oficial",
+     "OCDE_AFRICA2024"
+    ]
+   ]
+  },
+  "contas_publicas_anual": {
+   "descricao": "Resultado primário do governo central e dívida bruta do governo geral (% do PIB)",
+   "colunas": [
+    "ano",
+    "resultado_primario_gov_central_pct_pib",
+    "dbgg_dez_pct_pib",
+    "tipo_primario",
+    "tipo_dbgg",
+    "fonte_id"
+   ],
+   "linhas": [
+    [
+     2010,
+     2.0,
+     51.8,
+     "serie_historica",
+     "serie_historica",
+     "STN_RTN;BCB_EF"
+    ],
+    [
+     2011,
+     2.1,
+     51.3,
+     "serie_historica",
+     "serie_historica",
+     "STN_RTN;BCB_EF"
+    ],
+    [
+     2012,
+     1.8,
+     53.7,
+     "serie_historica",
+     "serie_historica",
+     "STN_RTN;BCB_EF"
+    ],
+    [
+     2013,
+     1.4,
+     51.5,
+     "serie_historica",
+     "oficial",
+     "STN_RTN;BCB_EF"
+    ],
+    [
+     2014,
+     -0.4,
+     56.3,
+     "serie_historica",
+     "serie_historica",
+     "STN_RTN;BCB_EF"
+    ],
+    [
+     2015,
+     -2.0,
+     65.5,
+     "serie_historica",
+     "serie_historica",
+     "STN_RTN;BCB_EF"
+    ],
+    [
+     2016,
+     -2.5,
+     69.8,
+     "serie_historica",
+     "serie_historica",
+     "STN_RTN;BCB_EF"
+    ],
+    [
+     2017,
+     -1.8,
+     73.7,
+     "serie_historica",
+     "serie_historica",
+     "STN_RTN;BCB_EF"
+    ],
+    [
+     2018,
+     -1.6,
+     75.3,
+     "serie_historica",
+     "serie_historica",
+     "STN_RTN;BCB_EF"
+    ],
+    [
+     2019,
+     -1.3,
+     74.4,
+     "serie_historica",
+     "serie_historica",
+     "STN_RTN;BCB_EF"
+    ],
+    [
+     2020,
+     -9.8,
+     87.6,
+     "serie_historica",
+     "oficial",
+     "STN_RTN;BCB_EF"
+    ],
+    [
+     2021,
+     -0.4,
+     77.3,
+     "serie_historica",
+     "serie_historica",
+     "STN_RTN;BCB_EF"
+    ],
+    [
+     2022,
+     0.5,
+     71.7,
+     "serie_historica",
+     "serie_historica",
+     "STN_RTN;BCB_EF"
+    ],
+    [
+     2023,
+     -2.1,
+     73.8,
+     "serie_historica",
+     "serie_historica",
+     "STN_RTN;BCB_EF"
+    ],
+    [
+     2024,
+     -0.36,
+     76.3,
+     "oficial",
+     "oficial",
+     "STN_RTN;BCB_EF"
+    ],
+    [
+     2025,
+     -0.48,
+     78.7,
+     "oficial",
+     "oficial",
+     "STN_RTN;BCB_EF"
+    ],
+    [
+     "jul/2026",
+     "",
+     82.5,
+     "",
+     "oficial",
+     "BCB_EF"
+    ]
+   ]
+  },
+  "contas_publicas_destaques": {
+   "descricao": "Destaques das contas públicas 2024–2026",
+   "colunas": [
+    "indicador",
+    "valor",
+    "unidade",
+    "periodo",
+    "tipo",
+    "fonte_id"
+   ],
+   "linhas": [
+    [
+     "Déficit primário governo central",
+     61.69,
+     "R$ bilhões",
+     2025,
+     "oficial",
+     "STN_RTN"
+    ],
+    [
+     "Déficit primário governo central",
+     0.48,
+     "% do PIB",
+     2025,
+     "oficial",
+     "STN_RTN"
+    ],
+    [
+     "Déficit primário governo central",
+     42.92,
+     "R$ bilhões",
+     2024,
+     "oficial",
+     "STN_RTN"
+    ],
+    [
+     "Superávit Tesouro + Banco Central",
+     255.5,
+     "R$ bilhões",
+     2025,
+     "oficial",
+     "STN_RTN"
+    ],
+    [
+     "Déficit RGPS (Previdência)",
+     317.2,
+     "R$ bilhões",
+     2025,
+     "oficial",
+     "STN_RTN"
+    ],
+    [
+     "Despesas excluídas da meta",
+     48.68,
+     "R$ bilhões",
+     2025,
+     "oficial",
+     "STN_RTN"
+    ],
+    [
+     "Resultado pelo critério da meta",
+     -13,
+     "R$ bilhões",
+     2025,
+     "oficial",
+     "STN_RTN"
+    ],
+    [
+     "Déficit primário acumulado 2023–2025",
+     0.85,
+     "% do PIB",
+     "2023–2025",
+     "oficial",
+     "MF_2026"
+    ],
+    [
+     "Déficit primário setor público consolidado",
+     55.02,
+     "R$ bilhões",
+     2025,
+     "oficial",
+     "BCB_EF"
+    ],
+    [
+     "Déficit primário setor público consolidado",
+     47.55,
+     "R$ bilhões",
+     2024,
+     "oficial",
+     "BCB_EF"
+    ],
+    [
+     "Juros nominais",
+     8.07,
+     "% do PIB",
+     2024,
+     "oficial",
+     "BCB_EF"
+    ],
+    [
+     "Juros nominais",
+     7.91,
+     "% do PIB",
+     2025,
+     "oficial",
+     "BCB_EF"
+    ],
+    [
+     "Juros nominais (12 meses)",
+     8.67,
+     "% do PIB",
+     "até jul/2026",
+     "oficial",
+     "BCB_EF"
+    ],
+    [
+     "Déficit nominal (12 meses)",
+     9.34,
+     "% do PIB",
+     "até jul/2026",
+     "oficial",
+     "BCB_EF"
+    ],
+    [
+     "Déficit primário setor público (12 meses)",
+     0.67,
+     "% do PIB",
+     "até jul/2026",
+     "oficial",
+     "BCB_EF"
+    ],
+    [
+     "DBGG",
+     10.017,
+     "R$ trilhões",
+     "dez/2025",
+     "oficial",
+     "BCB_EF"
+    ],
+    [
+     "DBGG",
+     10.947,
+     "R$ trilhões",
+     "jul/2026",
+     "oficial",
+     "BCB_EF"
+    ],
+    [
+     "DBGG conceito FMI",
+     93.4,
+     "% do PIB",
+     "dez/2025",
+     "oficial",
+     "BCB_EF"
+    ],
+    [
+     "DBGG conceito FMI",
+     95.4,
+     "% do PIB",
+     "jul/2026",
+     "oficial",
+     "BCB_EF"
+    ],
+    [
+     "DLSP",
+     65.3,
+     "% do PIB",
+     "dez/2025",
+     "oficial",
+     "BCB_EF"
+    ],
+    [
+     "DLSP",
+     69.1,
+     "% do PIB",
+     "jul/2026",
+     "oficial",
+     "BCB_EF"
+    ],
+    [
+     "Contribuição dos juros à alta da DLSP",
+     7.9,
+     "p.p. do PIB",
+     2025,
+     "oficial",
+     "BCB_EF"
+    ],
+    [
+     "Contribuição do déficit primário à alta da DLSP",
+     0.4,
+     "p.p. do PIB",
+     2025,
+     "oficial",
+     "BCB_EF"
+    ],
+    [
+     "Selic (pico)",
+     15,
+     "% a.a.",
+     2025,
+     "oficial",
+     "BCB_EF"
+    ],
+    [
+     "Aumento benefícios previdenciários",
+     41.4,
+     "R$ bilhões",
+     2025,
+     "oficial",
+     "STN_RTN"
+    ],
+    [
+     "Aumento BPC",
+     10.8,
+     "R$ bilhões",
+     2025,
+     "oficial",
+     "STN_RTN"
+    ],
+    [
+     "Aumento pessoal e encargos",
+     16.9,
+     "R$ bilhões",
+     2025,
+     "oficial",
+     "STN_RTN"
+    ],
+    [
+     "Aumento complementação Fundeb",
+     10.0,
+     "R$ bilhões",
+     2025,
+     "oficial",
+     "STN_RTN"
+    ]
+   ]
+  },
+  "despesas_por_funcao": {
+   "descricao": "Despesa pública por função (COFOG) e defesa (SIPRI)",
+   "colunas": [
+    "funcao",
+    "ano",
+    "pct_pib",
+    "esfera",
+    "tipo",
+    "fonte_id"
+   ],
+   "linhas": [
+    [
+     "Despesa total",
+     2024,
+     45.79,
+     "governo geral",
+     "oficial",
+     "STN_COFOG2024"
+    ],
+    [
+     "Proteção social",
+     2023,
+     16.8,
+     "governo geral",
+     "oficial",
+     "STN_COFOG2023"
+    ],
+    [
+     "Proteção social",
+     2022,
+     15.7,
+     "governo geral",
+     "oficial",
+     "STN_COFOG2023"
+    ],
+    [
+     "Proteção social – média economias avançadas",
+     2022,
+     15.0,
+     "comparação",
+     "oficial",
+     "STN_COFOG2023"
+    ],
+    [
+     "Serviços públicos gerais (inclui juros)",
+     2023,
+     11.3,
+     "governo geral",
+     "oficial",
+     "STN_COFOG2023"
+    ],
+    [
+     "Saúde",
+     2023,
+     4.72,
+     "governo geral",
+     "oficial",
+     "STN_COFOG2024"
+    ],
+    [
+     "Saúde",
+     2024,
+     5.03,
+     "governo geral",
+     "oficial",
+     "STN_COFOG2024"
+    ],
+    [
+     "Educação",
+     2023,
+     4.93,
+     "governo geral",
+     "oficial",
+     "STN_COFOG2024"
+    ],
+    [
+     "Educação",
+     2024,
+     5.1,
+     "governo geral",
+     "oficial",
+     "STN_COFOG2024"
+    ],
+    [
+     "Habitação e serviços comunitários",
+     2023,
+     1.15,
+     "governo geral",
+     "oficial",
+     "STN_COFOG2024"
+    ],
+    [
+     "Habitação e serviços comunitários",
+     2024,
+     1.36,
+     "governo geral",
+     "oficial",
+     "STN_COFOG2024"
+    ],
+    [
+     "Tribunais de justiça",
+     2023,
+     1.43,
+     "governo geral",
+     "oficial",
+     "STN_COFOG2024"
+    ],
+    [
+     "Defesa (SIPRI)",
+     2016,
+     1.3,
+     "metodologia SIPRI",
+     "oficial",
+     "SIPRI_2026"
+    ],
+    [
+     "Defesa (SIPRI)",
+     2025,
+     1.1,
+     "metodologia SIPRI",
+     "oficial",
+     "SIPRI_2026"
+    ],
+    [
+     "Defesa – média mundial (SIPRI)",
+     2025,
+     2.5,
+     "comparação",
+     "oficial",
+     "SIPRI_2026"
+    ]
+   ]
+  },
+  "defesa_e_programas_sociais": {
+   "descricao": "Defesa e programas sociais",
+   "colunas": [
+    "item",
+    "ano",
+    "valor",
+    "unidade",
+    "tipo",
+    "fonte_id"
+   ],
+   "linhas": [
+    [
+     "Gasto militar (SIPRI)",
+     2025,
+     23.9,
+     "US$ bilhões",
+     "oficial",
+     "SIPRI_2026"
+    ],
+    [
+     "Militares inativos e pensionistas",
+     2020,
+     50.0,
+     "R$ bilhões",
+     "oficial",
+     "GAZETA_2026"
+    ],
+    [
+     "Militares inativos e pensionistas",
+     2025,
+     60.7,
+     "R$ bilhões",
+     "oficial",
+     "GAZETA_2026"
+    ],
+    [
+     "Militares ativos",
+     2020,
+     30.6,
+     "R$ bilhões",
+     "oficial",
+     "GAZETA_2026"
+    ],
+    [
+     "Militares ativos",
+     2025,
+     33.4,
+     "R$ bilhões",
+     "oficial",
+     "GAZETA_2026"
+    ],
+    [
+     "Previdência Social (LOA)",
+     2025,
+     972,
+     "R$ bilhões",
+     "oficial",
+     "SENADO_LOA2025"
+    ],
+    [
+     "Saúde (LOA)",
+     2025,
+     245,
+     "R$ bilhões",
+     "oficial",
+     "SENADO_LOA2025"
+    ],
+    [
+     "Bolsa Família (LOA)",
+     2025,
+     158,
+     "R$ bilhões",
+     "oficial",
+     "SENADO_LOA2025"
+    ],
+    [
+     "BPC + RMV (LOA)",
+     2025,
+     113.6,
+     "R$ bilhões",
+     "oficial",
+     "SENADO_LOA2025"
+    ],
+    [
+     "Bolsa Família (executado)",
+     2013,
+     38.4,
+     "R$ bilhões",
+     "oficial",
+     "FGV_CLIPPING"
+    ],
+    [
+     "Bolsa Família (executado)",
+     2019,
+     33.5,
+     "R$ bilhões",
+     "oficial",
+     "FGV_CLIPPING"
+    ],
+    [
+     "Bolsa Família (executado)",
+     2020,
+     10.1,
+     "R$ bilhões",
+     "oficial",
+     "FGV_CLIPPING"
+    ],
+    [
+     "Auxílio Brasil (aprox.)",
+     2022,
+     100,
+     "R$ bilhões",
+     "estimativa",
+     "FGV_CLIPPING"
+    ],
+    [
+     "Bolsa Família (orçado)",
+     2023,
+     175,
+     "R$ bilhões",
+     "oficial",
+     "FGV_CLIPPING"
+    ],
+    [
+     "Domicílios com Bolsa Família/Auxílio",
+     2012,
+     16.6,
+     "% dos domicílios",
+     "oficial",
+     "IBGE_PNADC_REND"
+    ],
+    [
+     "Domicílios com Bolsa Família/Auxílio",
+     2019,
+     14.3,
+     "% dos domicílios",
+     "oficial",
+     "IBGE_PNADC_REND"
+    ],
+    [
+     "Domicílios com Bolsa Família/Auxílio",
+     2022,
+     16.9,
+     "% dos domicílios",
+     "oficial",
+     "IBGE_PNADC_REND"
+    ],
+    [
+     "Domicílios com Bolsa Família/Auxílio",
+     2023,
+     19.0,
+     "% dos domicílios",
+     "oficial",
+     "IBGE_PNADC_REND"
+    ]
+   ]
+  }
+ },
+ "fontes": [
+  {
+   "fonte_id": "IBGE_CNT",
+   "descricao": "IBGE – Contas Nacionais Trimestrais",
+   "url": "https://www.ibge.gov.br/estatisticas/economicas/contas-nacionais/9300-contas-nacionais-trimestrais.html"
+  },
+  {
+   "fonte_id": "IBGE_IPCA",
+   "descricao": "IBGE – IPCA",
+   "url": "https://www.ibge.gov.br/estatisticas/economicas/precos-e-custos/9256-indice-nacional-de-precos-ao-consumidor-amplo.html"
+  },
+  {
+   "fonte_id": "IBGE_PNADC",
+   "descricao": "IBGE – PNAD Contínua (trabalho)",
+   "url": "https://www.ibge.gov.br/estatisticas/sociais/trabalho/9171-pesquisa-nacional-por-amostra-de-domicilios-continua-mensal.html"
+  },
+  {
+   "fonte_id": "IBGE_PNADC_EDU",
+   "descricao": "IBGE – PNAD Contínua: Educação",
+   "url": "https://www.ibge.gov.br/estatisticas/sociais/educacao/17270-pnad-continua.html"
+  },
+  {
+   "fonte_id": "IBGE_PNADC_REND",
+   "descricao": "IBGE – PNAD Contínua: Rendimento de todas as fontes",
+   "url": "https://www.ibge.gov.br/estatisticas/sociais/trabalho/17270-pnad-continua.html"
+  },
+  {
+   "fonte_id": "IBGE_SIS",
+   "descricao": "IBGE – Síntese de Indicadores Sociais 2025",
+   "url": "https://www.ibge.gov.br/estatisticas/sociais/populacao/9221-sintese-de-indicadores-sociais.html"
+  },
+  {
+   "fonte_id": "IBGE_TABUAS",
+   "descricao": "IBGE – Tábuas Completas de Mortalidade 2024",
+   "url": "https://www.ibge.gov.br/estatisticas/sociais/populacao/9126-tabuas-completas-de-mortalidade.html"
+  },
+  {
+   "fonte_id": "IBGE_CENSO2000",
+   "descricao": "IBGE – Censo 2000 (citado em fonte secundária)",
+   "url": ""
+  },
+  {
+   "fonte_id": "IPEA_2025",
+   "descricao": "Ipea – Nota técnica Souza & Hecksher, nov/2025 (renda, Gini e pobreza 1995–2024)",
+   "url": "https://www.ipea.gov.br"
+  },
+  {
+   "fonte_id": "PNUD_RDH2025",
+   "descricao": "PNUD – Relatório de Desenvolvimento Humano 2025",
+   "url": "https://hdr.undp.org"
+  },
+  {
+   "fonte_id": "INEP_IDEB",
+   "descricao": "Inep – Ideb",
+   "url": "https://www.gov.br/inep/pt-br/areas-de-atuacao/pesquisas-estatisticas-e-indicadores/ideb"
+  },
+  {
+   "fonte_id": "INEP_INVEST",
+   "descricao": "Inep – Indicadores de investimento público em educação",
+   "url": ""
+  },
+  {
+   "fonte_id": "OCDE_PISA2022",
+   "descricao": "OCDE – Pisa 2022, nota Brasil",
+   "url": "https://www.oecd.org/pisa/"
+  },
+  {
+   "fonte_id": "PNE",
+   "descricao": "Plano Nacional de Educação / relatório do novo PNE",
+   "url": ""
+  },
+  {
+   "fonte_id": "DIEESE_NT",
+   "descricao": "DIEESE – Notas técnicas sobre o salário mínimo",
+   "url": "https://www.dieese.org.br/notatecnica/2025/notaTec283salarioMinimo/10.html"
+  },
+  {
+   "fonte_id": "DIEESE_CESTA",
+   "descricao": "DIEESE – Pesquisa Nacional da Cesta Básica",
+   "url": "https://www.dieese.org.br/cesta/"
+  },
+  {
+   "fonte_id": "FIPE_508",
+   "descricao": "FIPE – Informações Fipe nº 508",
+   "url": ""
+  },
+  {
+   "fonte_id": "PROCON_DIEESE_SP",
+   "descricao": "Procon-SP/DIEESE – Pesquisa da cesta básica de São Paulo (ago/2026)",
+   "url": ""
+  },
+  {
+   "fonte_id": "EM_2026",
+   "descricao": "Estado de Minas – reportagem de abril/2026 sobre poder de compra",
+   "url": ""
+  },
+  {
+   "fonte_id": "IEA_PODER360",
+   "descricao": "IEA-SP via Poder360 – picanha por salário mínimo",
+   "url": "https://www.poder360.com.br/poder-economia/preco-aumenta-mas-salario-minimo-compra-mais-picanha-em-2024/"
+  },
+  {
+   "fonte_id": "MERCADO_MINEIRO",
+   "descricao": "Mercado Mineiro via O Tempo – acém",
+   "url": ""
+  },
+  {
+   "fonte_id": "INVESTNEWS",
+   "descricao": "InvestNews – litros de gasolina por salário mínimo",
+   "url": ""
+  },
+  {
+   "fonte_id": "GITHUB_GASOLINA",
+   "descricao": "Estudo independente publicado no GitHub com dados ANP",
+   "url": ""
+  },
+  {
+   "fonte_id": "ANP",
+   "descricao": "ANP – Levantamento de Preços de Combustíveis",
+   "url": "https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos"
+  },
+  {
+   "fonte_id": "ACENDE",
+   "descricao": "Instituto Acende Brasil – tarifas residenciais 2012–2022",
+   "url": ""
+  },
+  {
+   "fonte_id": "ABRACEEL",
+   "descricao": "Abraceel – tarifa residencial × IPCA 2010–2024",
+   "url": ""
+  },
+  {
+   "fonte_id": "OCDE_RS2025",
+   "descricao": "OCDE – Revenue Statistics 2025",
+   "url": "https://www.oecd.org/en/publications/revenue-statistics-2025_3a264267-en.html"
+  },
+  {
+   "fonte_id": "OCDE_RS2024",
+   "descricao": "OCDE – Revenue Statistics 2024",
+   "url": "https://www.oecd.org/en/publications/revenue-statistics-2024_c87a3da5-en.html"
+  },
+  {
+   "fonte_id": "OCDE_LAC2025",
+   "descricao": "OCDE et al. – Revenue Statistics in LAC 2025",
+   "url": "https://www.oecd.org/en/publications/revenue-statistics-in-latin-america-and-the-caribbean-2025_7594fbdd-en.html"
+  },
+  {
+   "fonte_id": "OCDE_LAC2026",
+   "descricao": "OCDE et al. – Revenue Statistics in LAC 2026",
+   "url": "https://www.oecd.org/en/publications/revenue-statistics-in-latin-america-and-the-caribbean-2026_2f21f131-en.html"
+  },
+  {
+   "fonte_id": "OCDE_AFRICA2024",
+   "descricao": "OCDE/AUC/ATAF – Revenue Statistics in Africa 2024: South Africa",
+   "url": "https://www.oecd.org/content/dam/oecd/en/topics/policy-sub-issues/global-tax-revenues/revenue-statistics-africa-south-africa.pdf"
+  },
+  {
+   "fonte_id": "EUROSTAT",
+   "descricao": "Eurostat – Tax revenue statistics",
+   "url": "https://ec.europa.eu/eurostat/statistics-explained/index.php/Tax_revenue_statistics"
+  },
+  {
+   "fonte_id": "TAXFOUNDATION",
+   "descricao": "Tax Foundation – OECD tax revenue by country",
+   "url": "https://taxfoundation.org/data/all/global/oecd-tax-revenue-by-country/"
+  },
+  {
+   "fonte_id": "STN_CTB2025",
+   "descricao": "Tesouro Nacional – Carga Tributária do Governo Geral 2025",
+   "url": "https://www.tesourotransparente.gov.br/publicacoes/carga-tributaria-do-governo-geral/2025/114"
+  },
+  {
+   "fonte_id": "STN_RTN",
+   "descricao": "Tesouro Nacional – Resultado do Tesouro Nacional (RTN), dez/2025",
+   "url": "https://agenciabrasil.ebc.com.br/economia/noticia/2026-01/deficit-primario-do-governo-central-totaliza-r-617-bilhoes-em-2025"
+  },
+  {
+   "fonte_id": "MF_2026",
+   "descricao": "Ministério da Fazenda – nota de 29/01/2026",
+   "url": "https://www.gov.br/fazenda/pt-br/assuntos/noticias/2026/janeiro/governo-central-cumpre-com-folga-a-meta-fiscal-estabelecida-para-2025-aponta-relatorio-do-tesouro"
+  },
+  {
+   "fonte_id": "BCB_EF",
+   "descricao": "Banco Central – Estatísticas Fiscais (dez/2025 e jul/2026)",
+   "url": "https://www.bcb.gov.br/estatisticas/estatisticasfiscais"
+  },
+  {
+   "fonte_id": "STN_COFOG2023",
+   "descricao": "Tesouro Nacional – COFOG Governo Geral 2023",
+   "url": "https://www.tesourotransparente.gov.br/publicacoes/cofog-despesas-por-funcao-do-governo-geral/2023/114"
+  },
+  {
+   "fonte_id": "STN_COFOG2024",
+   "descricao": "Tesouro Nacional – COFOG Governo Geral 2024",
+   "url": "https://www.tesourotransparente.gov.br/publicacoes/cofog-despesas-por-funcao-do-governo-geral/2024/114"
+  },
+  {
+   "fonte_id": "SIPRI_2026",
+   "descricao": "SIPRI – Trends in World Military Expenditure 2025 (abr/2026)",
+   "url": "https://www.sipri.org"
+  },
+  {
+   "fonte_id": "GAZETA_2026",
+   "descricao": "Gazeta do Povo, com dados do Observatório de Pessoal (MGI)",
+   "url": "https://www.gazetadopovo.com.br/economia/gasto-militar-brasil-cresce-2025-cortes-defesa/"
+  },
+  {
+   "fonte_id": "SENADO_LOA2025",
+   "descricao": "Agência Senado – LOA 2025 (Lei 15.121)",
+   "url": "https://www12.senado.leg.br/noticias/materias/2025/04/14/orcamento-2025-quase-r-1-trihao-para-previdencia-e-r-245-bilhoes-para-saude"
+  },
+  {
+   "fonte_id": "FGV_CLIPPING",
+   "descricao": "FGV Social – clipping de imprensa sobre Bolsa Família",
+   "url": ""
+  }
+ ]
+}

@@ -1,0 +1,15 @@
+indicador,valor,unidade,referencia,tipo,fonte_id
+PIB nominal,12.7,R$ trilhões,2025,oficial,IBGE_CNT
+Crescimento real do PIB,2.3,%,2025,oficial,IBGE_CNT
+PIB per capita,59687,R$,2025,oficial,IBGE_CNT
+IPCA,4.26,%,2025,oficial,IBGE_IPCA
+Taxa de desocupação (média anual),5.6,%,2025,oficial,IBGE_PNADC
+IDH,0.786,índice,2023,oficial,PNUD_RDH2025
+IDH posição,84,de 193 países,2023,oficial,PNUD_RDH2025
+IDH (metodologia antiga),0.59,índice,1990,oficial,PNUD_RDH2025
+Expectativa de vida ao nascer,76.6,anos,2024,oficial,IBGE_TABUAS
+Expectativa de vida ao nascer,72.8,anos,2021,oficial,IBGE_TABUAS
+Mortalidade infantil,12.3,por mil nascidos vivos,2024,oficial,IBGE_TABUAS
+Pobreza (critério IBGE),23.1,%,2024,oficial,IBGE_SIS
+Extrema pobreza (critério IBGE),3.5,%,2024,oficial,IBGE_SIS
+Gini (IBGE),0.504,índice,2024,oficial,IBGE_SIS

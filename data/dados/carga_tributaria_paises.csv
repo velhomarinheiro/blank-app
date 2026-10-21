@@ -1,0 +1,21 @@
+pais,grupo,carga_pct_pib,ano,tipo,fonte_id
+Dinamarca,Europa,45.2,2024,oficial,OCDE_RS2025
+França,Europa,43.5,2024,oficial,OCDE_RS2025
+Áustria,Europa,43.4,2024,oficial,OCDE_RS2025
+Itália,Europa,42.8,2024,oficial,OCDE_RS2025
+Suécia,Europa,41.4,2024,oficial,OCDE_RS2025
+Alemanha,Europa,38.0,2024,oficial,OCDE_RS2025
+Espanha,Europa,36.7,2024,oficial,OCDE_RS2025
+Portugal,Europa,35.1,2024,oficial,OCDE_RS2025
+Reino Unido,Europa,34.4,2024,oficial,OCDE_RS2025
+Média OCDE,Média,34.1,2024,oficial,OCDE_RS2025
+Média União Europeia,Média,40.4,2024,oficial,EUROSTAT
+Brasil,Brasil,33.7,2024,oficial,OCDE_LAC2026
+Argentina,Emergente,27.8,2023,oficial,OCDE_LAC2025
+África do Sul,Emergente,27.1,2022,oficial,OCDE_AFRICA2024
+Estados Unidos,EUA,25.6,2024,oficial,OCDE_RS2025
+Turquia,Emergente,24.0,2024,oficial,OCDE_RS2025
+Média América Latina e Caribe,Média,21.7,2024,oficial,OCDE_LAC2026
+Chile,Emergente,20.5,2024,oficial,OCDE_RS2025
+Colômbia,Emergente,19.9,2024,oficial,OCDE_RS2025
+México,Emergente,18.3,2024,oficial,OCDE_RS2025

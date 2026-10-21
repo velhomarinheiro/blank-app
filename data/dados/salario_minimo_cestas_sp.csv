@@ -1,0 +1,33 @@
+ano,salario_minimo_rs,cestas_por_salario,referencia,tipo,fonte_id
+1995,100,1.02,media_anual,oficial,DIEESE_NT
+1996,112,1.14,media_anual,oficial,DIEESE_NT
+1997,120,1.23,media_anual,oficial,DIEESE_NT
+1998,130,1.22,media_anual,oficial,DIEESE_NT
+1999,136,1.25,media_anual,oficial,DIEESE_NT
+2000,151,1.28,media_anual,oficial,DIEESE_NT
+2001,180,1.37,media_anual,oficial,DIEESE_NT
+2002,200,1.42,media_anual,oficial,DIEESE_NT
+2003,240,1.38,media_anual,oficial,DIEESE_NT
+2004,260,1.47,media_anual,oficial,DIEESE_NT
+2005,300,1.6,media_anual,oficial,DIEESE_NT
+2006,350,1.91,media_anual,oficial,DIEESE_NT
+2007,380,1.93,media_anual,oficial,DIEESE_NT
+2008,415,1.74,media_anual,oficial,DIEESE_NT
+2009,465,2.01,media_anual,oficial,DIEESE_NT
+2010,510,2.06,media_anual,oficial,DIEESE_NT
+2011,545,2.03,media_anual,oficial,DIEESE_NT
+2012,622,2.13,media_anual,oficial,DIEESE_NT
+2013,678,2.07,media_anual,oficial,DIEESE_NT
+2014,724,2.1,media_anual,oficial,DIEESE_NT
+2015,788,2.02,media_anual,oficial,DIEESE_NT
+2016,880,1.93,media_anual,oficial,DIEESE_NT
+2017,937,2.16,jan (estimativa),oficial,DIEESE_NT
+2018,954,2.2,jan,oficial,FIPE_508
+2019,998,,sem dado localizado,,
+2020,1045,1.58,media_anual,oficial,DIEESE_NT
+2021,1100,1.58,jan,oficial,DIEESE_NT
+2022,1212,1.7,"jan (1,53 em dez)",oficial,FIPE_508
+2023,1320,1.67,fev,calculo,DIEESE_CESTA
+2024,1412,1.74,media_anual,oficial,DIEESE_NT
+2025,1518,1.79,jan (estimativa),oficial,DIEESE_NT
+2026,1621,1.8,ago,calculo,DIEESE_CESTA
