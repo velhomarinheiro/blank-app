@@ -138,3 +138,20 @@ def test_anuario_2026_importado():
     fem = rec[(rec["indicador"] == "feminicidio") & (rec["sigla_uf"] == "BR") & (rec["ano"] == 2025)]
     assert fem["valor"].iloc[0] == 1571
     assert rec.groupby(["indicador", "ano"])["sigla_uf"].nunique().eq(28).all()
+
+
+def test_participacao_no_pib_mundial():
+    t = pd.DataFrame([
+        {"indicador": "NY.GDP.MKTP.PP.KD", "iso3": "WLD", "pais": "Mundo", "grupo": "Média", "ano": 2024, "valor": 200.0},
+        {"indicador": "NY.GDP.MKTP.PP.KD", "iso3": "BRA", "pais": "Brasil", "grupo": "Brasil", "ano": 2024, "valor": 5.0},
+    ])
+    parte = bm.deriva(t)
+    parte = parte[parte["indicador"] == "PART.PIB.PPC"]
+    assert list(parte["pais"]) == ["Brasil"] and parte["valor"].iloc[0] == 2.5
+
+
+def test_derivados_nao_sao_baixados(monkeypatch):
+    pedidos = []
+    monkeypatch.setattr(bm, "baixa_indicador", lambda codigo, ano: pedidos.append(codigo) or pd.DataFrame())
+    bm.baixa_tudo(2025)
+    assert "PART.PIB.PPC" not in pedidos and "NY.GDP.MKTP.CD" in pedidos
