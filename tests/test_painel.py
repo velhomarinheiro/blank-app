@@ -49,3 +49,51 @@ def test_numeros_no_padrao_brasileiro():
     assert v.br(-0.48, 2) == "−0,48"
     assert v.br(6.79, 1, sinal=True) == "+6,8"
     assert v.br(None) == "—"
+
+
+# ---------------------------------------------------------------- FMI, IBGE e Banco Central
+
+from painel import fontes_abertas as fa  # noqa: E402
+
+
+def test_fmi_marca_projecoes_e_ignora_codigos_desconhecidos():
+    resposta = {"values": {"GGXWDG_NGDP": {
+        "BRA": {"2024": 87.3, "2025": 91.4, "2026": 94.0},
+        "XYZ": {"2024": 10.0},
+        "WEOWORLD": {"2025": None},
+    }}, "api": {"version": "1"}}
+    tabela = fa.interpreta_fmi(resposta, "GGXWDG_NGDP", ultimo_ano_observado=2025)
+    assert set(tabela["pais"]) == {"Brasil"}
+    assert tabela.set_index("ano")["projecao"].to_dict() == {2024: False, 2025: False, 2026: True}
+
+
+def test_fmi_sem_valores_falha():
+    with pytest.raises(ValueError):
+        fa.interpreta_fmi({"values": {}}, "GGXWDG_NGDP", 2025)
+
+
+def test_sidra_acha_colunas_pelo_cabecalho_e_casa_nomes():
+    cab = {"NC": "Nível Territorial (Código)", "V": "Valor", "D1N": "Brasil", "D2N": "Variável",
+           "D3C": "Mês (Código)", "D3N": "Mês", "D4C": "Geral, grupo, subgrupo, item e subitem (Código)",
+           "D4N": "Geral, grupo, subgrupo, item e subitem"}
+    linha = lambda mes, cat, valor: {"V": valor, "D3C": mes, "D4N": cat}  # noqa: E731
+    tabela = fa.interpreta_sidra([
+        cab,
+        linha("202412", "Índice geral", "4.83"),
+        linha("202412", "1.Alimentação e bebidas", "7.69"),
+        linha("202412", "1101002.Arroz", "8.24"),
+        linha("202412", "1101073.Feijão - carioca (rajado)", "-4.1"),
+        linha("202412", "1107099.Café moído", "39.6"),
+        linha("202412", "1101001.Arroz integral", "1.0"),   # não é o subitem procurado
+        linha("202412", "1104.Carnes", "..."),              # sem dado
+    ])
+    obtido = tabela.set_index("item")["variacao_pct"].to_dict()
+    assert obtido == {"Índice geral": 4.83, "Alimentação e bebidas": 7.69, "Arroz": 8.24,
+                      "Feijão-carioca": -4.1, "Café moído": 39.6}
+    assert set(tabela["ano"]) == {2024} and set(tabela["mes"]) == {12}
+
+
+def test_sgs_converte_datas_e_valores():
+    tabela = fa.interpreta_sgs([{"data": "01/12/2025", "valor": "78.7"}, {"data": "x", "valor": "1"}], "DBGG")
+    assert len(tabela) == 1
+    assert tabela.iloc[0]["data"].month == 12 and tabela.iloc[0]["valor"] == 78.7

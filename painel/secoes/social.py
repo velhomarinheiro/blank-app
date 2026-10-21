@@ -9,8 +9,7 @@ import streamlit as st
 from painel import dados as d
 from painel import visual as v
 
-# Médias da OCDE no Pisa 2022 (relatório OCDE, volume I), usadas só como referência.
-PISA_OCDE_2022 = {"Pisa matemática": 472, "Pisa leitura": 476, "Pisa ciências": 485}
+AREAS_PISA = ["Matemática", "Leitura", "Ciências"]
 
 
 def halteres(rotulos, antes, depois, ano_antes, ano_depois, unidade="", casas=1, altura=260):
@@ -120,30 +119,7 @@ def mostra(inicio: int, fim: int, tipos: list[str]) -> None:
             fig.update_layout(legend=dict(y=-0.15, yanchor="top"))
             v.mostra(fig, ideb[["indicador", "recorte", "ano", "valor", "fonte_id"]], "ideb")
 
-    pisa = edu[edu["indicador"].isin(PISA_OCDE_2022)]
-    if not pisa.empty:
-        fig = go.Figure()
-        fig.add_bar(x=[i.replace("Pisa ", "").capitalize() for i in pisa["indicador"]], y=pisa["valor"],
-                    name="Brasil", marker_color=c["brasil"], text=pisa["valor"].astype(int), textposition="outside",
-                    hovertemplate="%{x}: %{y} pontos<extra>Brasil</extra>")
-        fig.add_bar(x=[i.replace("Pisa ", "").capitalize() for i in PISA_OCDE_2022],
-                    y=list(PISA_OCDE_2022.values()), name="Média OCDE", marker_color=c["neutro"],
-                    text=list(PISA_OCDE_2022.values()), textposition="outside",
-                    hovertemplate="%{x}: %{y} pontos<extra>Média OCDE</extra>")
-        v.estilo(fig, altura=300, titulo="Pisa 2022: Brasil × média da OCDE (pontos)")
-        fig.update_yaxes(range=[300, 520])
-        fig.update_layout(bargroupgap=0.06)
-        fig.update_layout(margin=dict(t=70))
-        tabela = pisa[["indicador", "valor"]].assign(media_ocde=[PISA_OCDE_2022[i] for i in pisa["indicador"]])
-        v.mostra(fig, tabela, "pisa_2022")
-        extra = edu[edu["indicador"].str.startswith("Pisa –")]
-        if not extra.empty:
-            v.leitura("No Pisa 2022, **" + v.br(float(extra[extra['indicador'].str.contains('leitura')]['valor'].iloc[0]), 0)
-                      + "%** dos alunos brasileiros ficaram abaixo do nível básico em leitura e só **"
-                      + v.br(float(extra[extra['indicador'].str.contains('alto')]['valor'].iloc[0]), 0)
-                      + "%** chegaram ao alto desempenho em matemática.")
-        v.nota("Médias da OCDE do relatório Pisa 2022 (472 em matemática, 476 em leitura, 485 em ciências), "
-               "incluídas como referência.")
+    mostra_pisa(edu, inicio, fim, tipos)
 
     inv = edu[edu["indicador"].str.startswith(("Investimento", "Meta"))]
     cofog = d.tabela("despesas_por_funcao")
@@ -171,3 +147,66 @@ def mostra(inicio: int, fim: int, tipos: list[str]) -> None:
         v.mostra(fig, pd.concat([serie, metas[["ano", "valor"]].assign(serie=metas["indicador"])]), "educacao_gasto")
         v.nota("Inep e Tesouro (COFOG) medem o gasto de formas diferentes; os pontos não formam uma série única. "
                "A meta de 10% do PIB do PNE 2014–2024 não foi atingida.")
+
+
+def mostra_pisa(edu: pd.DataFrame, inicio: int, fim: int, tipos: list[str]) -> None:
+    """Pisa de 2000 a 2025: Brasil × média da OCDE, um gráfico por área."""
+    c = v.cores()
+    pisa = d.filtra_tipos(d.filtra_periodo(d.tabela("pisa_historico"), inicio, fim), tipos)
+    if pisa.empty:
+        return
+    st.markdown("### Pisa: desempenho em 25 anos")
+    ultimo = int(pisa["ano"].max())
+    cartoes = []
+    for area in AREAS_PISA:
+        br_area = pisa[(pisa["area"] == area) & (pisa["grupo"] == "Brasil")].sort_values("ano")
+        ocde = pisa[(pisa["area"] == area) & (pisa["grupo"] == "Média OCDE") & (pisa["ano"] == ultimo)]
+        if br_area.empty:
+            continue
+        atual, primeiro = br_area.iloc[-1], br_area.iloc[0]
+        detalhe = f"{int(primeiro['valor'])} em {int(primeiro['ano'])}"
+        if not ocde.empty:
+            detalhe += f" · média OCDE {int(ocde['valor'].iloc[0])}"
+        cartoes.append({"rotulo": f"{area}, Pisa {int(atual['ano'])}", "valor": str(int(atual["valor"])),
+                        "unidade": "pontos", "detalhe": detalhe, "destaque": area == "Matemática"})
+    v.kpis(cartoes)
+
+    colunas = st.columns(3)
+    for coluna, area in zip(colunas, AREAS_PISA):
+        dados_area = pisa[pisa["area"] == area]
+        if dados_area.empty:
+            continue
+        with coluna:
+            fig = go.Figure()
+            for grupo, cor, largura in [("Média OCDE", c["neutro"], 2), ("Brasil", c["brasil"], 3)]:
+                g = dados_area[dados_area["grupo"] == grupo].sort_values("ano")
+                if g.empty:
+                    continue
+                fig.add_scatter(
+                    x=g["ano"], y=g["valor"], name=grupo, mode="lines+markers+text",
+                    line=dict(color=cor, width=largura, dash="dot" if grupo == "Média OCDE" else "solid"),
+                    marker=dict(size=8, color=cor, symbol=["circle" if t == "oficial" else "circle-open"
+                                                           for t in g["tipo"]], line=dict(width=2)),
+                    text=[str(int(x)) if a in (g["ano"].min(), g["ano"].max()) else "" for a, x in zip(g["ano"], g["valor"])],
+                    textposition="top center", textfont=dict(size=11),
+                    hovertemplate="%{x}: %{y} pontos<extra>" + grupo + "</extra>",
+                )
+            v.estilo(fig, altura=300, titulo=area, legenda=area == "Matemática")
+            fig.update_yaxes(range=[320, 530])
+            fig.update_xaxes(range=[1998.5, 2026.5], dtick=5)
+            fig.update_layout(legend=dict(y=-0.12, yanchor="top"), margin=dict(t=48))
+            v.mostra(fig, dados_area.sort_values(["grupo", "ano"]), f"pisa_{area.lower()}")
+
+    extra = edu[edu["indicador"].str.startswith("Pisa –")]
+    v.leitura(
+        "A nota brasileira subiu entre 2000 e 2009 e depois ficou estável. Como a média da OCDE caiu, sobretudo "
+        "depois de 2018, a distância diminuiu: pelas contas do Inep (com outra média da OCDE, só dos países comparáveis), de 2006 a 2025 ela passou de **131 para 92 pontos** "
+        "em matemática, de **102 para 58** em leitura e de **113 para 77** em ciências. Mesmo assim, o Brasil segue "
+        "entre os últimos colocados."
+        + (" No Pisa 2022, **" + v.br(float(extra[extra["indicador"].str.contains("leitura")]["valor"].iloc[0]), 0)
+           + "%** dos alunos ficaram abaixo do nível básico em leitura." if not extra.empty else "")
+    )
+    v.nota("Leitura começa em 2000, matemática em 2003 e ciências em 2006: são os primeiros anos comparáveis de "
+           "cada área. As médias da OCDE até 2022 são as publicadas em cada edição (o grupo de países muda); a de "
+           "2025 usa o conjunto comparável do relatório de 2025. Pontos vazados: série histórica ainda não "
+           "reconferida na fonte (Brasil em 2015 e médias da OCDE de 2000 a 2015).")

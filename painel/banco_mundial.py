@@ -2,7 +2,7 @@
 
 A API é pública e não pede chave: https://datahelpdesk.worldbank.org/knowledgebase/articles/889392
 O painel tenta primeiro um retrato salvo em data/banco_mundial.csv (gerado por
-scripts/atualizar_banco_mundial.py) e, se ele não existir, consulta a API ao vivo.
+scripts/atualizar_dados_abertos.py) e, se ele não existir, consulta a API ao vivo.
 """
 
 from __future__ import annotations

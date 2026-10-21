@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
+from painel import carga
 from painel import dados as d
 from painel import visual as v
 
@@ -102,6 +104,8 @@ def mostra(inicio: int, fim: int, tipos: list[str]) -> None:
             v.nota("Sem série confiável antes de 2002. Losangos vazados são estimativas; círculos vazados, cálculo "
                    "com preço médio da ANP.")
 
+    mostra_inflacao_alimentos(inicio, fim, tipos)
+
     # ------------------------------------------------------------ Itens da cesta
     col1, col2 = st.columns(2)
     with col1:
@@ -113,7 +117,7 @@ def mostra(inicio: int, fim: int, tipos: list[str]) -> None:
             hovertemplate="%{y}: %{x:+.1f}%<extra></extra>",
         ))
         v.estilo(fig, altura=300, titulo="Preços em 12 meses (ago/25 → ago/26, SP)", legenda=False)
-        fig.update_xaxes(showticklabels=False, range=[var["valor"].min() * 1.6, var["valor"].max() * 1.35])
+        fig.update_xaxes(showticklabels=False, range=[var["valor"].min() * 2.2, var["valor"].max() * 1.35])
         v.mostra(fig, var, "itens_cesta_variacao")
     # ------------------------------------------------------------ Energia
     with col2:
@@ -136,3 +140,50 @@ def mostra(inicio: int, fim: int, tipos: list[str]) -> None:
         f"e **{v.br(kwh.iloc[1]['quantidade_por_salario'], 0)} kWh** em 2022 (cálculo com tarifa média do Instituto "
         "Acende Brasil)."
     )
+
+
+PADRAO_ITENS = ["Alimentação no domicílio", "Arroz", "Feijão-carioca", "Café moído", "Leite longa vida"]
+
+
+def mostra_inflacao_alimentos(inicio: int, fim: int, tipos: list[str]) -> None:
+    """Variação anual do IPCA por item de alimentação, com o índice geral como referência."""
+    c = v.cores()
+    st.markdown("### Inflação dos alimentos, ano a ano (IPCA)")
+    tabela, origem = carga.ipca_itens()
+    tabela = d.filtra_tipos(d.filtra_periodo(tabela, inicio, fim), tipos)
+    opcoes = [i for i in tabela["item"].drop_duplicates() if i != "Índice geral"]
+    if not opcoes:
+        st.info("Sem dados de inflação por item no período e nos tipos escolhidos.")
+        return
+    escolhidos = st.multiselect(
+        "Itens (até 5)", opcoes, default=[i for i in PADRAO_ITENS if i in opcoes][:5] or opcoes[:5],
+        max_selections=5, key="ipca_itens",
+    )
+    fig = go.Figure()
+    geral = tabela[tabela["item"] == "Índice geral"].sort_values("ano")
+    if not geral.empty:
+        fig.add_scatter(x=geral["ano"], y=geral["variacao_pct"], name="IPCA geral", mode="lines",
+                        line=dict(color=c["neutro"], width=2, dash="dot"),
+                        hovertemplate="%{x}: %{y:.2f}%<extra>IPCA geral</extra>")
+    for i, item in enumerate(escolhidos):  # a cor segue o item pela ordem de escolha
+        g = tabela[tabela["item"] == item].sort_values("ano")
+        if g.empty:
+            continue
+        # Anos sem dado ficam como lacuna, sem ligar os pontos.
+        anos = pd.DataFrame({"ano": range(int(g["ano"].min()), int(g["ano"].max()) + 1)}).merge(g, how="left")
+        fig.add_scatter(x=anos["ano"], y=anos["variacao_pct"], name=item, mode="lines+markers",
+                        connectgaps=False, line=dict(color=c["serie"][i], width=2), marker=dict(size=8),
+                        hovertemplate="%{x}: %{y:+.1f}%<extra>" + item + "</extra>")
+    v.estilo(fig, altura=400, eixo_y="variação no ano (%)")
+    fig.update_layout(hovermode="x unified", legend=dict(y=-0.12, yanchor="top"))
+    anos_dados = tabela["ano"].max() - tabela["ano"].min()
+    fig.update_xaxes(dtick=1 if anos_dados <= 15 else 2)
+    fig.add_hline(y=0, line_width=1, line_color=c["neutro_claro"])
+    v.mostra(fig, tabela.pivot_table(index="ano", columns="item", values="variacao_pct").reset_index(),
+             "ipca_alimentos")
+    v.leitura(
+        "Os alimentos oscilam muito mais que o índice geral. O **arroz** subiu 76% em 2020 e caiu 27% em 2025; "
+        "o **café moído** acumulou altas de 50% em 2021, 40% em 2024 e 36% em 2025; o **leite longa vida** subiu "
+        "27% em 2020 e 26% em 2022."
+    )
+    v.nota(f"Variação acumulada de janeiro a dezembro de cada ano, Brasil. Fonte: {origem}.")

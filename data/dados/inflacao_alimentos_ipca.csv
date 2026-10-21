@@ -1,0 +1,30 @@
+ano,item,variacao_pct,tipo,fonte_id
+2020,Alimentação e bebidas,14.09,serie_historica,IBGE_IPCA
+2021,Alimentação e bebidas,7.94,oficial,IBGE_IPCA
+2022,Alimentação e bebidas,11.64,oficial,IBGE_IPCA
+2023,Alimentação e bebidas,1.03,oficial,IBGE_IPCA
+2024,Alimentação e bebidas,7.69,oficial,IBGE_IPCA
+2025,Alimentação e bebidas,2.95,oficial,IBGE_IPCA
+2020,Alimentação no domicílio,18.15,oficial,IBGE_IPCA
+2021,Alimentação no domicílio,8.24,oficial,IBGE_IPCA
+2022,Alimentação no domicílio,13.23,oficial,IBGE_IPCA
+2023,Alimentação no domicílio,-0.52,oficial,IBGE_IPCA
+2024,Alimentação no domicílio,8.23,oficial,IBGE_IPCA
+2025,Alimentação no domicílio,1.43,oficial,IBGE_IPCA
+2020,Arroz,76.01,oficial,IBGE_IPCA
+2021,Arroz,-16.88,oficial,IBGE_IPCA
+2024,Arroz,8.24,oficial,IBGE_IPCA
+2025,Arroz,-26.56,oficial,IBGE_IPCA
+2021,Café moído,50.24,oficial,IBGE_IPCA
+2024,Café moído,39.60,oficial,IBGE_IPCA
+2025,Café moído,35.65,oficial,IBGE_IPCA
+2020,Carnes,17.97,oficial,IBGE_IPCA
+2023,Carnes,-9.37,oficial,IBGE_IPCA
+2024,Carnes,20.84,oficial,IBGE_IPCA
+2020,Leite longa vida,26.93,oficial,IBGE_IPCA
+2022,Leite longa vida,26.18,oficial,IBGE_IPCA
+2024,Leite longa vida,18.83,oficial,IBGE_IPCA
+2025,Leite longa vida,-12.87,oficial,IBGE_IPCA
+2020,Óleo de soja,103.79,oficial,IBGE_IPCA
+2023,Óleo de soja,-28.00,oficial,IBGE_IPCA
+2024,Óleo de soja,29.21,oficial,IBGE_IPCA

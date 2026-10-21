@@ -8,6 +8,7 @@ import streamlit as st
 
 from painel import dados as d
 from painel import visual as v
+from painel.secoes import divida
 
 
 def mostra(inicio: int, fim: int, tipos: list[str]) -> None:
@@ -90,6 +91,8 @@ def mostra(inicio: int, fim: int, tipos: list[str]) -> None:
         "primário. Com a Selic em 15%, o déficit nominal em 12 meses chegou a "
         f"**{v.br(dv('Déficit nominal (12 meses)', '% do PIB', 'até jul/2026'), 2)}% do PIB** em julho de 2026."
     )
+
+    divida.mostra(inicio, fim, tipos)
 
     # ------------------------------------------------------------ Gasto por função
     st.markdown("### Gasto por função: Brasil e referências internacionais (% do PIB)")
