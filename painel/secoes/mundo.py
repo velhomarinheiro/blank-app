@@ -66,7 +66,7 @@ def mostra(inicio: int, fim: int, tipos: list[str]) -> None:
     try:
         wb, origem, falhas = carga.tenta("banco_mundial", carrega)
     except Exception as erro:  # rede fora do ar, por exemplo
-        wb, origem, falhas = pd.DataFrame(), str(erro), list(bm.INDICADORES)
+        wb, origem, falhas = pd.DataFrame(), str(erro), [c for c in bm.INDICADORES if c not in bm.DERIVADOS]
     if wb.empty:
         st.warning(
             "Não foi possível obter os dados do Banco Mundial agora (sem acesso à internet ou API fora do ar). "
@@ -75,6 +75,8 @@ def mostra(inicio: int, fim: int, tipos: list[str]) -> None:
         )
         return
 
+    wb = bm.deriva(wb)
+    medidas_pib_brasil(wb)
     disponiveis = [k for k in bm.INDICADORES if k in set(wb["indicador"])]
     col1, col2 = st.columns([2, 3])
     with col1:
@@ -83,9 +85,13 @@ def mostra(inicio: int, fim: int, tipos: list[str]) -> None:
     nomes = [bm.PAISES[k][0] for k in bm.PAISES if k != "BRA" and bm.PAISES[k][1] != "Média"]
     with col2:
         escolhidos = st.multiselect("Comparar com (até 5)", nomes, default=PADRAO, max_selections=5, key="wb_paises")
-    com_medias = st.toggle("Mostrar médias (Mundo, América Latina e Caribe, OCDE) em cinza", value=True, key="wb_medias")
+    com_medias = st.toggle("Mostrar médias (Mundo, América Latina e Caribe, OCDE) em cinza", value=True, key="wb_medias",
+                           disabled=codigo in bm.TOTAIS,
+                           help="Desativado para medidas de tamanho total, em que a média de grupo não se compara a países.")
+    com_medias = com_medias and codigo not in bm.TOTAIS
 
-    serie = wb[(wb["indicador"] == codigo) & wb["ano"].between(inicio, fim)]
+    serie = wb[(wb["indicador"] == codigo) & wb["ano"].between(inicio, fim)].copy()
+    serie["valor"] = serie["valor"] / bm.ESCALA.get(codigo, 1)
     if serie.empty:
         st.info("Sem dados desse indicador no período escolhido.")
         return
@@ -116,6 +122,8 @@ def mostra(inicio: int, fim: int, tipos: list[str]) -> None:
         fig.add_annotation(x=ult["ano"], y=ult["valor"], text=f"<b>Brasil {v.br(ult['valor'], casas)}</b>",
                            showarrow=False, xanchor="left", xshift=6, font=dict(color=c["brasil"]))
     v.estilo(fig, altura=420, titulo=f"{nome} ({unidade})")
+    if serie["valor"].abs().max() >= 1000:  # 300.000 em vez de 300k
+        fig.update_yaxes(tickformat=",.0f")
     fig.update_layout(hovermode="x unified", margin=dict(t=48, r=90),
                       legend=dict(orientation="h", y=-0.1, yanchor="top", x=0, xanchor="left"))
     v.mostra(fig, serie.pivot_table(index="ano", columns="pais", values="valor").reset_index().round(casas + 1),
@@ -125,6 +133,8 @@ def mostra(inicio: int, fim: int, tipos: list[str]) -> None:
     # ------------------------------------------------------------ Ranking no ano mais recente
     recente = serie.sort_values("ano").groupby("pais").tail(1)
     recente = recente[recente["ano"] >= recente["ano"].max() - 3].sort_values("valor")
+    if codigo in bm.TOTAIS:
+        recente = recente[recente["grupo"] != "Média"]
     if len(recente) > 2:
         st.markdown(f"### {nome}: último dado de cada país")
         rotulos = [f"{p} ({a})" if a != recente["ano"].max() else p for p, a in zip(recente["pais"], recente["ano"])]
@@ -150,3 +160,37 @@ def mostra(inicio: int, fim: int, tipos: list[str]) -> None:
                     f"({v.br(float(so_paises.loc[pos - 1, 'valor']), casas)} {unidade}, {int(so_paises.loc[pos - 1, 'ano'])}).")
     if falhas:
         v.nota("Indicadores que não responderam nesta consulta: " + ", ".join(falhas) + ".")
+
+
+CARTOES_PIB = [
+    ("NY.GDP.MKTP.CD", "PIB em dólares", "US$ bi"),
+    ("NY.GDP.MKTP.PP.KD", "PIB em PPC", "US$ bi int."),
+    ("PART.PIB.PPC", "Fatia do PIB mundial (PPC)", "%"),
+    ("NY.GDP.PCAP.PP.KD", "PIB per capita (PPC)", "US$ int."),
+    ("NY.GDP.PCAP.CD", "PIB per capita em dólares", "US$"),
+    ("NY.GNP.PCAP.CD", "Renda per capita (Atlas)", "US$"),
+]
+
+
+def medidas_pib_brasil(wb: pd.DataFrame) -> None:
+    """Cartões com o PIB do Brasil em cada medida, no último ano disponível."""
+    br = wb[wb["iso3"] == "BRA"]
+    cartoes = []
+    for codigo, rotulo, unidade in CARTOES_PIB:
+        s = br[br["indicador"] == codigo].sort_values("ano")
+        if s.empty:
+            continue
+        ult = s.iloc[-1]
+        valor = ult["valor"] / bm.ESCALA.get(codigo, 1)
+        # Posição entre os países da lista no mesmo ano.
+        mesmo_ano = wb[(wb["indicador"] == codigo) & (wb["ano"] == ult["ano"]) & (wb["grupo"] != "Média")]
+        pos = int((mesmo_ano["valor"] > ult["valor"]).sum()) + 1
+        cartoes.append({"rotulo": f"{rotulo} ({int(ult['ano'])})", "valor": v.br(valor, 2 if codigo == "PART.PIB.PPC" else 0),
+                        "unidade": unidade, "detalhe": f"{pos}º entre os {len(mesmo_ano)} países da lista",
+                        "destaque": codigo == "NY.GDP.MKTP.CD"})
+    if cartoes:
+        st.markdown("### O PIB do Brasil em diferentes medidas")
+        v.kpis(cartoes)
+        v.nota("Em dólares, o PIB depende do câmbio do ano; em PPC (paridade de poder de compra), compara o volume "
+               "produzido descontando as diferenças de preços entre países. Per capita, divide-se pela população. "
+               "Escolha cada medida no seletor abaixo para ver a série e o ranking.")

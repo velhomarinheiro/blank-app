@@ -18,9 +18,34 @@ ANO_INICIAL = 1990
 
 # código -> (nome curto, unidade, casas decimais, descrição)
 INDICADORES = {
+    # Medidas do PIB
+    "NY.GDP.MKTP.CD": ("PIB em dólares", "US$ bilhões correntes", 0,
+                       "PIB convertido em dólares pelo câmbio médio de cada ano. Mostra o tamanho da economia "
+                       "no mercado internacional e oscila com o câmbio."),
+    "NY.GDP.MKTP.PP.KD": ("PIB em paridade de poder de compra (PPC)", "US$ bilhões internacionais de 2021", 0,
+                          "PIB ajustado pelas diferenças de preços entre países, a preços constantes. É a medida "
+                          "usada para comparar o volume produzido."),
+    "PART.PIB.PPC": ("Participação no PIB mundial (PPC)", "% do PIB mundial", 2,
+                     "Fatia de cada país no PIB mundial medido em PPC (cálculo próprio com dados do Banco Mundial)."),
     "NY.GDP.PCAP.PP.KD": ("PIB per capita (PPC)", "US$ internacionais de 2021", 0,
                           "PIB por habitante em paridade de poder de compra, a preços constantes."),
+    "NY.GDP.PCAP.CD": ("PIB per capita em dólares", "US$ correntes", 0,
+                       "PIB por habitante convertido pelo câmbio de cada ano; sobe e desce com o dólar."),
+    "NY.GDP.PCAP.KD": ("PIB per capita real", "US$ constantes de 2015", 0,
+                       "PIB por habitante a preços constantes: mostra o crescimento real da renda média, sem efeito "
+                       "da inflação nem do câmbio."),
+    "NY.GNP.PCAP.CD": ("Renda nacional bruta per capita (método Atlas)", "US$ correntes", 0,
+                       "Renda de residentes por habitante, pelo método Atlas, que suaviza o câmbio. É a base da "
+                       "classificação de países por renda do Banco Mundial."),
     "NY.GDP.MKTP.KD.ZG": ("Crescimento do PIB", "% ao ano", 1, "Crescimento real anual do PIB."),
+    "NY.GDP.PCAP.KD.ZG": ("Crescimento do PIB per capita", "% ao ano", 1,
+                          "Crescimento real anual do PIB por habitante (desconta o aumento da população)."),
+    "NE.GDI.FTOT.ZS": ("Investimento (formação bruta de capital fixo)", "% do PIB", 1,
+                       "Gasto em máquinas, equipamentos, construções e infraestrutura."),
+    "NE.TRD.GNFS.ZS": ("Abertura comercial (exportações + importações)", "% do PIB", 1,
+                       "Comércio exterior de bens e serviços em relação ao PIB."),
+    "NV.IND.MANF.ZS": ("Indústria de transformação", "% do PIB", 1, "Valor adicionado pela indústria de transformação."),
+    # Outros indicadores
     "FP.CPI.TOTL.ZG": ("Inflação ao consumidor", "% ao ano", 1, "Variação anual do índice de preços ao consumidor."),
     "SL.UEM.TOTL.ZS": ("Desemprego", "% da força de trabalho", 1, "Estimativa modelada da OIT."),
     "SP.DYN.LE00.IN": ("Expectativa de vida", "anos", 1, "Expectativa de vida ao nascer."),
@@ -32,6 +57,26 @@ INDICADORES = {
     "MS.MIL.XPND.GD.ZS": ("Gasto militar", "% do PIB", 1, "Despesa militar (dados do SIPRI)."),
     "GC.DOD.TOTL.GD.ZS": ("Dívida do governo central", "% do PIB", 1, "Dívida bruta do governo central."),
 }
+
+# Indicadores que dividimos para exibir (valores em dólares -> bilhões).
+ESCALA = {"NY.GDP.MKTP.CD": 1e9, "NY.GDP.MKTP.PP.KD": 1e9}
+# Medidas de tamanho total: médias de grupos não se comparam com países (o "Mundo" seria a soma de todos).
+TOTAIS = {"NY.GDP.MKTP.CD", "NY.GDP.MKTP.PP.KD", "PART.PIB.PPC"}
+# Indicadores calculados aqui a partir de outros (não são baixados da API).
+DERIVADOS = {"PART.PIB.PPC"}
+
+
+def deriva(tabela: pd.DataFrame) -> pd.DataFrame:
+    """Acrescenta a participação no PIB mundial (PPC): PIB PPC do país ÷ PIB PPC do mundo × 100."""
+    ppc = tabela[tabela["indicador"] == "NY.GDP.MKTP.PP.KD"]
+    mundo = ppc[ppc["iso3"] == "WLD"].set_index("ano")["valor"]
+    if ppc.empty or mundo.empty:
+        return tabela
+    parte = ppc[ppc["iso3"] != "WLD"].copy()
+    parte["valor"] = parte["valor"] / parte["ano"].map(mundo) * 100
+    parte["indicador"] = "PART.PIB.PPC"
+    return pd.concat([tabela, parte.dropna(subset=["valor"])], ignore_index=True)
+
 
 # código ISO3 -> (nome em português, grupo)
 PAISES = {
@@ -103,7 +148,7 @@ def baixa_indicador(indicador: str, ano_final: int, tempo_limite: float = 30) ->
 def baixa_tudo(ano_final: int) -> tuple[pd.DataFrame, list[str]]:
     """Baixa todos os indicadores. Devolve a tabela e a lista de indicadores que falharam."""
     partes, falhas = [], []
-    for codigo in INDICADORES:
+    for codigo in (c for c in INDICADORES if c not in DERIVADOS):
         try:
             partes.append(baixa_indicador(codigo, ano_final))
         except Exception:  # um indicador fora do ar não derruba os outros

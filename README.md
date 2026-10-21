@@ -42,7 +42,7 @@ No [Streamlit Community Cloud](https://share.streamlit.io): **New app** → este
   `tipo` e o código da fonte em cada linha. `data/fontes.csv` lista as fontes; `data/LEIAME_pacote.md` traz a
   descrição original e as ressalvas.
 - Séries buscadas ao vivo em APIs abertas, sem chave, com cache de 24 horas:
-  - **Banco Mundial** (aba Mundo): 12 indicadores, 25 países e médias.
+  - **Banco Mundial** (aba Mundo): 22 indicadores, entre eles 7 medidas do PIB (em dólares, em PPC, per capita em PPC, em dólares e real, renda nacional bruta per capita e participação no PIB mundial), para 25 países e médias.
   - **FMI** (Contas públicas): dívida bruta e líquida, resultado primário e nominal do governo geral, com projeções.
   - **IBGE/SIDRA** (Poder de compra): IPCA anual por item, tabelas 1419 e 7060.
   - **Banco Central/SGS** (Contas públicas): dívida bruta (13762) e líquida (4513), mês a mês.
