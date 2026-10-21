@@ -126,3 +126,15 @@ def test_base_de_seguranca_bate_com_o_anuario():
     total = uf.groupby("ano")["mvi"].sum()
     assert total[2017] == 64078 and total[2021] == 47503
     assert uf.groupby("ano")["sigla_uf"].nunique().eq(27).all()
+
+
+def test_anuario_2026_importado():
+    """Valores conferidos na planilha do 20º Anuário."""
+    serie = pd.read_csv("data/dados/seguranca_mvi_serie.csv")
+    br = serie[serie["sigla_uf"] == "BR"].set_index("ano")
+    assert br.loc[2025, "mvi"] == 40775 and round(br.loc[2025, "taxa"], 1) == 19.1
+    assert serie[serie["nivel"] == "uf"].groupby("ano")["sigla_uf"].nunique().eq(27).all()
+    rec = pd.read_csv("data/dados/seguranca_uf_recente.csv")
+    fem = rec[(rec["indicador"] == "feminicidio") & (rec["sigla_uf"] == "BR") & (rec["ano"] == 2025)]
+    assert fem["valor"].iloc[0] == 1571
+    assert rec.groupby(["indicador", "ano"])["sigla_uf"].nunique().eq(28).all()

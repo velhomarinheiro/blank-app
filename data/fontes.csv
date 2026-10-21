@@ -44,7 +44,7 @@ SENADO_LOA2025,Agência Senado – LOA 2025 (Lei 15.121),https://www12.senado.le
 FGV_CLIPPING,FGV Social – clipping de imprensa sobre Bolsa Família,
 INEP_PISA2025,"Inep – Pisa 2025: resultados do Brasil (set/2026), com a série histórica da OCDE",https://download.inep.gov.br/acoes_internacionais/pisa/resultados/2025/resultados_pisa_2025.pdf
 OCDE_PISA2025,OCDE – PISA 2025 Results (Volume I),https://www.oecd.org/en/publications/pisa-2025-results-volume-i_73451bc5-en.html
-OCDE_PISA_HIST,"OCDE – médias da OCDE publicadas em cada edição do Pisa (2000–2018)",https://www.oecd.org/pisa/
+OCDE_PISA_HIST,OCDE – médias da OCDE publicadas em cada edição do Pisa (2000–2018),https://www.oecd.org/pisa/
 FMI_DATAMAPPER,"FMI – World Economic Outlook, via DataMapper (dívida e resultado do governo geral)",https://www.imf.org/external/datamapper/
 FMI_FM2026,"FMI – Fiscal Monitor, abril de 2026",https://www.imf.org/en/Publications/FM
 FMI_USA2026,FMI – Consulta do Artigo IV com os Estados Unidos (abr/2026),https://www.imf.org/en/news/articles/2026/04/01/pr-26102-usa-imf-executive-board-concludes-2026-article-iv-consult
@@ -55,5 +55,4 @@ FBSP_ABSP_BD,"FBSP – Anuário Brasileiro de Segurança Pública, dados por UF 
 IBGE_POP_BD,IBGE – População residente por UF (via Base dos Dados),https://basedosdados.org/dataset/br-ibge-populacao
 SENATRAN_FROTA_BD,Senatran (Denatran) – Frota de veículos por UF (via Base dos Dados),https://basedosdados.org/dataset/br-denatran-frota
 GEOBR_UF,"IBGE – Malha das UFs, via geobr (Ipea) e Base dos Dados",https://basedosdados.org/dataset/br-geobr-mapas
-FBSP_2024,FBSP – 18º Anuário Brasileiro de Segurança Pública (2024),https://fontesegura.forumseguranca.org.br/18o-anuario-brasileiro-de-seguranca-publica-revela-queda-de-34-na-taxa-de-mortes-violentas-intencionais-mvi-patamar-de-violencia-no-pais-ainda-e-um-dos-maiores-do-mundo/
-FBSP_2026,"FBSP – 20º Anuário Brasileiro de Segurança Pública (jul/2026), via divulgação do Fórum e imprensa",https://forumseguranca.org.br/wp-content/uploads/2026/07/anuario-2026.pdf
+FBSP_2026,"FBSP – 20º Anuário Brasileiro de Segurança Pública (jul/2026), planilha de dados (data/brutos/anuario-2026.xlsx)",https://forumseguranca.org.br/anuario-brasileiro-seguranca-publica/
