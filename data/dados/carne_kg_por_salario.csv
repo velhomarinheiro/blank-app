@@ -1,0 +1,10 @@
+ano,corte,kg_por_salario,preco_kg_rs,local,tipo,fonte_id
+2004,carne de primeira (contrafilé),26,10.0,varejo (referência nacional),estimativa,EM_2026
+2007,picanha,22.6,,São Paulo,oficial,IEA_PODER360
+2019,picanha,23.0,43.5,São Paulo,oficial,IEA_PODER360
+2021,picanha,16.5,,São Paulo,oficial,IEA_PODER360
+2023,picanha,19.1,,São Paulo,oficial,IEA_PODER360
+2024,picanha,19.9,71.0,São Paulo (1º sem.),oficial,IEA_PODER360
+2024,acém,46,,Belo Horizonte,estimativa,MERCADO_MINEIRO
+2026,carne de primeira,32.1,50.49,São Paulo (ago),calculo,PROCON_DIEESE_SP
+2026,carne de primeira,31,52.0,varejo (referência nacional),estimativa,EM_2026

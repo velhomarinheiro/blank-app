@@ -1,0 +1,19 @@
+item,ano,valor,unidade,tipo,fonte_id
+Gasto militar (SIPRI),2025,23.9,US$ bilhões,oficial,SIPRI_2026
+Militares inativos e pensionistas,2020,50.0,R$ bilhões,oficial,GAZETA_2026
+Militares inativos e pensionistas,2025,60.7,R$ bilhões,oficial,GAZETA_2026
+Militares ativos,2020,30.6,R$ bilhões,oficial,GAZETA_2026
+Militares ativos,2025,33.4,R$ bilhões,oficial,GAZETA_2026
+Previdência Social (LOA),2025,972,R$ bilhões,oficial,SENADO_LOA2025
+Saúde (LOA),2025,245,R$ bilhões,oficial,SENADO_LOA2025
+Bolsa Família (LOA),2025,158,R$ bilhões,oficial,SENADO_LOA2025
+BPC + RMV (LOA),2025,113.6,R$ bilhões,oficial,SENADO_LOA2025
+Bolsa Família (executado),2013,38.4,R$ bilhões,oficial,FGV_CLIPPING
+Bolsa Família (executado),2019,33.5,R$ bilhões,oficial,FGV_CLIPPING
+Bolsa Família (executado),2020,10.1,R$ bilhões,oficial,FGV_CLIPPING
+Auxílio Brasil (aprox.),2022,100,R$ bilhões,estimativa,FGV_CLIPPING
+Bolsa Família (orçado),2023,175,R$ bilhões,oficial,FGV_CLIPPING
+Domicílios com Bolsa Família/Auxílio,2012,16.6,% dos domicílios,oficial,IBGE_PNADC_REND
+Domicílios com Bolsa Família/Auxílio,2019,14.3,% dos domicílios,oficial,IBGE_PNADC_REND
+Domicílios com Bolsa Família/Auxílio,2022,16.9,% dos domicílios,oficial,IBGE_PNADC_REND
+Domicílios com Bolsa Família/Auxílio,2023,19.0,% dos domicílios,oficial,IBGE_PNADC_REND

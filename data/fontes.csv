@@ -1,0 +1,44 @@
+fonte_id,descricao,url
+IBGE_CNT,IBGE – Contas Nacionais Trimestrais,https://www.ibge.gov.br/estatisticas/economicas/contas-nacionais/9300-contas-nacionais-trimestrais.html
+IBGE_IPCA,IBGE – IPCA,https://www.ibge.gov.br/estatisticas/economicas/precos-e-custos/9256-indice-nacional-de-precos-ao-consumidor-amplo.html
+IBGE_PNADC,IBGE – PNAD Contínua (trabalho),https://www.ibge.gov.br/estatisticas/sociais/trabalho/9171-pesquisa-nacional-por-amostra-de-domicilios-continua-mensal.html
+IBGE_PNADC_EDU,IBGE – PNAD Contínua: Educação,https://www.ibge.gov.br/estatisticas/sociais/educacao/17270-pnad-continua.html
+IBGE_PNADC_REND,IBGE – PNAD Contínua: Rendimento de todas as fontes,https://www.ibge.gov.br/estatisticas/sociais/trabalho/17270-pnad-continua.html
+IBGE_SIS,IBGE – Síntese de Indicadores Sociais 2025,https://www.ibge.gov.br/estatisticas/sociais/populacao/9221-sintese-de-indicadores-sociais.html
+IBGE_TABUAS,IBGE – Tábuas Completas de Mortalidade 2024,https://www.ibge.gov.br/estatisticas/sociais/populacao/9126-tabuas-completas-de-mortalidade.html
+IBGE_CENSO2000,IBGE – Censo 2000 (citado em fonte secundária),
+IPEA_2025,"Ipea – Nota técnica Souza & Hecksher, nov/2025 (renda, Gini e pobreza 1995–2024)",https://www.ipea.gov.br
+PNUD_RDH2025,PNUD – Relatório de Desenvolvimento Humano 2025,https://hdr.undp.org
+INEP_IDEB,Inep – Ideb,https://www.gov.br/inep/pt-br/areas-de-atuacao/pesquisas-estatisticas-e-indicadores/ideb
+INEP_INVEST,Inep – Indicadores de investimento público em educação,
+OCDE_PISA2022,"OCDE – Pisa 2022, nota Brasil",https://www.oecd.org/pisa/
+PNE,Plano Nacional de Educação / relatório do novo PNE,
+DIEESE_NT,DIEESE – Notas técnicas sobre o salário mínimo,https://www.dieese.org.br/notatecnica/2025/notaTec283salarioMinimo/10.html
+DIEESE_CESTA,DIEESE – Pesquisa Nacional da Cesta Básica,https://www.dieese.org.br/cesta/
+FIPE_508,FIPE – Informações Fipe nº 508,
+PROCON_DIEESE_SP,Procon-SP/DIEESE – Pesquisa da cesta básica de São Paulo (ago/2026),
+EM_2026,Estado de Minas – reportagem de abril/2026 sobre poder de compra,
+IEA_PODER360,IEA-SP via Poder360 – picanha por salário mínimo,https://www.poder360.com.br/poder-economia/preco-aumenta-mas-salario-minimo-compra-mais-picanha-em-2024/
+MERCADO_MINEIRO,Mercado Mineiro via O Tempo – acém,
+INVESTNEWS,InvestNews – litros de gasolina por salário mínimo,
+GITHUB_GASOLINA,Estudo independente publicado no GitHub com dados ANP,
+ANP,ANP – Levantamento de Preços de Combustíveis,https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos
+ACENDE,Instituto Acende Brasil – tarifas residenciais 2012–2022,
+ABRACEEL,Abraceel – tarifa residencial × IPCA 2010–2024,
+OCDE_RS2025,OCDE – Revenue Statistics 2025,https://www.oecd.org/en/publications/revenue-statistics-2025_3a264267-en.html
+OCDE_RS2024,OCDE – Revenue Statistics 2024,https://www.oecd.org/en/publications/revenue-statistics-2024_c87a3da5-en.html
+OCDE_LAC2025,OCDE et al. – Revenue Statistics in LAC 2025,https://www.oecd.org/en/publications/revenue-statistics-in-latin-america-and-the-caribbean-2025_7594fbdd-en.html
+OCDE_LAC2026,OCDE et al. – Revenue Statistics in LAC 2026,https://www.oecd.org/en/publications/revenue-statistics-in-latin-america-and-the-caribbean-2026_2f21f131-en.html
+OCDE_AFRICA2024,OCDE/AUC/ATAF – Revenue Statistics in Africa 2024: South Africa,https://www.oecd.org/content/dam/oecd/en/topics/policy-sub-issues/global-tax-revenues/revenue-statistics-africa-south-africa.pdf
+EUROSTAT,Eurostat – Tax revenue statistics,https://ec.europa.eu/eurostat/statistics-explained/index.php/Tax_revenue_statistics
+TAXFOUNDATION,Tax Foundation – OECD tax revenue by country,https://taxfoundation.org/data/all/global/oecd-tax-revenue-by-country/
+STN_CTB2025,Tesouro Nacional – Carga Tributária do Governo Geral 2025,https://www.tesourotransparente.gov.br/publicacoes/carga-tributaria-do-governo-geral/2025/114
+STN_RTN,"Tesouro Nacional – Resultado do Tesouro Nacional (RTN), dez/2025",https://agenciabrasil.ebc.com.br/economia/noticia/2026-01/deficit-primario-do-governo-central-totaliza-r-617-bilhoes-em-2025
+MF_2026,Ministério da Fazenda – nota de 29/01/2026,https://www.gov.br/fazenda/pt-br/assuntos/noticias/2026/janeiro/governo-central-cumpre-com-folga-a-meta-fiscal-estabelecida-para-2025-aponta-relatorio-do-tesouro
+BCB_EF,Banco Central – Estatísticas Fiscais (dez/2025 e jul/2026),https://www.bcb.gov.br/estatisticas/estatisticasfiscais
+STN_COFOG2023,Tesouro Nacional – COFOG Governo Geral 2023,https://www.tesourotransparente.gov.br/publicacoes/cofog-despesas-por-funcao-do-governo-geral/2023/114
+STN_COFOG2024,Tesouro Nacional – COFOG Governo Geral 2024,https://www.tesourotransparente.gov.br/publicacoes/cofog-despesas-por-funcao-do-governo-geral/2024/114
+SIPRI_2026,SIPRI – Trends in World Military Expenditure 2025 (abr/2026),https://www.sipri.org
+GAZETA_2026,"Gazeta do Povo, com dados do Observatório de Pessoal (MGI)",https://www.gazetadopovo.com.br/economia/gasto-militar-brasil-cresce-2025-cortes-defesa/
+SENADO_LOA2025,Agência Senado – LOA 2025 (Lei 15.121),https://www12.senado.leg.br/noticias/materias/2025/04/14/orcamento-2025-quase-r-1-trihao-para-previdencia-e-r-245-bilhoes-para-saude
+FGV_CLIPPING,FGV Social – clipping de imprensa sobre Bolsa Família,

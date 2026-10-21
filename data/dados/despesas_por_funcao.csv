@@ -1,0 +1,16 @@
+funcao,ano,pct_pib,esfera,tipo,fonte_id
+Despesa total,2024,45.79,governo geral,oficial,STN_COFOG2024
+Proteção social,2023,16.8,governo geral,oficial,STN_COFOG2023
+Proteção social,2022,15.7,governo geral,oficial,STN_COFOG2023
+Proteção social – média economias avançadas,2022,15.0,comparação,oficial,STN_COFOG2023
+Serviços públicos gerais (inclui juros),2023,11.3,governo geral,oficial,STN_COFOG2023
+Saúde,2023,4.72,governo geral,oficial,STN_COFOG2024
+Saúde,2024,5.03,governo geral,oficial,STN_COFOG2024
+Educação,2023,4.93,governo geral,oficial,STN_COFOG2024
+Educação,2024,5.1,governo geral,oficial,STN_COFOG2024
+Habitação e serviços comunitários,2023,1.15,governo geral,oficial,STN_COFOG2024
+Habitação e serviços comunitários,2024,1.36,governo geral,oficial,STN_COFOG2024
+Tribunais de justiça,2023,1.43,governo geral,oficial,STN_COFOG2024
+Defesa (SIPRI),2016,1.3,metodologia SIPRI,oficial,SIPRI_2026
+Defesa (SIPRI),2025,1.1,metodologia SIPRI,oficial,SIPRI_2026
+Defesa – média mundial (SIPRI),2025,2.5,comparação,oficial,SIPRI_2026

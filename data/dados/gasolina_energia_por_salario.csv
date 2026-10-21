@@ -1,0 +1,14 @@
+ano,item,quantidade_por_salario,unidade,referencia,tipo,fonte_id
+2002,gasolina,127,litros,média,estimativa,INVESTNEWS
+2003,gasolina,108,litros,média (pior ano),estimativa,INVESTNEWS
+2015,gasolina,260,litros,jan,estimativa,GITHUB_GASOLINA
+2017,gasolina,254,litros,mar (melhor ponto),estimativa,INVESTNEWS
+2018,gasolina,227,litros,média,estimativa,INVESTNEWS
+2020,gasolina,251,litros,média,estimativa,INVESTNEWS
+2021,gasolina,200,litros,média,estimativa,INVESTNEWS
+2022,gasolina,173,litros,mar,estimativa,INVESTNEWS
+2025,gasolina,244,litros,"dez (R$ 6,22/L)",calculo,ANP
+2026,gasolina,247,litros,jul,estimativa,GITHUB_GASOLINA
+2026,gasolina,249,litros,"set (R$ 6,52/L)",calculo,ANP
+2012,energia elétrica residencial,1747,kWh,tarifa R$ 356/MWh,calculo,ACENDE
+2022,energia elétrica residencial,1945,kWh,tarifa R$ 623/MWh,calculo,ACENDE

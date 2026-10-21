@@ -1,0 +1,21 @@
+# Cores do site de referência (gab-berger.github.io/idh-brasil): claro por padrão, escuro conforme o sistema.
+[theme]
+font = "sans-serif"
+
+[theme.light]
+primaryColor = "#0072b2"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f5f6f7"
+textColor = "#1d1d1b"
+
+[theme.dark]
+primaryColor = "#56b4e9"
+backgroundColor = "#121417"
+secondaryBackgroundColor = "#1d2025"
+textColor = "#e6e7e9"
+
+[client]
+toolbarMode = "minimal"
+
+[browser]
+gatherUsageStats = false

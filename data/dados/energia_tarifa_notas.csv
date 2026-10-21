@@ -1,0 +1,6 @@
+indicador,valor,periodo,tipo,fonte_id
+Tarifa residencial média (R$/MWh),356,2012,oficial,ACENDE
+Tarifa residencial média (R$/MWh),623,2022,oficial,ACENDE
+Alta da tarifa residencial (%),269,2010–2024,oficial,ABRACEEL
+IPCA acumulado (%),218,2010–2024,oficial,ABRACEEL
+Energia elétrica residencial no IPCA (%),12.31,2025,oficial,IBGE_IPCA
