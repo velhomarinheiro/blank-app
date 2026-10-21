@@ -7,7 +7,7 @@ import streamlit as st
 
 from painel import dados as d
 from painel import visual as v
-from painel.secoes import contas_publicas, fontes, mundo, poder_de_compra, social, tributacao, visao_geral
+from painel.secoes import contas_publicas, fontes, mundo, poder_de_compra, seguranca, social, tributacao, visao_geral
 
 st.set_page_config(
     page_title="Brasil em dados",
@@ -19,9 +19,9 @@ v.aplica_css()
 
 st.markdown('<div class="titulo-painel">Brasil em dados, 1995–2026</div>', unsafe_allow_html=True)
 st.markdown(
-    '<p class="subtitulo">Economia, condições de vida, poder de compra, impostos e contas públicas do Brasil, '
-    "com comparações internacionais. Dados abertos de IBGE, Ipea, DIEESE, Tesouro, Banco Central, OCDE e "
-    "Banco Mundial.</p>",
+    '<p class="subtitulo">Economia, condições de vida, poder de compra, impostos, contas públicas e segurança do Brasil, '
+    "com comparações internacionais. Dados abertos de IBGE, Ipea, DIEESE, Tesouro, Banco Central, "
+    "Fórum Brasileiro de Segurança Pública, OCDE, FMI e Banco Mundial.</p>",
     unsafe_allow_html=True,
 )
 
@@ -48,6 +48,7 @@ ABAS = [
     ("Poder de compra", poder_de_compra),
     ("Tributação", tributacao),
     ("Contas públicas", contas_publicas),
+    ("Segurança", seguranca),
     ("Mundo", mundo),
     ("Fontes e método", fontes),
 ]

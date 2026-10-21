@@ -24,6 +24,10 @@ RESSALVAS = [
                         "Revisões do PIB podem alterar casas decimais."),
     ("Dívida bruta", "Conceito do Banco Central. No conceito do FMI (inclui títulos na carteira do BC) os valores "
                      "são maiores: 93,4% do PIB em dez/2025."),
+    ("Segurança pública", "Os registros vêm das polícias de cada estado, compilados pelo Fórum Brasileiro de Segurança "
+                          "Pública. A qualidade varia entre estados e anos, e crimes como estupro têm forte "
+                          "subnotificação. A base por estado vai até 2021; 2022–2025 vêm dos Anuários publicados, que "
+                          "revisam anos anteriores. Taxas por habitante e por veículo são cálculo próprio."),
     ("Banco Mundial", "Os dados internacionais da aba Mundo vêm da API aberta do Banco Mundial e podem diferir "
                       "das fontes nacionais (revisões, metodologia, anos de referência)."),
 ]
