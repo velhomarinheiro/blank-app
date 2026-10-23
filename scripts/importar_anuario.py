@@ -7,6 +7,8 @@ Grava:
 - data/dados/seguranca_mvi_serie.csv   Tabela 02: mortes violentas por UF e região, 2012–2025
 - data/dados/seguranca_uf_recente.csv  Tabelas por UF dos dois últimos anos (vítimas/registros e taxas publicadas)
 - data/dados/seguranca_prisional.csv   Tabela 75: população prisional, Brasil, 2000–2025
+- data/dados/seguranca_series.csv      Linha do tempo de cada indicador por UF, juntando a base histórica
+                                       (data/dados/seguranca_uf.csv, de scripts/preparar_seguranca.py) e o Anuário
 
 As posições das colunas seguem o layout do 20º Anuário (2026). Se uma edição futura mudar o layout, o script
 avisa qual tabela não bateu, em vez de gravar números trocados.
@@ -67,6 +69,8 @@ CONFERE = {
     "T08": "intervenç", "T10": "desaparecidas", "T11": "veículo", "T12": "celular", "T14": "Roubo a",
     "T15": "carga", "T17": "Estelionato", "T20": "Tentativa", "T21": "eminicídio", "T29": "Estupro",
     "T48": "armas", "T71": "privadas de liberdade", "T75": "população prisional",
+    "T51": "tráfico", "T52": "posse e uso", "T53": "apreensão", "T45": "arma de fogo", "T28": "feminicídio",
+    "T56": "despesas",
 }
 
 
@@ -167,13 +171,122 @@ def prisional(planilha) -> pd.DataFrame:
     return pd.DataFrame(saida).pivot_table(index="ano", columns="serie", values="pessoas").reset_index()
 
 
+# ---------------------------------------------------------------- linha do tempo dos indicadores
+
+# Séries de vários anos que vêm prontas no Anuário: chave -> (aba, rótulo, base da taxa)
+SERIES_LONGAS = {
+    "trafico_drogas": ("T51", "Tráfico de drogas (registros)", "hab"),
+    "posse_uso_drogas": ("T52", "Posse e uso de drogas (registros)", "hab"),
+    "apreensao_drogas": ("T53", "Apreensões de drogas (registros)", "hab"),
+    "armas_registradas": ("T45", "Armas de fogo com registro ativo (Sinarm/PF)", "hab"),
+    "proporcao_feminicidio": ("T28", "Feminicídios entre os homicídios de mulheres", "pct"),
+    "despesa_seguranca": ("T56", "Gasto estadual com segurança pública (R$ de 2025)", "rs"),
+}
+# Indicadores montados com a base histórica por UF (2007–2021) e o Anuário 2026 (2024–2025):
+# chave -> (rótulo, base da taxa). A chave é a mesma nas duas fontes.
+COMBINADAS = {
+    "homicidio_doloso": ("Homicídio doloso (vítimas)", "hab"),
+    "latrocinio": ("Latrocínio (vítimas)", "hab"),
+    "morte_intervencao_policial": ("Mortes por intervenção policial", "hab"),
+    "feminicidio": ("Feminicídio", "hab"),
+    "estupro": ("Estupro e estupro de vulnerável", "hab"),
+    "roubo_veiculo": ("Roubo de veículos", "veic"),
+    "furto_veiculo": ("Furto de veículos", "veic"),
+    "roubo_carga": ("Roubo de carga", "hab"),
+    "armas_apreendidas": ("Armas de fogo apreendidas", "hab"),
+    "desaparecidos": ("Pessoas desaparecidas", "hab"),
+    "populacao_prisional": ("População no sistema penitenciário", "hab"),
+}
+
+
+def serie_longa(planilha, aba: str) -> pd.DataFrame:
+    """Lê uma tabela 'UF × anos' (números absolutos) a partir do cabeçalho de anos."""
+    todas = linhas(planilha, aba)
+    cab = next(r for r in todas[:10] if len(r) > 1 and r[1] and re.match(r"^\d{4}", str(r[1])))
+    anos = []
+    for c in cab[1:]:
+        # Para no fim da sequência de anos: depois vêm taxas e variações que repetem anos ("2024", "2024-2025").
+        if c is None or not re.match(r"^\d{4}$|^\d{4} \(", str(c).strip()) or (anos and int(str(c)[:4]) <= anos[-1]):
+            break
+        anos.append(int(str(c)[:4]))
+    saida = []
+    for r in todas:
+        if not r or r[0] is None:
+            continue
+        sigla = "BR" if str(r[0]).strip() == "Total" else nome_uf(r[0])
+        if sigla is None or sigla in REGIOES:
+            continue
+        for i, ano in enumerate(anos):
+            saida.append({"sigla_uf": sigla, "ano": ano, "valor": numero(r[1 + i])})
+    return pd.DataFrame(saida)
+
+
+def linha_do_tempo(planilha) -> pd.DataFrame:
+    """Uma tabela com todos os indicadores por UF e ano, com taxas na mesma base em todos os anos."""
+    mvi = serie_mvi(planilha)
+    mvi = mvi[mvi["nivel"] != "regiao"]
+    # População: IBGE (base histórica) até 2021; depois, a implícita nas taxas do Anuário (mortes ÷ taxa).
+    pop_fbsp = mvi.assign(pop=mvi["mvi"] / mvi["taxa"] * 1e5)[["sigla_uf", "ano", "pop"]]
+    rec = recentes(planilha)
+    frota_rec = rec[rec["indicador"] == "roubo_veiculo"].assign(frota=lambda t: t["valor"] / t["taxa"] * 1e5)
+    historica = pd.read_csv(RAIZ / "seguranca_uf.csv")
+    pop = pd.concat([historica[["sigla_uf", "ano", "populacao"]].rename(columns={"populacao": "pop"}),
+                     pop_fbsp[pop_fbsp["ano"] > historica["ano"].max()]])
+    frota = pd.concat([historica[["sigla_uf", "ano", "frota"]], frota_rec[["sigla_uf", "ano", "frota"]]])
+    # Brasil na base histórica: soma dos estados (só quando os 27 informaram).
+    soma = historica.groupby("ano")[["populacao", "frota"]].sum().reset_index().assign(sigla_uf="BR")
+    pop = pd.concat([pop, soma.rename(columns={"populacao": "pop"})[["sigla_uf", "ano", "pop"]]])
+    frota = pd.concat([frota, soma[["sigla_uf", "ano", "frota"]]])
+
+    partes = [mvi.rename(columns={"mvi": "valor"})[["sigla_uf", "ano", "valor", "taxa"]].assign(
+        indicador="mvi", rotulo="Mortes violentas intencionais", base="hab", fonte="FBSP, 20º Anuário, Tabela 02")]
+    for chave, (aba, rotulo, base) in SERIES_LONGAS.items():
+        partes.append(serie_longa(planilha, aba).assign(indicador=chave, rotulo=rotulo, base=base,
+                                                        fonte=f"FBSP, 20º Anuário, Tabela {aba[1:]}"))
+    prisao = serie_longa_cols(planilha, "T71", 1)  # só o sistema penitenciário, como na base histórica
+    for chave, (rotulo, base) in COMBINADAS.items():
+        antigo = historica[["sigla_uf", "ano", chave]].rename(columns={chave: "valor"}).dropna()
+        completos = antigo.groupby("ano").filter(lambda g: len(g) == 27)
+        brasil = completos.groupby("ano", as_index=False)["valor"].sum().assign(sigla_uf="BR")
+        antigo = pd.concat([antigo, brasil]).assign(fonte="FBSP, Anuários 2008–2022, via Base dos Dados")
+        novo = prisao if chave == "populacao_prisional" else rec[rec["indicador"] == chave][["sigla_uf", "ano", "valor"]]
+        novo = novo.assign(fonte="FBSP, 20º Anuário (2026)")
+        partes.append(pd.concat([antigo, novo]).assign(indicador=chave, rotulo=rotulo, base=base))
+    tabela = pd.concat(partes, ignore_index=True).dropna(subset=["valor"])
+    tabela = tabela.merge(pop, on=["sigla_uf", "ano"], how="left").merge(frota, on=["sigla_uf", "ano"], how="left")
+    calculada = tabela["valor"] / tabela["pop"] * 1e5
+    calculada = calculada.where(tabela["base"] != "veic", tabela["valor"] / tabela["frota"] * 1e5)
+    calculada = calculada.where(tabela["base"] != "rs", tabela["valor"] / tabela["pop"])
+    calculada = calculada.where(tabela["base"] != "pct", tabela["valor"])
+    tabela["taxa"] = tabela["taxa"].fillna(calculada) if "taxa" in tabela else calculada
+    colunas = ["indicador", "rotulo", "base", "sigla_uf", "ano", "valor", "taxa", "fonte"]
+    repetidos = tabela.duplicated(["indicador", "sigla_uf", "ano"])
+    if repetidos.any():
+        raise ValueError(f"Linhas repetidas na linha do tempo: {tabela[repetidos].head().to_dict('records')}")
+    return tabela[colunas].sort_values(["indicador", "sigla_uf", "ano"]).reset_index(drop=True)
+
+
+def serie_longa_cols(planilha, aba: str, coluna: int) -> pd.DataFrame:
+    """Valores de dois anos lidos a partir de uma coluna (ex.: T71, sistema penitenciário 2024 e 2025)."""
+    todas = linhas(planilha, aba)
+    ano_a, ano_b = anos_da_tabela(todas, coluna)
+    saida = []
+    for r in todas:
+        sigla = nome_uf(r[0]) if r else None
+        if sigla is None or sigla in REGIOES:
+            continue
+        for ano, desloc in ((ano_a, 0), (ano_b, 1)):
+            saida.append({"sigla_uf": sigla, "ano": ano, "valor": numero(r[coluna + desloc])})
+    return pd.DataFrame(saida)
+
+
 def main() -> int:
     if len(sys.argv) != 2:
         print(__doc__)
         return 1
     planilha = openpyxl.load_workbook(sys.argv[1], read_only=True, data_only=True)
     for nome, funcao in [("seguranca_mvi_serie", serie_mvi), ("seguranca_uf_recente", recentes),
-                         ("seguranca_prisional", prisional)]:
+                         ("seguranca_prisional", prisional), ("seguranca_series", linha_do_tempo)]:
         tabela = funcao(planilha)
         tabela.to_csv(RAIZ / f"{nome}.csv", index=False)
         print(f"{nome}: {len(tabela)} linhas")

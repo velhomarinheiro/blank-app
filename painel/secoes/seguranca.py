@@ -151,7 +151,7 @@ def mostra(inicio: int, fim: int, tipos: list[str]) -> None:
 
     mostra_serie_nacional(serie, inicio, fim)
     mostra_estados_recente(rec, ultimo)
-    mostra_evolucao_mvi(serie, inicio, fim)
+    mostra_linha_do_tempo(inicio, fim)
     mostra_prisional(inicio, fim)
     mostra_historico(d.tabela("seguranca_uf"), inicio, fim)
 
@@ -223,42 +223,95 @@ def mostra_estados_recente(rec: pd.DataFrame, ultimo: int) -> None:
                f"{dados['fonte'].iloc[0]}.")
 
 
-def mostra_evolucao_mvi(serie: pd.DataFrame, inicio: int, fim: int) -> None:
+UNIDADES_SERIE = {
+    "hab": "por 100 mil habitantes",
+    "veic": "por 100 mil veículos",
+    "pct": "% dos homicídios de mulheres",
+    "rs": "R$ por habitante (valores de 2025)",
+}
+NOTAS_SERIE = {
+    "apreensao_drogas": "Os estados contam apreensões de formas diferentes; compare a tendência de cada um, não os níveis.",
+    "armas_registradas": "Registros ativos no Sinarm (Polícia Federal), de cidadãos, empresas e órgãos públicos.",
+    "proporcao_feminicidio": "Parte da alta reflete a melhora no registro: a lei do feminicídio é de 2015.",
+    "despesa_seguranca": "Despesa dos estados com a função Segurança Pública, em reais de 2025.",
+    "posse_uso_drogas": "Registros policiais; dependem das prioridades e da forma de registro de cada polícia.",
+    "trafico_drogas": "Registros policiais; dependem das prioridades e da forma de registro de cada polícia.",
+}
+
+
+def mostra_linha_do_tempo(inicio: int, fim: int) -> None:
+    """Linha do tempo de qualquer indicador, para o Brasil e até 5 estados."""
     c = v.cores()
-    st.markdown("### Mortes violentas por estado, ano a ano")
-    s = serie[(serie["nivel"] == "uf") & serie["ano"].between(inicio, fim)]
-    if s.empty:
+    st.markdown("### Linha do tempo por indicador")
+    series = d.tabela("seguranca_series")
+    series = series[series["ano"].between(inicio, fim)]
+    if series.empty:
         return
+    rotulos = series.drop_duplicates("indicador").set_index("indicador")["rotulo"]
+    ordem = ["mvi"] + sorted([k for k in rotulos.index if k != "mvi"], key=lambda k: rotulos[k])
     info = nomes_uf()
-    escolhidos = st.multiselect("Compare até 5 estados com o Brasil", sorted(s["sigla_uf"].unique()),
-                                default=["SP", "RJ", "BA", "CE", "AP"], max_selections=5, key="seg_ufs_mvi",
+    col1, col2 = st.columns([3, 2])
+    with col1:
+        chave = st.selectbox("Indicador", ordem, format_func=rotulos.get, key="seg_linha_ind")
+    dados = series[series["indicador"] == chave]
+    base = dados["base"].iloc[0]
+    with col2:
+        opcoes = ["Taxa", "Números absolutos"] if base != "pct" else ["Taxa"]
+        medida = st.radio("Medida", opcoes, horizontal=True, key="seg_linha_medida")
+    coluna = "taxa" if medida == "Taxa" else "valor"
+    unidade = UNIDADES_SERIE[base] if coluna == "taxa" else ("R$ (valores de 2025)" if base == "rs" else "registros")
+    padrao = [x for x in ["SP", "RJ", "BA", "CE", "AP"] if x in set(dados["sigla_uf"])]
+    escolhidos = st.multiselect("Compare até 5 estados com o Brasil", sorted(set(dados["sigla_uf"]) - {"BR"}),
+                                default=padrao, max_selections=5, key="seg_ufs_mvi",
                                 format_func=lambda x: f"{x} – {info.loc[x, 'uf']}")
+    anos = pd.DataFrame({"ano": range(int(dados["ano"].min()), int(dados["ano"].max()) + 1)})
+    grande = dados[coluna].abs().max() >= 1000
+    casas = 0 if grande or coluna == "valor" else 1
     fig = go.Figure()
-    for i, sigla in enumerate(escolhidos):
-        g = s[s["sigla_uf"] == sigla].sort_values("ano")
-        fig.add_scatter(x=g["ano"], y=g["taxa"], name=sigla, mode="lines+markers", line=dict(color=c["serie"][i], width=2),
-                        marker=dict(size=6), customdata=g["mvi"],
-                        hovertemplate="%{x}: %{y:.1f} (%{customdata:,.0f} vítimas)<extra>" + sigla + "</extra>")
-    g = serie[(serie["sigla_uf"] == "BR") & serie["ano"].between(inicio, fim)].sort_values("ano")
-    fig.add_scatter(x=g["ano"], y=g["taxa"], name="Brasil", mode="lines+markers", line=dict(color=c["brasil"], width=3.5),
-                    marker=dict(size=7), hovertemplate="%{x}: %{y:.1f}<extra>Brasil</extra>")
-    v.estilo(fig, altura=380, titulo="Mortes violentas intencionais por 100 mil habitantes")
+    linhas = [(s, c["serie"][i], 2, f"{s}") for i, s in enumerate(escolhidos)] + [("BR", c["brasil"], 3.5, "Brasil")]
+    for sigla, cor, largura, nome in linhas:
+        g = anos.merge(dados[dados["sigla_uf"] == sigla], on="ano", how="left")  # anos sem dado ficam como lacuna
+        if g[coluna].isna().all():
+            continue
+        fig.add_scatter(x=g["ano"], y=g[coluna], name=nome, mode="lines+markers", connectgaps=False,
+                        line=dict(color=cor, width=largura), marker=dict(size=7 if sigla == "BR" else 6),
+                        hovertemplate="%{x}: %{y:,." + str(casas) + "f}<extra>" + nome + "</extra>")
+    v.estilo(fig, altura=400, titulo=f"{rotulos[chave]} ({unidade})")
     fig.update_layout(hovermode="x unified", legend=dict(y=-0.12, yanchor="top"))
     fig.update_yaxes(rangemode="tozero")
-    v.mostra(fig, s[s["sigla_uf"].isin(escolhidos)].pivot_table(index="ano", columns="sigla_uf", values="taxa")
-             .reset_index().round(2), "seguranca_mvi_estados")
+    if grande:
+        fig.update_yaxes(tickformat=",.0f")
+    fig.update_xaxes(dtick=2 if len(anos) > 10 else 1)
+    tabela = dados[dados["sigla_uf"].isin(escolhidos + ["BR"])].pivot_table(
+        index="ano", columns="sigla_uf", values=coluna).reset_index().round(2)
+    v.mostra(fig, tabela, f"seguranca_linha_{chave}")
 
-    # Quem mais mudou no período escolhido: médias dos três primeiros e dos três últimos anos,
-    # para um ano atípico não distorcer a comparação.
-    a, b = int(s["ano"].min()), int(s["ano"].max())
+    # Quem mais mudou: médias dos três primeiros e dos três últimos anos com dado (um ano atípico não distorce).
+    estados = dados[(dados["sigla_uf"] != "BR")].dropna(subset=[coluna])
+    a, b = int(estados["ano"].min()), int(estados["ano"].max())
     if b - a >= 5:
-        ini = s[s["ano"].between(a, a + 2)].groupby("sigla_uf")["taxa"].mean()
-        fimv = s[s["ano"].between(b - 2, b)].groupby("sigla_uf")["taxa"].mean()
-        mudanca = ((fimv / ini - 1) * 100).dropna().sort_values()
-        v.leitura(f"Comparando {a}–{a + 2} com {b - 2}–{b}, as maiores quedas foram em "
-                  f"**{info.loc[mudanca.index[0], 'uf']}** "
-                  f"({v.br(mudanca.iloc[0], 0)}%) e **{info.loc[mudanca.index[1], 'uf']}** ({v.br(mudanca.iloc[1], 0)}%); "
-                  f"a maior alta, em **{info.loc[mudanca.index[-1], 'uf']}** ({v.br(mudanca.iloc[-1], 0, sinal=True)}%).")
+        ini = estados[estados["ano"].between(a, a + 2)].groupby("sigla_uf")[coluna].mean()
+        fimv = estados[estados["ano"].between(b - 2, b)].groupby("sigla_uf")[coluna].mean()
+        mudanca = ((fimv / ini - 1) * 100).replace([float("inf"), float("-inf")], float("nan")).dropna().sort_values()
+        if len(mudanca) >= 3:
+            def nome(i):
+                return f"**{info.loc[mudanca.index[i], 'uf']}** ({v.br(mudanca.iloc[i], 0, sinal=True)}%)"
+            v.leitura(f"Comparando a média de {a}–{a + 2} com a de {b - 2}–{b}: maiores quedas em {nome(0)} e "
+                      f"{nome(1)}; maior alta em {nome(-1)}. Anos sem dado entram fora da média.")
+
+    sem = sorted(set(range(int(dados["ano"].min()), int(dados["ano"].max()) + 1))
+                 - set(dados.loc[dados["sigla_uf"] == "BR", "ano"]))
+    fontes = " e ".join(sorted(dados["fonte"].unique()))
+    partes = [NOTAS_SERIE.get(chave, "")]
+    if sem:
+        partes.append(f"Sem total nacional em {', '.join(map(str, sem))}: anos em que nem todos os estados "
+                      "informaram ou que nenhuma das fontes cobre (lacunas não são preenchidas).")
+    if coluna == "taxa" and base in ("hab", "rs"):
+        partes.append("Taxas calculadas com a população do IBGE (até 2021) e a usada pelo Fórum (depois).")
+    elif coluna == "taxa" and base == "veic":
+        partes.append("Taxas por 100 mil veículos da frota registrada na Senatran.")
+    partes.append(f"Fonte: {fontes}.")
+    v.nota(" ".join(p for p in partes if p))
 
 
 def mostra_prisional(inicio: int, fim: int) -> None:
