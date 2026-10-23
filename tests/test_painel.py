@@ -155,3 +155,17 @@ def test_derivados_nao_sao_baixados(monkeypatch):
     monkeypatch.setattr(bm, "baixa_indicador", lambda codigo, ano: pedidos.append(codigo) or pd.DataFrame())
     bm.baixa_tudo(2025)
     assert "PART.PIB.PPC" not in pedidos and "NY.GDP.MKTP.CD" in pedidos
+
+
+def test_linha_do_tempo_de_seguranca():
+    """Sem repetições e com as taxas de 2025 iguais às publicadas pelo Anuário."""
+    serie = pd.read_csv("data/dados/seguranca_series.csv")
+    assert not serie.duplicated(["indicador", "sigla_uf", "ano"]).any()
+    br = serie[serie["sigla_uf"] == "BR"].set_index(["indicador", "ano"])["taxa"]
+    rec = pd.read_csv("data/dados/seguranca_uf_recente.csv")
+    pub = rec[rec["sigla_uf"] == "BR"].set_index(["indicador", "ano"])["taxa"]
+    for chave in ["estupro", "furto_veiculo", "latrocinio", "desaparecidos"]:
+        assert abs(br[(chave, 2025)] - pub[(chave, 2025)]) < 0.15, chave
+    assert round(br[("trafico_drogas", 2025)], 1) == 97.0      # Tabela 51: 97,0 por 100 mil
+    assert br[("proporcao_feminicidio", 2015)] == 9.4          # Tabela 28
+    assert serie["indicador"].nunique() == 18

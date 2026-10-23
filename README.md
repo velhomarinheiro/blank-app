@@ -14,7 +14,7 @@ feito com [Streamlit](https://streamlit.io) e [Plotly](https://plotly.com/python
 | Poder de compra | Cestas básicas por salário mínimo ano a ano, carne, gasolina, energia e inflação anual dos alimentos por item (IPCA) |
 | Tributação | Carga tributária do Brasil × Europa, EUA, emergentes e médias; composição consumo × renda × OCDE |
 | Contas públicas | Resultado primário, dívida bruta e líquida mês a mês (Banco Central), dívida e resultado fiscal de 25 países e médias (FMI, com projeções), gasto por função, orçamento e Bolsa Família |
-| Segurança | Brasil em 2025; mortes violentas no Brasil, regiões e estados de 2012 a 2025; mapa e ranking dos estados em 2025 para 20 indicadores (mortes violentas, feminicídio, estupro, roubo e furto de celular e de veículos, estelionato, mortes por intervenção policial, população prisional etc.); população prisional 2000–2025; série histórica 2007–2021 de outros indicadores |
+| Segurança | Brasil em 2025; mortes violentas no Brasil e nas regiões de 2012 a 2025; linha do tempo de 18 indicadores por estado (mortes violentas, homicídio, latrocínio, feminicídio, estupro, roubo e furto de veículos, tráfico e posse de drogas, armas registradas e apreendidas, gasto, população prisional etc.); mapa e ranking dos estados em 2025 para 20 indicadores (mortes violentas, feminicídio, estupro, roubo e furto de celular e de veículos, estelionato, mortes por intervenção policial, população prisional etc.); população prisional 2000–2025; série histórica 2007–2021 de outros indicadores |
 | Mundo | Comparativo internacional com a API aberta do Banco Mundial (12 indicadores, 25 países e médias) |
 | Fontes e método | Grau de confiança dos dados, ressalvas de método e lista de fontes com links |
 
@@ -55,7 +55,7 @@ No [Streamlit Community Cloud](https://share.streamlit.io): **New app** → este
   ```
 
   Com um retrato presente, o painel usa ele; apague o arquivo para voltar à consulta ao vivo.
-- `data/dados/seguranca_mvi_serie.csv`, `seguranca_uf_recente.csv` e `seguranca_prisional.csv`: importados da planilha do 20º Anuário Brasileiro de Segurança Pública (`data/brutos/anuario-2026.xlsx`) por `python scripts/importar_anuario.py data/brutos/anuario-2026.xlsx`. Para o próximo Anuário, rode o mesmo comando com a planilha nova; o script avisa se o layout mudou.
+- `data/dados/seguranca_mvi_serie.csv`, `seguranca_uf_recente.csv`, `seguranca_prisional.csv` e `seguranca_series.csv`: importados da planilha do 20º Anuário Brasileiro de Segurança Pública (`data/brutos/anuario-2026.xlsx`) por `python scripts/importar_anuario.py data/brutos/anuario-2026.xlsx`. Para o próximo Anuário, rode o mesmo comando com a planilha nova; o script avisa se o layout mudou.
 - `data/dados/seguranca_uf.csv` e `data/geo/uf.geojson`: Anuário Brasileiro de Segurança Pública por UF (2007–2021), população, frota e mapa, gerados por `python scripts/preparar_seguranca.py` a partir da Base dos Dados.
 - `data/dados/pisa_historico.csv`: Pisa 2000–2025, Brasil e média da OCDE (Inep e OCDE).
 
